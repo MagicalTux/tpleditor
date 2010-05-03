@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<syntaxDescriptor>
+	<styles>
+		<style name="html_entity" italic="true" />
+		<style name="html_tag" color="darkMagenta" />
+		<style name="quoted_string" color="#116611" />
+		<style name="tplv3_if" color="red" italic="true" />
+	</styles>
+	<languages>
+		<language name="@always" type="simple">
+			<rule match='x"[^"]*"x' style="quoted_string" />
+		</language>
+		<language name="HTML" type="complex">
+			<specialChars>
+				<char value="&amp;" endChar=";" style="html_entity" />
+				<char value="&quot;" allowMultiline="true" style="quoted_string">
+					<allowChar value="&amp;" />
+				</char>
+				<char value="'" allowMultiline="true" style="quoted_string">
+					<allowChar value="&amp;" />
+				</char>
+				<char value="&lt;" endChar="&gt;" allowMultiline="true" style="html_tag">
+					<allowChar value="&quot;" />
+					<allowChar value="'" />
+					<allowChar value="&amp;"></allowChar>
+				</char>
+			</specialChars>
+		</language>
+	</languages>
+</syntaxDescriptor>

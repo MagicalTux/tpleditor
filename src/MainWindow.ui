@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>796</width>
+    <height>523</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Templates editor</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_5">
+    <property name="margin">
+     <number>1</number>
+    </property>
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="MainTreeView" name="mainTreeView">
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
+       </property>
+       <property name="acceptDrops">
+        <bool>true</bool>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::EditKeyPressed</set>
+       </property>
+       <property name="dragEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="dragDropMode">
+        <enum>QAbstractItemView::DragDrop</enum>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+       <property name="animated">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QTabWidget" name="tabWidget">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="documentMode">
+        <bool>true</bool>
+       </property>
+       <property name="tabsClosable">
+        <bool>true</bool>
+       </property>
+       <property name="movable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="tabWelcome">
+        <attribute name="title">
+         <string>Welcome</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="img">
+             <property name="text">
+              <string>LOGO</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="welcome_label">
+           <property name="text">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sans'; font-size:10pt;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::RichText</enum>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>796</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="menu_Special">
+     <property name="title">
+      <string>&amp;Special</string>
+     </property>
+     <addaction name="actionUpdate_syntax_coloration"/>
+    </widget>
+    <addaction name="action_Close"/>
+    <addaction name="separator"/>
+    <addaction name="menu_Special"/>
+    <addaction name="action_Refresh_list"/>
+    <addaction name="action_Preferences"/>
+    <addaction name="separator"/>
+    <addaction name="action_Logout"/>
+    <addaction name="action_Quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionC_ut"/>
+    <addaction name="action_Copy"/>
+    <addaction name="action_Paste"/>
+    <addaction name="separator"/>
+    <addaction name="actionFind"/>
+    <addaction name="actionReplace"/>
+    <addaction name="separator"/>
+   </widget>
+   <widget class="QMenu" name="menuPage">
+    <property name="title">
+     <string>&amp;Page</string>
+    </property>
+    <addaction name="action_NewPage"/>
+    <addaction name="action_RenamePage"/>
+    <addaction name="action_DeletePage"/>
+    <addaction name="action_PageProperties"/>
+    <addaction name="action_CompilePage"/>
+    <addaction name="separator"/>
+    <addaction name="action_NewTemplate"/>
+    <addaction name="action_RenameTemplate"/>
+    <addaction name="action_DeleteTemplate"/>
+    <addaction name="action_TplProperties"/>
+    <addaction name="separator"/>
+    <addaction name="action_NewLanguage"/>
+    <addaction name="action_ChangeLanguage"/>
+    <addaction name="action_DeleteLanguage"/>
+    <addaction name="separator"/>
+    <addaction name="action_Save"/>
+    <addaction name="separator"/>
+    <addaction name="action_RenameFile"/>
+    <addaction name="action_DeleteFile"/>
+    <addaction name="separator"/>
+    <addaction name="action_CreateDirectory"/>
+    <addaction name="action_RenameDirectory"/>
+    <addaction name="action_DeleteDirectory"/>
+    <addaction name="separator"/>
+    <addaction name="action_SaveServer"/>
+    <addaction name="action_RestoreServer"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="action_AboutTemplatesEditor"/>
+    <addaction name="action_AboutQt"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
+   <addaction name="menuPage"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_Refresh_list">
+   <property name="text">
+    <string>&amp;Refresh list</string>
+   </property>
+  </action>
+  <action name="action_Quit">
+   <property name="text">
+    <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="action_TplProperties">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Template Properties</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="text">
+    <string>&amp;Save</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionC_ut">
+   <property name="text">
+    <string>C&amp;ut</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="action_Copy">
+   <property name="text">
+    <string>&amp;Copy</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="action_Paste">
+   <property name="text">
+    <string>&amp;Paste</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionFind">
+   <property name="text">
+    <string>&amp;Find</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
+   </property>
+   <property name="autoRepeat">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="actionReplace">
+   <property name="text">
+    <string>&amp;Replace</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+R</string>
+   </property>
+  </action>
+  <action name="action_NewPage">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/script__plus.png</normaloff>:/images/script__plus.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;New page</string>
+   </property>
+  </action>
+  <action name="action_NewTemplate">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/puzzle_plus.png</normaloff>:/images/puzzle_plus.png</iconset>
+   </property>
+   <property name="text">
+    <string>New template</string>
+   </property>
+  </action>
+  <action name="action_DeletePage">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/script__minus.png</normaloff>:/images/script__minus.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Delete page</string>
+   </property>
+  </action>
+  <action name="action_PageProperties">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Page &amp;Properties</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="action_DeleteTemplate">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/puzzle_minus.png</normaloff>:/images/puzzle_minus.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete template</string>
+   </property>
+  </action>
+  <action name="actionUpdate_syntax_coloration">
+   <property name="text">
+    <string>Update syntax coloration</string>
+   </property>
+  </action>
+  <action name="action_Close">
+   <property name="text">
+    <string>&amp;Close</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="action_NewLanguage">
+   <property name="text">
+    <string>New language</string>
+   </property>
+  </action>
+  <action name="action_DeleteLanguage">
+   <property name="text">
+    <string>Delete language</string>
+   </property>
+  </action>
+  <action name="action_RenamePage">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/script__pencil.png</normaloff>:/images/script__pencil.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rename page</string>
+   </property>
+  </action>
+  <action name="action_RenameTemplate">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/puzzle_pencil.png</normaloff>:/images/puzzle_pencil.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rename template</string>
+   </property>
+  </action>
+  <action name="action_RenameFile">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/notebook_pencil.png</normaloff>:/images/notebook_pencil.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rename file</string>
+   </property>
+  </action>
+  <action name="action_DeleteFile">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/notebook_minus.png</normaloff>:/images/notebook_minus.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete file</string>
+   </property>
+  </action>
+  <action name="action_RenameDirectory">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/folder__pencil.png</normaloff>:/images/folder__pencil.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rename directory</string>
+   </property>
+  </action>
+  <action name="action_DeleteDirectory">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/folder__minus.png</normaloff>:/images/folder__minus.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete directory</string>
+   </property>
+  </action>
+  <action name="action_ChangeLanguage">
+   <property name="text">
+    <string>Change language</string>
+   </property>
+  </action>
+  <action name="action_CreateDirectory">
+   <property name="icon">
+    <iconset>
+     <normaloff>:/images/folder__plus.png</normaloff>:/images/folder__plus.png</iconset>
+   </property>
+   <property name="text">
+    <string>Create directory</string>
+   </property>
+  </action>
+  <action name="action_Logout">
+   <property name="text">
+    <string>Logout</string>
+   </property>
+  </action>
+  <action name="action_SaveServer">
+   <property name="text">
+    <string>Save server</string>
+   </property>
+  </action>
+  <action name="action_AboutTemplatesEditor">
+   <property name="text">
+    <string>About Templates Editor</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
+  </action>
+  <action name="action_AboutQt">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutQtRole</enum>
+   </property>
+  </action>
+  <action name="action_RestoreServer">
+   <property name="text">
+    <string>Restore server</string>
+   </property>
+  </action>
+  <action name="action_Preferences">
+   <property name="text">
+    <string>Preferences</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
+   </property>
+  </action>
+  <action name="action_CompilePage">
+   <property name="text">
+    <string>Compile page</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MainTreeView</class>
+   <extends>QTreeView</extends>
+   <header>MainTreeView.hpp</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>action_Quit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>397</x>
+     <y>261</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

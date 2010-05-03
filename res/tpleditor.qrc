@@ -1,0 +1,56 @@
+<RCC>
+    <qresource prefix="/images" >
+        <file>folder__minus.png</file>
+        <file>folder__pencil.png</file>
+        <file>folder_open_image.png</file>
+        <file>folder_open.png</file>
+        <file>folder__exclamation.png</file>
+        <file>folder_zipper.png</file>
+        <file>folder__arrow.png</file>
+        <file>folder.png</file>
+        <file>folder_open_document.png</file>
+        <file>folder_open_film.png</file>
+        <file>folders.png</file>
+        <file>folder__plus.png</file>
+        <file>scripts.png</file>
+        <file>script__exclamation.png</file>
+        <file>script__pencil.png</file>
+        <file>script.png</file>
+        <file>script_code.png</file>
+        <file>script__plus.png</file>
+        <file>script__minus.png</file>
+        <file>script__arrow.png</file>
+        <file>notebook_minus.png</file>
+        <file>notebook.png</file>
+        <file>puzzle_disable.png</file>
+        <file>puzzle_exclamation.png</file>
+        <file>puzzle.png</file>
+        <file>notebooks.png</file>
+        <file>puzzle_arrow.png</file>
+        <file>notebook_arrow.png</file>
+        <file>puzzle_plus.png</file>
+        <file>notebook_plus.png</file>
+        <file>puzzle_minus.png</file>
+        <file>notebook_pencil.png</file>
+        <file>puzzle_pencil.png</file>
+        <file>notebook_exclamation.png</file>
+        <file>database_minus.png</file>
+        <file>database_pencil.png</file>
+        <file>database_exclamation.png</file>
+        <file>databases.png</file>
+        <file>database_arrow.png</file>
+        <file>database.png</file>
+        <file>database_plus.png</file>
+        <file>x.png</file>
+	<file>exclamation.png</file>
+				<file>mutum.ico</file>
+				<file>mutum.png</file>
+    </qresource>
+    <qresource prefix="/locale" >
+        <file alias="locale_fr.qm" >locale/locale_fr.qm</file>
+				<file alias="locale_ja_jp.qm">locale/locale_ja_jp.qm</file>
+    </qresource>
+    <qresource prefix="/defaults" >
+        <file alias="syntax.xml" >defaults/syntax.xml</file>
+    </qresource>
+</RCC>
