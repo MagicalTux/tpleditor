@@ -123,7 +123,7 @@ void MainWindow::on_action_NewPage_triggered() {
 	node = node->createTemporaryChild(TplModelNode::PAGE); // create a temporary child, and returns it
 	if (node == NULL) return;
 
-	QModelIndex index = model_proxy->mapFromSource(node->getIndex());
+	QModelIndex index = node->getIndex();//model_proxy->mapFromSource(node->getIndex());
 
 	ui.mainTreeView->scrollTo(index);
 	ui.mainTreeView->edit(index);
@@ -243,7 +243,7 @@ void MainWindow::on_action_NewTemplate_triggered() {
 	node = node->createTemporaryChild(TplModelNode::TEMPLATE); // create a temporary child, and returns it
 	if (node == NULL) return;
 
-	QModelIndex index = model_proxy->mapFromSource(node->getIndex());
+	QModelIndex index = node->getIndex();//model_proxy->mapFromSource(node->getIndex());
 
 	ui.mainTreeView->scrollTo(index);
 	ui.mainTreeView->edit(index);
@@ -294,7 +294,7 @@ void MainWindow::on_action_NewLanguage_triggered() {
 	node = node->createTemporaryChild(TplModelNode::LANGUAGE); // create a temporary child, and returns it
 	if (node == NULL) return;
 
-	QModelIndex index = model_proxy->mapFromSource(node->getIndex());
+	QModelIndex index = node->getIndex();//model_proxy->mapFromSource(node->getIndex());
 
 	ui.mainTreeView->scrollTo(index);
 	ui.mainTreeView->edit(index);
@@ -336,7 +336,7 @@ void MainWindow::on_action_CreateDirectory_triggered() {
 	node = node->createTemporaryChild(TplModelNode::FOLDER); // create a temporary child, and returns it
 	if (node == NULL) return;
 
-	QModelIndex index = model_proxy->mapFromSource(node->getIndex());
+	QModelIndex index = node->getIndex(); //model_proxy->mapFromSource(node->getIndex());
 
 	ui.mainTreeView->scrollTo(index);
 	ui.mainTreeView->edit(index);

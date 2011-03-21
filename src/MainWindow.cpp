@@ -53,15 +53,15 @@ MainWindow::MainWindow(QWidget *parent) {
 	srv = new ServerInterface(this);
 	win_login = new LoginWindow(this, *srv);
 	model_root = new TplModelRoot(this, *srv);
-	model_proxy = new TplModelFilter(this);
-	model_proxy->setSourceModel(model_root);
+//	model_proxy = new TplModelFilter(this);
+//	model_proxy->setSourceModel(model_root);
 	model_delegate = new TplModelDelegate(this);
 
 	// Setup UI
 	ui.setupUi(this);
 
 	// Configure treeview
-	ui.mainTreeView->setModel(model_proxy);
+	ui.mainTreeView->setModel(model_root);
 	ui.mainTreeView->setItemDelegate(model_delegate);
 	connect(ui.mainTreeView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(on_mainTreeView_selectionChanged(QItemSelection,QItemSelection)));
 
@@ -98,18 +98,18 @@ void MainWindow::on_action_Logout_triggered() {
 		//QMap<QString, TabEditor *>
 
 		delete model_delegate;
-		delete model_proxy;
-		delete model_root;
+//		delete model_proxy;
+//		delete model_root;
 		delete srv;
 
 		srv = new ServerInterface(this);
 		win_login = new LoginWindow(this, *srv);
 		model_root = new TplModelRoot(this, *srv);
-		model_proxy = new TplModelFilter(this);
-		model_proxy->setSourceModel(model_root);
+//		model_proxy = new TplModelFilter(this);
+//		model_proxy->setSourceModel(model_root);
 		model_delegate = new TplModelDelegate(this);
 
-		ui.mainTreeView->setModel(model_proxy);
+		ui.mainTreeView->setModel(model_root);
 		ui.mainTreeView->setItemDelegate(model_delegate);
 
 		initLogin(false);

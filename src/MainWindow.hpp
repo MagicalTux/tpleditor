@@ -72,7 +72,7 @@ private:
 	ServerInterface *srv;
 
 	TplModelRoot *model_root;
-	TplModelFilter *model_proxy;
+//	TplModelFilter *model_proxy;
 	TplModelDelegate *model_delegate;
 	QMap<QString, TabEditor *> tabs;
 
