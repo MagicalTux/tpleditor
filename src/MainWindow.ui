@@ -137,7 +137,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>796</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -494,6 +494,9 @@ p, li { white-space: pre-wrap; }
   <action name="action_CompilePage">
    <property name="text">
     <string>Compile page</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
    </property>
   </action>
   <action name="action_English">
