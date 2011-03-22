@@ -82,7 +82,7 @@
            <item>
             <widget class="QLabel" name="img">
              <property name="text">
-              <string>LOGO</string>
+              <string notr="true">LOGO</string>
              </property>
             </widget>
            </item>

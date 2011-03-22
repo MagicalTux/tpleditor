@@ -39,7 +39,7 @@ HEADERS += includes/common.h \
            src/TplModelNode.hpp \
            src/TplModelRoot.hpp \
            src/TplSyntax.hpp \
-           includes/profiles/mutum.h
+           includes/profiles/$${PROFILE}.h
 FORMS += src/LoginWindow.ui \
          src/MainWindow.ui \
          src/PreferencesDialog.ui \

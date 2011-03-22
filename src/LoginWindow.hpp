@@ -48,6 +48,7 @@ public:
 	Ui::LoginWindow ui;
 
 	void initLogin(bool autoLogin);
+	void retranslateUi() { ui.retranslateUi(this); }
 
 private:
 	MainWindow &mw;

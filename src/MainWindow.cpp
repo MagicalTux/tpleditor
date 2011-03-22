@@ -49,9 +49,6 @@ MainWindow::MainWindow(QWidget *parent) {
 	// Setup UI
 	ui.setupUi(this);
 
-	// init locale, install translator
-	setAppLocale(QLocale::system(), false);
-
 	// init some stuff
 	srv = new ServerInterface(this);
 	win_login = new LoginWindow(this, *srv);
@@ -77,6 +74,10 @@ MainWindow::MainWindow(QWidget *parent) {
 	resize(settings.value("size", QSize(800, 600)).toSize());
 	move(settings.value("pos", QPoint(200, 200)).toPoint());
 	ui.splitter->restoreState(settings.value("splitter").toByteArray());
+
+	// init locale, install translator, check for saved locale
+	setAppLocale(settings.value("locale", QLocale::system()).toLocale(), false);
+
 	settings.endGroup();
 }
 
@@ -136,6 +137,11 @@ void MainWindow::on_action_Japanese_triggered() {
 }
 
 void MainWindow::setAppLocale(QLocale _locale, bool retranslate) {
+	if (retranslate) {
+		settings.beginGroup("MainWindow");
+		settings.setValue("locale", _locale);
+		settings.endGroup();
+	}
 	QString locale = _locale.name().toLower();
 	static QTranslator qt_translator, translator; // string translator
 
@@ -168,8 +174,8 @@ void MainWindow::setAppLocale(QLocale _locale, bool retranslate) {
 		ui.action_English->setChecked(true);
 	}
 
-	if (retranslate)
-		ui.retranslateUi(this);
+	ui.retranslateUi(this);
+	win_login->retranslateUi();
 }
 
 void MainWindow::writeSettings() {

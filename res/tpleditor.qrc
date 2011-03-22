@@ -45,6 +45,8 @@
 	<file>exclamation.png</file>
 				<file>mutum.ico</file>
 				<file>mutum.png</file>
+				<file>degica.ico</file>
+				<file>degica.png</file>
     </qresource>
     <qresource prefix="/locale" >
         <file alias="locale_fr.qm" >locale/locale_fr.qm</file>
