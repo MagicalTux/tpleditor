@@ -46,8 +46,11 @@
 #include "PreferencesDialog.hpp"
 
 MainWindow::MainWindow(QWidget *parent) {
+	// Setup UI
+	ui.setupUi(this);
+
 	// init locale, install translator
-	setAppLocale(QLocale::system());
+	setAppLocale(QLocale::system(), false);
 
 	// init some stuff
 	srv = new ServerInterface(this);
@@ -56,9 +59,6 @@ MainWindow::MainWindow(QWidget *parent) {
 //	model_proxy = new TplModelFilter(this);
 //	model_proxy->setSourceModel(model_root);
 	model_delegate = new TplModelDelegate(this);
-
-	// Setup UI
-	ui.setupUi(this);
 
 	// Configure treeview
 	ui.mainTreeView->setModel(model_root);
@@ -123,9 +123,24 @@ MainWindow::~MainWindow() {
 	delete srv;
 }
 
-void MainWindow::setAppLocale(QLocale _locale) {
+void MainWindow::on_action_English_triggered() {
+	setAppLocale(QLocale("en_us"));
+}
+
+void MainWindow::on_action_French_triggered() {
+	setAppLocale(QLocale("fr_fr"));
+}
+
+void MainWindow::on_action_Japanese_triggered() {
+	setAppLocale(QLocale("ja_jp"));
+}
+
+void MainWindow::setAppLocale(QLocale _locale, bool retranslate) {
 	QString locale = _locale.name().toLower();
 	static QTranslator qt_translator, translator; // string translator
+
+	QCoreApplication::removeTranslator(&qt_translator);
+	QCoreApplication::removeTranslator(&translator);
 
 	qDebug("Locale: %s", qPrintable(locale));
 
@@ -140,6 +155,21 @@ void MainWindow::setAppLocale(QLocale _locale) {
 		QCoreApplication::installTranslator(&translator);
 	}
 
+	QString lang = tr("en_us");
+	qDebug("Locale tr: %s", qPrintable(lang));
+	ui.action_English->setChecked(false);
+	ui.action_French->setChecked(false);
+	ui.action_Japanese->setChecked(false);
+	if (lang == "fr") {
+		ui.action_French->setChecked(true);
+	} else if (lang == "ja_jp") {
+		ui.action_Japanese->setChecked(true);
+	} else {
+		ui.action_English->setChecked(true);
+	}
+
+	if (retranslate)
+		ui.retranslateUi(this);
 }
 
 void MainWindow::writeSettings() {

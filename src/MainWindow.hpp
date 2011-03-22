@@ -66,7 +66,7 @@ public:
 	QSettings settings; // application settings
 
 private:
-	void setAppLocale(QLocale _locale);
+	void setAppLocale(QLocale _locale, bool retranslate = true);
 
 	LoginWindow *win_login;
 	ServerInterface *srv;
@@ -112,6 +112,10 @@ private slots:
 	void on_action_AboutTemplatesEditor_triggered();
 	void on_action_Preferences_triggered();
 	void on_action_CompilePage_triggered();
+
+	void on_action_English_triggered();
+	void on_action_French_triggered();
+	void on_action_Japanese_triggered();
 
 	void on_mainTreeView_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 
