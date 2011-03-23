@@ -137,7 +137,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>796</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -171,6 +171,8 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionFind"/>
     <addaction name="actionReplace"/>
     <addaction name="separator"/>
+    <addaction name="action_NextTab"/>
+    <addaction name="action_PreviousTab"/>
    </widget>
    <widget class="QMenu" name="menuPage">
     <property name="title">
@@ -521,6 +523,22 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string notr="true">日本語</string>
+   </property>
+  </action>
+  <action name="action_NextTab">
+   <property name="text">
+    <string>Next Tab</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Right</string>
+   </property>
+  </action>
+  <action name="action_PreviousTab">
+   <property name="text">
+    <string>Previous Tab</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+Left</string>
    </property>
   </action>
  </widget>

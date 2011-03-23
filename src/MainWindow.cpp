@@ -178,6 +178,20 @@ void MainWindow::setAppLocale(QLocale _locale, bool retranslate) {
 	win_login->retranslateUi();
 }
 
+void MainWindow::on_action_NextTab_triggered() {
+	int pos = ui.tabWidget->currentIndex();
+	pos++;
+	if (pos >= ui.tabWidget->count()) pos = 0;
+	ui.tabWidget->setCurrentIndex(pos);
+}
+
+void MainWindow::on_action_PreviousTab_triggered() {
+	int pos = ui.tabWidget->currentIndex();
+	pos--;
+	if (pos < 0) pos = ui.tabWidget->count()-1;
+	ui.tabWidget->setCurrentIndex(pos);
+}
+
 void MainWindow::writeSettings() {
 	settings.beginGroup("MainWindow");
 	settings.setValue("size", size());

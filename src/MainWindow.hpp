@@ -112,6 +112,8 @@ private slots:
 	void on_action_AboutTemplatesEditor_triggered();
 	void on_action_Preferences_triggered();
 	void on_action_CompilePage_triggered();
+	void on_action_NextTab_triggered();
+	void on_action_PreviousTab_triggered();
 
 	void on_action_English_triggered();
 	void on_action_French_triggered();
