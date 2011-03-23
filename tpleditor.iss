@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Degica Template Editor"
-#define MyAppVersion "1.0beta2"
+#define MyAppVersion "1.0beta3"
 #define MyAppPublisher "Degica"
 #define MyAppURL "http://www.degica.com/"
 #define MyAppExeName "tpleditor.exe"
