@@ -590,33 +590,43 @@
 <context>
     <name>TabEditor</name>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="73"/>
+        <location filename="../../src/TabEditor.cpp" line="75"/>
         <source>Save template</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="75"/>
+        <location filename="../../src/TabEditor.cpp" line="77"/>
         <source>Template properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="76"/>
+        <location filename="../../src/TabEditor.cpp" line="78"/>
         <source>Page properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="77"/>
+        <location filename="../../src/TabEditor.cpp" line="79"/>
         <source>Compile all pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="77"/>
+        <location filename="../../src/TabEditor.cpp" line="79"/>
         <source>Compile this page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="127"/>
-        <source>Version as of %1</source>
+        <location filename="../../src/TabEditor.cpp" line="83"/>
+        <source>Reload</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/TabEditor.cpp" line="84"/>
+        <source>Restore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/TabEditor.cpp" line="134"/>
+        <source>Version as of %1 by %2 %3</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -590,34 +590,48 @@
 <context>
     <name>TabEditor</name>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="73"/>
+        <location filename="../../src/TabEditor.cpp" line="75"/>
         <source>Save template</source>
         <translation>Sauvegarder</translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="75"/>
+        <location filename="../../src/TabEditor.cpp" line="77"/>
         <source>Template properties</source>
         <translation>Propriétés du template</translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="76"/>
+        <location filename="../../src/TabEditor.cpp" line="78"/>
         <source>Page properties</source>
         <translation>Propriétés de la page</translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="77"/>
+        <location filename="../../src/TabEditor.cpp" line="79"/>
         <source>Compile all pages</source>
         <translation>Compiler toutes les pages</translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="77"/>
+        <location filename="../../src/TabEditor.cpp" line="79"/>
         <source>Compile this page</source>
         <translation>Compiler cette page</translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="127"/>
+        <location filename="../../src/TabEditor.cpp" line="83"/>
+        <source>Reload</source>
+        <translation>Recharger</translation>
+    </message>
+    <message>
+        <location filename="../../src/TabEditor.cpp" line="84"/>
+        <source>Restore</source>
+        <translation>Restaurer</translation>
+    </message>
+    <message>
+        <location filename="../../src/TabEditor.cpp" line="134"/>
+        <source>Version as of %1 by %2 %3</source>
+        <translation>Version du %1 par %2 %3</translation>
+    </message>
+    <message>
         <source>Version as of %1</source>
-        <translation>Version datant du %1</translation>
+        <translation type="obsolete">Version datant du %1</translation>
     </message>
 </context>
 <context>

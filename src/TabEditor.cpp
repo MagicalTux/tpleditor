@@ -131,7 +131,6 @@ void TabEditor::reloadHistoryResult(int id, QVariant data, QObject *extra) {
 	combo_history->clear();
 	for(int i = 0; i < h.length(); i++) {
 		QVariantMap m = h[i].toMap();
-		qDebug("test=%s", qPrintable(m["Date"].toString()));
 		combo_history->addItem(tr("Version as of %1 by %2 %3").arg(QDateTime::fromTime_t(m["Date"].toLongLong()).toString(Qt::DefaultLocaleLongDate)).arg(m["Admin"].toMap()["First_Name"].toString()).arg(m["Admin"].toMap()["Last_Name"].toString()), m);
 	}
 }
