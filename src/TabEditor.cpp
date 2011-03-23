@@ -63,10 +63,12 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 
 	layout_tplopt = new QHBoxLayout();
         layout_tplopt->setMargin(1);
+	layout_history = new QHBoxLayout();
+	layout_history->setMargin(1);
 	layout_main = new QVBoxLayout(this);
 	layout_main->setMargin(1);
         layout_main->addLayout(layout_tplopt);
-        layout_main->addWidget(combo_history = new QComboBox());
+	layout_main->addLayout(layout_history);
 	layout_main->addWidget(textEdit);
 
 	// tplopt layout
@@ -75,6 +77,12 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	layout_tplopt->addWidget(btn_tplprop = new QPushButton(tr("Template properties")));
 	layout_tplopt->addWidget(btn_pageprop = new QPushButton(tr("Page properties")));
 	layout_tplopt->addWidget(btn_putinprod = new QPushButton((info.toMap()["Page"].toString() == "__common") ? tr("Compile all pages") : tr("Compile this page")));
+
+	// history layout
+        layout_history->addWidget(combo_history = new QComboBox());
+	layout_history->addWidget(btn_histo_reload = new QPushButton(tr("Reload")));
+	layout_history->addWidget(btn_histo_restore = new QPushButton(tr("Restore")));
+	combo_history->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
 	if (info.toMap()["Page"].toString() == "__common") {
 		btn_putinprod->setIcon(QIcon(":/images/exclamation.png"));
@@ -85,6 +93,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	connect(btn_tplprop, SIGNAL(clicked()), this, SLOT(action_TplProperties()));
 	connect(btn_pageprop, SIGNAL(clicked()), this, SLOT(action_PageProperties()));
 	connect(btn_putinprod, SIGNAL(clicked()), this, SLOT(action_PutInProd()));
+	connect(btn_histo_reload, SIGNAL(clicked()), this, SLOT(reloadHistory()));
 
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
@@ -117,14 +126,13 @@ void TabEditor::reloadHistory() {
 }
 
 void TabEditor::reloadHistoryResult(int id, QVariant data, QObject *extra) {
-	qDebug("result?");
-
 	QVariantList h = data.toMap()["TemplateHistory"].toList();
 
 	combo_history->clear();
 	for(int i = 0; i < h.length(); i++) {
 		QVariantMap m = h[i].toMap();
-		combo_history->addItem(tr("Version as of %1").arg(QDateTime::fromTime_t(m["Date"].toLongLong()).toString(Qt::DefaultLocaleLongDate)), m);
+		qDebug("test=%s", qPrintable(m["Date"].toString()));
+		combo_history->addItem(tr("Version as of %1 by %2 %3").arg(QDateTime::fromTime_t(m["Date"].toLongLong()).toString(Qt::DefaultLocaleLongDate)).arg(m["Admin"].toMap()["First_Name"].toString()).arg(m["Admin"].toMap()["Last_Name"].toString()), m);
 	}
 }
 
