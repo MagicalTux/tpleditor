@@ -65,6 +65,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	layout_main = new QVBoxLayout(this);
 	layout_main->setMargin(1);
         layout_main->addLayout(layout_tplopt);
+        layout_main->addWidget(combo_history = new QComboBox());
 	layout_main->addWidget(textEdit);
 
 	// tplopt layout

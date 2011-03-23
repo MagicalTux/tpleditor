@@ -75,6 +75,7 @@ protected:
         QPushButton *btn_tplprop;
 	QPushButton *btn_pageprop;
 	QPushButton *btn_putinprod;
+        QComboBox *combo_history;
 
 	ServerInterface *srv;
 
