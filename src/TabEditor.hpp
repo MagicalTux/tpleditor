@@ -92,6 +92,8 @@ public slots:
 	void action_PutInProd();
 	void doSave();
 	void event_reloadSettings();
+	void reloadHistory();
+	void reloadHistoryResult(int id, QVariant data, QObject *extra);
 
 Q_SIGNALS:
 	void tabStatusChanged();

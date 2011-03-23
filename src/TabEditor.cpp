@@ -44,6 +44,7 @@
 #include <QTextDocument>
 #include <QLabel>
 #include <QComboBox>
+#include <QDateTime>
 
 TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node, QSettings &_settings): QWidget(parent), settings(_settings) {
 	node = _node;
@@ -107,6 +108,24 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	icon5.addPixmap(QPixmap(QString::fromUtf8(":/images/notebooks.png")), QIcon::Normal, QIcon::Off);
 
 	srv->sendRequest("Skins.getTemplateContents", info, this, "setTabContents", NULL);
+	reloadHistory();
+}
+
+void TabEditor::reloadHistory() {
+	// reload tab editor history
+	srv->sendRequest("Skins.getTemplateHistory", node->getNodeData(), this, "reloadHistoryResult", NULL);
+}
+
+void TabEditor::reloadHistoryResult(int id, QVariant data, QObject *extra) {
+	qDebug("result?");
+
+	QVariantList h = data.toMap()["TemplateHistory"].toList();
+
+	combo_history->clear();
+	for(int i = 0; i < h.length(); i++) {
+		QVariantMap m = h[i].toMap();
+		combo_history->addItem(tr("Version as of %1").arg(QDateTime::fromTime_t(m["Date"].toLongLong()).toString(Qt::DefaultLocaleLongDate)), m);
+	}
 }
 
 void TabEditor::event_reloadSettings() {

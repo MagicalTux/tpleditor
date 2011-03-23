@@ -33,7 +33,7 @@
 #include "QtWddx.hpp"
 
 #include <QMessageBox>
-#include <QSSLSocket>
+#include <QSslSocket>
 
 ServerInterface::ServerInterface(QObject *parent) {
 	// define some stuff thanks to uri
