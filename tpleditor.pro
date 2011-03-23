@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += includes res src
 INCLUDEPATH += includes src
-PROFILE = mutum
+PROFILE = degica
 
 UI_HEADERS_DIR = includes
 UI_SOURCES_DIR = src
@@ -17,6 +17,8 @@ RCC_DIR = res
 QT += network xml
 
 DEFINES += TPLV3_VERSION_MAJOR=1 TPLV3_VERSION_MINOR=0 TPLV3_VERSION_TYPE=1 TPLV3_VERSION_REVISION=2
+
+win32:RC_FILE += src/tpleditor.rc
 
 QMAKE_CFLAGS_DEBUG += -include common.h -include profiles/$${PROFILE}.h
 QMAKE_CFLAGS_RELEASE += -include common.h -include profiles/$${PROFILE}.h
@@ -66,3 +68,6 @@ SOURCES += src/LoginWindow.cpp \
            src/TplSyntax.cpp
 RESOURCES += res/tpleditor.qrc
 TRANSLATIONS += res/locale/locale_fr.ts res/locale/locale_ja_jp.ts
+
+OTHER_FILES += \
+    src/tpleditor.rc

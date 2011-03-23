@@ -33,6 +33,7 @@
 #include "QtWddx.hpp"
 
 #include <QMessageBox>
+#include <QSSLSocket>
 
 ServerInterface::ServerInterface(QObject *parent) {
 	// define some stuff thanks to uri
@@ -65,6 +66,10 @@ void ServerInterface::setGateway(QUrl url) {
 		http.setHost(uri.host(), QHttp::ConnectionModeHttp, uri.port(80));
 	} else if (url.scheme() == "https") {
 		uri = url;
+                if (!QSslSocket::supportsSsl()) {
+                    QMessageBox::warning(NULL, tr("Configuration Error"), tr("Impossible to complete the requested operation, SSL support not available."), QMessageBox::Cancel);
+                    // configure anyway, we know it'll fail
+                }
 		http.setHost(uri.host(), QHttp::ConnectionModeHttps, uri.port(443));
 	}
 

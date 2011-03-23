@@ -60,6 +60,9 @@
         <bool>true</bool>
        </property>
        <widget class="QWidget" name="tabWelcome">
+        <property name="styleSheet">
+         <string notr="true">background:qlineargradient(spread:pad, x1:1, y1:1, x2:1, y2:0, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(30, 30, 30, 255));</string>
+        </property>
         <attribute name="title">
          <string>Welcome</string>
         </attribute>
@@ -81,6 +84,9 @@
            </item>
            <item>
             <widget class="QLabel" name="img">
+             <property name="styleSheet">
+              <string notr="true">background:transparent;</string>
+             </property>
              <property name="text">
               <string notr="true">LOGO</string>
              </property>
@@ -103,6 +109,9 @@
          </item>
          <item>
           <widget class="QLabel" name="welcome_label">
+           <property name="styleSheet">
+            <string notr="true">background:transparent;</string>
+           </property>
            <property name="text">
             <string notr="true">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -137,7 +146,7 @@ p, li { white-space: pre-wrap; }
      <x>0</x>
      <y>0</y>
      <width>796</width>
-     <height>23</height>
+     <height>18</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -315,7 +324,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_NewPage">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/script__plus.png</normaloff>:/images/script__plus.png</iconset>
    </property>
    <property name="text">
@@ -324,7 +333,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_NewTemplate">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/puzzle_plus.png</normaloff>:/images/puzzle_plus.png</iconset>
    </property>
    <property name="text">
@@ -333,7 +342,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_DeletePage">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/script__minus.png</normaloff>:/images/script__minus.png</iconset>
    </property>
    <property name="text">
@@ -356,7 +365,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_DeleteTemplate">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/puzzle_minus.png</normaloff>:/images/puzzle_minus.png</iconset>
    </property>
    <property name="text">
@@ -388,7 +397,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_RenamePage">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/script__pencil.png</normaloff>:/images/script__pencil.png</iconset>
    </property>
    <property name="text">
@@ -397,7 +406,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_RenameTemplate">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/puzzle_pencil.png</normaloff>:/images/puzzle_pencil.png</iconset>
    </property>
    <property name="text">
@@ -406,7 +415,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_RenameFile">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/notebook_pencil.png</normaloff>:/images/notebook_pencil.png</iconset>
    </property>
    <property name="text">
@@ -415,7 +424,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_DeleteFile">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/notebook_minus.png</normaloff>:/images/notebook_minus.png</iconset>
    </property>
    <property name="text">
@@ -424,7 +433,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_RenameDirectory">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/folder__pencil.png</normaloff>:/images/folder__pencil.png</iconset>
    </property>
    <property name="text">
@@ -433,7 +442,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_DeleteDirectory">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/folder__minus.png</normaloff>:/images/folder__minus.png</iconset>
    </property>
    <property name="text">
@@ -447,7 +456,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="action_CreateDirectory">
    <property name="icon">
-    <iconset>
+    <iconset resource="../res/tpleditor.qrc">
      <normaloff>:/images/folder__plus.png</normaloff>:/images/folder__plus.png</iconset>
    </property>
    <property name="text">
@@ -468,9 +477,6 @@ p, li { white-space: pre-wrap; }
    <property name="text">
     <string>About Templates Editor</string>
    </property>
-   <property name="menuRole">
-    <enum>QAction::AboutRole</enum>
-   </property>
   </action>
   <action name="action_AboutQt">
    <property name="text">
@@ -488,9 +494,6 @@ p, li { white-space: pre-wrap; }
   <action name="action_Preferences">
    <property name="text">
     <string>Preferences</string>
-   </property>
-   <property name="menuRole">
-    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
   <action name="action_CompilePage">
@@ -549,7 +552,9 @@ p, li { white-space: pre-wrap; }
    <header>MainTreeView.hpp</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../res/tpleditor.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>action_Quit</sender>

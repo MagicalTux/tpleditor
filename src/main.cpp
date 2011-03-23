@@ -40,7 +40,7 @@
 int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
 
-#ifndef QT_SHARED
+#if !defined(QT_SHARED) && !defined(QT_DLL)
 	Q_IMPORT_PLUGIN(qjpeg);
 	Q_IMPORT_PLUGIN(qgif);
 	Q_IMPORT_PLUGIN(qico);
