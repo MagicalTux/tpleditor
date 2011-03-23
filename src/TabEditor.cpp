@@ -275,6 +275,7 @@ void TabEditor::saveTemplateDone(int id, QVariant data, QObject *extra) {
 	}
         btn_savetpl->setEnabled(changed);
 	tabStatusChanged();
+	reloadHistory();
 }
 
 void TabEditor::tabTextChanged(bool _changed) {
