@@ -98,6 +98,7 @@ public slots:
 	void event_reloadSettings();
 	void reloadHistory();
 	void reloadHistoryResult(int id, QVariant data, QObject *extra);
+	void restoreHistoryEntry();
 
 Q_SIGNALS:
 	void tabStatusChanged();

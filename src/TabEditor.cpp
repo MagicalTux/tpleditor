@@ -80,7 +80,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 
 	// history layout
         layout_history->addWidget(combo_history = new QComboBox());
-	layout_history->addWidget(btn_histo_reload = new QPushButton(tr("Reload")));
+	layout_history->addWidget(btn_histo_reload = new QPushButton(tr("Refresh")));
 	layout_history->addWidget(btn_histo_restore = new QPushButton(tr("Restore")));
 	combo_history->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
 
@@ -94,6 +94,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	connect(btn_pageprop, SIGNAL(clicked()), this, SLOT(action_PageProperties()));
 	connect(btn_putinprod, SIGNAL(clicked()), this, SLOT(action_PutInProd()));
 	connect(btn_histo_reload, SIGNAL(clicked()), this, SLOT(reloadHistory()));
+	connect(btn_histo_restore, SIGNAL(clicked()), this, SLOT(restoreHistoryEntry()));
 
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
@@ -118,6 +119,25 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 
 	srv->sendRequest("Skins.getTemplateContents", info, this, "setTabContents", NULL);
 	reloadHistory();
+}
+
+void TabEditor::restoreHistoryEntry() {
+	int idx = combo_history->currentIndex();
+	QVariantMap m = combo_history->itemData(idx).toMap();
+
+	settings.beginGroup("Editor");
+	QFont myfont("Courier New", 10);
+	myfont.fromString(settings.value("Font", myfont.toString()).toString());
+	textEdit->setCurrentFont(myfont);
+	textEdit->setFont(myfont);
+	settings.endGroup();
+
+	textEdit->setPlainText(m["Content"].toString());
+	textEdit->setReadOnly(false);
+
+	changed = (idx != 0);
+        btn_savetpl->setEnabled(changed);
+	tabStatusChanged();
 }
 
 void TabEditor::reloadHistory() {
