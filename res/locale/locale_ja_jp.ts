@@ -617,7 +617,7 @@
     <message>
         <location filename="../../src/TabEditor.cpp" line="83"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>更新</translation>
     </message>
     <message>
         <source>Reload</source>
