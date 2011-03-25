@@ -616,8 +616,12 @@
     </message>
     <message>
         <location filename="../../src/TabEditor.cpp" line="83"/>
+        <source>Refresh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Reload</source>
-        <translation>Recharger</translation>
+        <translation type="obsolete">Recharger</translation>
     </message>
     <message>
         <location filename="../../src/TabEditor.cpp" line="84"/>
@@ -625,7 +629,7 @@
         <translation>Restaurer</translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="134"/>
+        <location filename="../../src/TabEditor.cpp" line="154"/>
         <source>Version as of %1 by %2 %3</source>
         <translation>Version du %1 par %2 %3</translation>
     </message>

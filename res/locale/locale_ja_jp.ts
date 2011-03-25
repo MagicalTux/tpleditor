@@ -11,7 +11,7 @@
     <message>
         <location filename="../../src/LoginWindow.ui" line="26"/>
         <source>Login to the templates editor</source>
-        <translation>テンプレートエディター ログイン</translation>
+        <translation>テンプレートエディタ ログイン</translation>
     </message>
     <message>
         <location filename="../../src/LoginWindow.ui" line="32"/>
@@ -27,7 +27,7 @@
     <message>
         <location filename="../../src/LoginWindow.ui" line="59"/>
         <source>Remember my password</source>
-        <translation>パスワードを忘れた</translation>
+        <translation>パスワードを記憶する</translation>
     </message>
     <message>
         <location filename="../../src/LoginWindow.ui" line="76"/>
@@ -37,7 +37,7 @@
     <message>
         <location filename="../../src/LoginWindow.ui" line="86"/>
         <source>Server</source>
-        <translation>サーバー</translation>
+        <translation>サーバ</translation>
     </message>
 </context>
 <context>
@@ -45,12 +45,12 @@
     <message>
         <location filename="../../src/MainWindow.cpp" line="85"/>
         <source>Really logout?</source>
-        <translation type="unfinished"></translation>
+        <translation>ログアウトしますか？</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.cpp" line="85"/>
         <source>Do you really want to logout from this server? All unsaved data will be lost.</source>
-        <translation type="unfinished"></translation>
+        <translation>ログアウトすると保存されていないデータは失われます。ログアウトしますか？</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.cpp" line="164"/>
@@ -60,68 +60,68 @@
     <message>
         <location filename="../../src/MainWindow.cpp" line="206"/>
         <source>Really quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>終了しますか？</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.cpp" line="206"/>
         <source>Do you really want to quit the templates editor?</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートエディタを終了しますか？</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.cpp" line="230"/>
         <source>&lt;b&gt;Templates Editor version %1&lt;/b&gt; (opensource)&lt;br/&gt;By &lt;a href=&quot;mailto:magicaltux@gmail.com&quot;&gt;MagicalTux (mail)&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;More informations at &lt;a href=&quot;http://en.wiki.gg.st/wiki/TplEditor&quot;&gt;http://en.wiki.gg.st/wiki/TplEditor&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;Code is released under BSD-no-GPL standard license.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;テンプレートエディタ バージョン %1&lt;/b&gt; (オープンソース)&lt;br/&gt;By &lt;a href=&quot;mailto:magicaltux@gmail.com&quot;&gt;MagicalTux (mail)&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;詳細：&lt;a href=&quot;http://en.wiki.gg.st/wiki/TplEditor&quot;&gt;http://en.wiki.gg.st/wiki/TplEditor&lt;/a&gt;&lt;br /&gt;&lt;br /&gt;Code is released under BSD-no-GPL standard license.</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="478"/>
         <location filename="../../src/MainWindow.cpp" line="230"/>
         <source>About Templates Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートエディタについて</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="14"/>
         <source>Templates editor</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートエディタ</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="67"/>
         <source>Welcome</source>
-        <translation type="unfinished"></translation>
+        <translation>ようこそ</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="154"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="158"/>
         <source>&amp;Special</source>
-        <translation type="unfinished"></translation>
+        <translation>スペシャル(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="173"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>編集(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="188"/>
         <source>&amp;Page</source>
-        <translation type="unfinished"></translation>
+        <translation>ページ(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="219"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>ヘルプ</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="226"/>
         <source>&amp;Language</source>
-        <translation type="unfinished"></translation>
+        <translation>言語(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="241"/>
         <source>&amp;Refresh list</source>
-        <translation type="unfinished"></translation>
+        <translation>リストを更新(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="246"/>
@@ -136,7 +136,7 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="260"/>
         <source>Template Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートプロパティ</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="263"/>
@@ -146,7 +146,7 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="268"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>保存(S)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="271"/>
@@ -156,7 +156,7 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="276"/>
         <source>C&amp;ut</source>
-        <translation type="unfinished"></translation>
+        <translation>切り取り(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="279"/>
@@ -166,7 +166,7 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="284"/>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>コピー(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="287"/>
@@ -176,7 +176,7 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="292"/>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>貼り付け(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="295"/>
@@ -186,7 +186,7 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="300"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>元に戻す</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="303"/>
@@ -196,7 +196,7 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="308"/>
         <source>&amp;Find</source>
-        <translation type="unfinished"></translation>
+        <translation>検索(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="311"/>
@@ -206,7 +206,7 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="319"/>
         <source>&amp;Replace</source>
-        <translation type="unfinished"></translation>
+        <translation>置換(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="322"/>
@@ -216,22 +216,22 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="331"/>
         <source>&amp;New page</source>
-        <translation>新しいページ (&amp;N)</translation>
+        <translation>新規ページ (&amp;N)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="340"/>
         <source>New template</source>
-        <translation type="unfinished"></translation>
+        <translation>新規テンプレート</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="349"/>
         <source>&amp;Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation>ページを削除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="360"/>
         <source>Page &amp;Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>ページプロパティ(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="363"/>
@@ -241,12 +241,12 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="372"/>
         <source>Delete template</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートを削除</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="377"/>
         <source>Update syntax coloration</source>
-        <translation type="unfinished"></translation>
+        <translation>シンタックスカラーを更新</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="382"/>
@@ -261,52 +261,52 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="390"/>
         <source>New language</source>
-        <translation type="unfinished"></translation>
+        <translation>新規言語</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="395"/>
         <source>Delete language</source>
-        <translation type="unfinished"></translation>
+        <translation>言語を削除</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="404"/>
         <source>Rename page</source>
-        <translation type="unfinished"></translation>
+        <translation>ページをリネーム</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="413"/>
         <source>Rename template</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートをリネーム</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="422"/>
         <source>Rename file</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルをリネーム</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="431"/>
         <source>Delete file</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイルを削除</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="440"/>
         <source>Rename directory</source>
-        <translation type="unfinished"></translation>
+        <translation>ディレクトリをリネーム</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="449"/>
         <source>Delete directory</source>
-        <translation type="unfinished"></translation>
+        <translation>ディレクトリを削除</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="454"/>
         <source>Change language</source>
-        <translation type="unfinished"></translation>
+        <translation>言語を変更</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="463"/>
         <source>Create directory</source>
-        <translation type="unfinished"></translation>
+        <translation>ディレクトリを作成</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="468"/>
@@ -316,85 +316,85 @@
     <message>
         <location filename="../../src/MainWindow.ui" line="473"/>
         <source>Save server</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバを保存</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="483"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Qt について</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="491"/>
         <source>Restore server</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバを復元</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="496"/>
         <source>Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>設定</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="501"/>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="219"/>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="229"/>
         <source>Compile page</source>
-        <translation type="unfinished"></translation>
+        <translation>ページをコンパイル</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="504"/>
         <source>Ctrl+D</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="533"/>
         <source>Next Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>次のタブ</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="536"/>
         <source>Alt+Right</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="541"/>
         <source>Previous Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>現在のタブ</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow.ui" line="544"/>
         <source>Alt+Left</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="226"/>
         <source>Compile all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>全ページをコンパイル</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="405"/>
         <source>Save server as...</source>
-        <translation type="unfinished"></translation>
+        <translation>別名でサーバを保存</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="405"/>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="419"/>
         <source>Template backup files (*.tplbk)</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートバックアップファイル (*.tplbk)</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="419"/>
         <source>Load server from...</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバを読み込み</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="423"/>
         <source>Server restauration</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバ復元</translation>
     </message>
     <message>
         <location filename="../../src/MainWindow_TreeViewActions.cpp" line="423"/>
         <source>Are you sure you want to overwrite server &quot;%1&quot; with contents of file &quot;%2&quot;?</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバ &quot;%1&quot; をファイル &quot;%2&quot; で上書きしますか？</translation>
     </message>
 </context>
 <context>
@@ -430,12 +430,12 @@
     <message>
         <location filename="../../src/PropertiesPage.ui" line="17"/>
         <source>Page properties</source>
-        <translation type="unfinished"></translation>
+        <translation>ページプロパティ</translation>
     </message>
     <message>
         <location filename="../../src/PropertiesPage.ui" line="31"/>
         <source>Page charset</source>
-        <translation type="unfinished"></translation>
+        <translation>文字コード</translation>
     </message>
     <message>
         <location filename="../../src/PropertiesPage.ui" line="42"/>
@@ -460,7 +460,7 @@
     <message>
         <location filename="../../src/PropertiesPage.ui" line="65"/>
         <source>Content type</source>
-        <translation type="unfinished"></translation>
+        <translation>コンテンツタイプ</translation>
     </message>
     <message>
         <location filename="../../src/PropertiesPage.ui" line="76"/>
@@ -503,12 +503,12 @@
     <message>
         <location filename="../../src/PropertiesTpl.ui" line="17"/>
         <source>Template properties</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートプロパティ</translation>
     </message>
     <message>
         <location filename="../../src/PropertiesTpl.ui" line="42"/>
         <source>Template Type</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートタイプ</translation>
     </message>
 </context>
 <context>
@@ -516,37 +516,37 @@
     <message>
         <location filename="../../src/SearchWindow.ui" line="16"/>
         <source>Search...</source>
-        <translation type="unfinished"></translation>
+        <translation>検索中...</translation>
     </message>
     <message>
         <location filename="../../src/SearchWindow.ui" line="27"/>
         <source>Search string: </source>
-        <translation type="unfinished"></translation>
+        <translation>検索：</translation>
     </message>
     <message>
         <location filename="../../src/SearchWindow.ui" line="37"/>
         <source>Server: </source>
-        <translation type="unfinished"></translation>
+        <translation>サーバ：</translation>
     </message>
     <message>
         <location filename="../../src/SearchWindow.ui" line="49"/>
         <source>This tab</source>
-        <translation type="unfinished"></translation>
+        <translation>このタブ</translation>
     </message>
     <message>
         <location filename="../../src/SearchWindow.ui" line="56"/>
         <source>This server</source>
-        <translation type="unfinished"></translation>
+        <translation>このサーバ</translation>
     </message>
     <message>
         <location filename="../../src/SearchWindow.ui" line="66"/>
         <source>All servers</source>
-        <translation type="unfinished"></translation>
+        <translation>全サーバ</translation>
     </message>
     <message>
         <location filename="../../src/SearchWindow.ui" line="92"/>
         <source>Search</source>
-        <translation type="unfinished"></translation>
+        <translation>検索</translation>
     </message>
 </context>
 <context>
@@ -554,37 +554,37 @@
     <message>
         <location filename="../../src/ServerInterface.cpp" line="70"/>
         <source>Configuration Error</source>
-        <translation type="unfinished"></translation>
+        <translation>設定エラー</translation>
     </message>
     <message>
         <location filename="../../src/ServerInterface.cpp" line="70"/>
         <source>Impossible to complete the requested operation, SSL support not available.</source>
-        <translation type="unfinished"></translation>
+        <translation>要求された操作を完了できません。SSLサポート利用不可</translation>
     </message>
     <message>
         <location filename="../../src/ServerInterface.cpp" line="83"/>
         <source>File save error</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル保存エラー</translation>
     </message>
     <message>
         <location filename="../../src/ServerInterface.cpp" line="83"/>
         <source>Could not open file %1 for writing</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル %1 を書き込み許可で開くことができませんでした。</translation>
     </message>
     <message>
         <location filename="../../src/ServerInterface.cpp" line="103"/>
         <source>Downloading...</source>
-        <translation type="unfinished"></translation>
+        <translation>ダウンロード中...</translation>
     </message>
     <message>
         <location filename="../../src/ServerInterface.cpp" line="103"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>キャンセル</translation>
     </message>
     <message>
         <location filename="../../src/ServerInterface.cpp" line="104"/>
         <source>Downloading to file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ファイル %1 のダウンロード</translation>
     </message>
 </context>
 <context>
@@ -592,42 +592,46 @@
     <message>
         <location filename="../../src/TabEditor.cpp" line="75"/>
         <source>Save template</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートを保存</translation>
     </message>
     <message>
         <location filename="../../src/TabEditor.cpp" line="77"/>
         <source>Template properties</source>
-        <translation type="unfinished"></translation>
+        <translation>テンプレートプロパティ</translation>
     </message>
     <message>
         <location filename="../../src/TabEditor.cpp" line="78"/>
         <source>Page properties</source>
-        <translation type="unfinished"></translation>
+        <translation>ページプロパティ</translation>
     </message>
     <message>
         <location filename="../../src/TabEditor.cpp" line="79"/>
         <source>Compile all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>全ページをコンパイル</translation>
     </message>
     <message>
         <location filename="../../src/TabEditor.cpp" line="79"/>
         <source>Compile this page</source>
-        <translation type="unfinished"></translation>
+        <translation>このページをコンパイル</translation>
     </message>
     <message>
         <location filename="../../src/TabEditor.cpp" line="83"/>
-        <source>Reload</source>
+        <source>Refresh</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload</source>
+        <translation type="obsolete">更新</translation>
     </message>
     <message>
         <location filename="../../src/TabEditor.cpp" line="84"/>
         <source>Restore</source>
-        <translation type="unfinished"></translation>
+        <translation>復元</translation>
     </message>
     <message>
-        <location filename="../../src/TabEditor.cpp" line="134"/>
+        <location filename="../../src/TabEditor.cpp" line="154"/>
         <source>Version as of %1 by %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>更新日： %1 - 編集者：%2 %3</translation>
     </message>
 </context>
 <context>
@@ -635,17 +639,17 @@
     <message>
         <location filename="../../src/TplModelNode.cpp" line="538"/>
         <source>Loading...</source>
-        <translation type="unfinished"></translation>
+        <translation>読み込み中...</translation>
     </message>
     <message>
         <location filename="../../src/TplModelNode.cpp" line="577"/>
         <source>Server restore</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバを復元</translation>
     </message>
     <message>
         <location filename="../../src/TplModelNode.cpp" line="577"/>
         <source>Failed to open file %1 for server restoration</source>
-        <translation type="unfinished"></translation>
+        <translation>サーバ復元用ファイル %1 のオープンに失敗しました。</translation>
     </message>
 </context>
 <context>
@@ -653,7 +657,7 @@
     <message>
         <location filename="../../src/TplModelRoot.cpp" line="141"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>名前</translation>
     </message>
 </context>
 </TS>
