@@ -33,12 +33,14 @@
 #define MAINTREEVIEW_HPP_
 
 #include <QTreeView>
+#include <TplModelNode.hpp>
 
 class MainTreeView: public QTreeView {
 public:
 	MainTreeView(QWidget *parent = NULL);
 
 protected:
+	void uploadFiles(TplModelNode*, QList<QString> files);
 	void dragEnterEvent(QDragEnterEvent *event);
 	void dropEvent(QDropEvent *event);
 	void dragMoveEvent(QDragMoveEvent *event);

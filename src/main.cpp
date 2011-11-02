@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
 
 	MainWindow mw;
 	mw.show();
-	mw.initLogin();
+	mw.initLogin(false);
 
 	return app.exec();
 }

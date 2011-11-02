@@ -34,6 +34,7 @@
 #include "ServerInterface.hpp"
 
 #include <QMessageBox>
+#include <QNetworkProxy>
 
 LoginWindow::LoginWindow(QWidget *parent, ServerInterface &_srv): mw(dynamic_cast<MainWindow&>(*parent)), srv(_srv) {
 	// Setup UI
@@ -52,6 +53,10 @@ void LoginWindow::initLogin(bool autoLogin) {
 	ui.txt_password->setText(mw.settings.value("Password", QString()).toString());
 	ui.txt_server->setText(mw.settings.value("Server", QString()).toString());
 	ui.check_keeppw->setCheckState((mw.settings.value("Keep", "No") == "Yes") ? Qt::Checked : Qt::Unchecked);
+        // load proxy settings
+	ui.txt_proxyhost->setText(mw.settings.value("ProxyHost", QString()).toString());
+	ui.txt_proxyport->setText(mw.settings.value("ProxyPort", QString()).toString());
+	ui.proxy_config->setChecked((mw.settings.value("ProxyEnabled", "No") == "Yes") ? true : false);
 	mw.settings.endGroup();
 	// test: if we have all the info, try to login with that
 	if (autoLogin && (ui.check_keeppw->checkState() == Qt::Checked)) on_loginButton_clicked();
@@ -91,11 +96,27 @@ void LoginWindow::on_loginButton_clicked() {
 		mw.settings.setValue("Password", "");
 		mw.settings.setValue("Keep", "No");
 	}
+	if (ui.proxy_config->isChecked()) {
+		mw.settings.setValue("ProxyEnabled", "Yes");
+	} else {
+		mw.settings.setValue("ProxyEnabled", "No");
+	}
+	mw.settings.setValue("ProxyHost", ui.txt_proxyhost->text());
+	mw.settings.setValue("ProxyPort", ui.txt_proxyport->text());
 	mw.settings.endGroup();
 
 	if (ui.txt_server->text().isEmpty()) return; // :(
 
 	setDisabled(true);
+
+	if (ui.proxy_config->isChecked()) {
+		QNetworkProxy proxy;
+		proxy.setType(QNetworkProxy::HttpProxy);
+		proxy.setHostName(ui.txt_proxyhost->text());
+		proxy.setPort(ui.txt_proxyport->text().toInt());
+
+		QNetworkProxy::setApplicationProxy(proxy);
+	}
 
 	QMap<QString, QVariant> loginreq;
 	loginreq["login"] = ui.txt_login->text();

@@ -46,7 +46,7 @@ void MainWindow::on_mainTreeView_doubleClicked(const QModelIndex &index) {
 	if (node->getType() != TplModelNode::LANGUAGE) return; // we can only open a "language" for editing
 
 	QVariant info = node->getNodeData();
-	QString tabName = info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
+	QString tabName = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
 
 	if (tabs.contains(tabName)) {
 		// Locate this tab and show it

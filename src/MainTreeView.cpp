@@ -35,6 +35,7 @@
 
 #include <QDragEnterEvent>
 #include <QFile>
+#include <QDir>
 #include <QUrl>
 #include <QFileInfo>
 #include <QPersistentModelIndex>
@@ -156,8 +157,25 @@ void MainTreeView::dropEvent(QDropEvent *event) {
 		event->setDropAction(Qt::CopyAction);
 		event->acceptProposedAction();
 
-		for(int i = 0; i < fileslist.size(); i++) {
-			QFile f(fileslist.at(i));
+		uploadFiles(node, fileslist);
+	}
+}
+
+void MainTreeView::uploadFiles(TplModelNode *node, QList<QString> files) {
+	for(int i = 0; i < files.size(); i++) {
+		QFileInfo info(files.at(i));
+		if (info.isHidden()) continue;
+		if (info.isDir()) {
+			TplModelNode *folderNode = node->createTemporaryChild(TplModelNode::FOLDER);
+			folderNode->edit(QVariant(info.baseName()), Qt::EditRole);
+			QDir dir(info.canonicalFilePath());
+			QStringList subfiles;
+			foreach(const QFileInfo &subfile, dir.entryInfoList(QDir::AllEntries | QDir::NoSymLinks | QDir::NoDotAndDotDot)) {
+				subfiles.append(subfile.canonicalFilePath());
+			}
+			uploadFiles(folderNode, subfiles);
+		} else {
+			QFile f(files.at(i));
 			f.open(QIODevice::ReadOnly);
 			QByteArray filedata = f.readAll();
 			f.close();
@@ -165,7 +183,6 @@ void MainTreeView::dropEvent(QDropEvent *event) {
 			QMap<QString, QVariant> params;
 			params["FileName"] = QFileInfo(f).fileName();
 			params["data"] = filedata; // will be encoded to base64 by wddx
-
 			node->sendFile(params);
 		}
 	}

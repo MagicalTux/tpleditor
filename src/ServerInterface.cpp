@@ -98,8 +98,6 @@ int ServerInterface::sendRequestDownload(const QString func, const QVariant &req
 	real_req["parameters"] = req;
 	real_req["editor"] = TPLV3_VERSION;
 
-	//qDebug("sending query: %s", qPrintable(QtWddx::serialize(real_req)));
-
 	QProgressDialog *down_progress = new QProgressDialog(tr("Downloading..."), tr("Cancel"), 0, 0);
 	down_progress->setLabelText(tr("Downloading to file %1").arg(save_as));
 	down_progress->setMinimumDuration(100);

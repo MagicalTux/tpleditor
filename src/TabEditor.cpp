@@ -52,7 +52,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	changed = false;
 
 	QVariant info = node->getNodeData();
-	name = info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
+	name = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
 
 	setObjectName(name);
 	textEdit = new QTextEdit(this);
@@ -62,24 +62,24 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	textEdit->installEventFilter(this);
 
 	layout_tplopt = new QHBoxLayout();
-        layout_tplopt->setMargin(1);
+	layout_tplopt->setMargin(1);
 	layout_history = new QHBoxLayout();
 	layout_history->setMargin(1);
 	layout_main = new QVBoxLayout(this);
 	layout_main->setMargin(1);
-        layout_main->addLayout(layout_tplopt);
+	layout_main->addLayout(layout_tplopt);
 	layout_main->addLayout(layout_history);
 	layout_main->addWidget(textEdit);
 
 	// tplopt layout
 	layout_tplopt->addWidget(btn_savetpl = new QPushButton(tr("Save template")));
-        btn_savetpl->setEnabled(false);
+	btn_savetpl->setEnabled(false);
 	layout_tplopt->addWidget(btn_tplprop = new QPushButton(tr("Template properties")));
 	layout_tplopt->addWidget(btn_pageprop = new QPushButton(tr("Page properties")));
 	layout_tplopt->addWidget(btn_putinprod = new QPushButton((info.toMap()["Page"].toString() == "__common") ? tr("Compile all pages") : tr("Compile this page")));
 
 	// history layout
-        layout_history->addWidget(combo_history = new QComboBox());
+	layout_history->addWidget(combo_history = new QComboBox());
 	layout_history->addWidget(btn_histo_reload = new QPushButton(tr("Refresh")));
 	layout_history->addWidget(btn_histo_restore = new QPushButton(tr("Restore")));
 	combo_history->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
@@ -136,7 +136,7 @@ void TabEditor::restoreHistoryEntry() {
 	textEdit->setReadOnly(false);
 
 	changed = (idx != 0);
-        btn_savetpl->setEnabled(changed);
+	btn_savetpl->setEnabled(changed);
 	tabStatusChanged();
 }
 
@@ -284,7 +284,7 @@ void TabEditor::setTabContents(int id, QVariant data, QObject *extra) {
 	textEdit->setReadOnly(false);
 
 	changed = false;
-        btn_savetpl->setEnabled(changed);
+	btn_savetpl->setEnabled(changed);
 	tabStatusChanged();
 }
 
@@ -300,14 +300,14 @@ void TabEditor::saveTemplateDone(int id, QVariant data, QObject *extra) {
 	if (data.toMap()["Success"].toBool() != true) {
 		textEdit->document()->setModified(true); // could not save?
 	}
-        btn_savetpl->setEnabled(changed);
+	btn_savetpl->setEnabled(changed);
 	tabStatusChanged();
 	reloadHistory();
 }
 
 void TabEditor::tabTextChanged(bool _changed) {
 	changed = _changed;
-        btn_savetpl->setEnabled(changed);
+	btn_savetpl->setEnabled(changed);
 	tabStatusChanged();
 }
 
