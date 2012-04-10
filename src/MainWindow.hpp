@@ -108,6 +108,7 @@ private slots:
 	void on_action_TplProperties_triggered();
 	void on_action_SaveServer_triggered();
 	void on_action_RestoreServer_triggered();
+	void on_action_MergeServer_triggered();
 	void on_action_AboutQt_triggered();
 	void on_action_AboutTemplatesEditor_triggered();
 	void on_action_Preferences_triggered();

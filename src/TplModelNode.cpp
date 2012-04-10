@@ -571,7 +571,7 @@ TplModelNode *TplModelNode::getParentOfType(NodeType type) {
 	return cur;
 }
 
-void TplModelNode::restoreFromFile(QString filename) {
+void TplModelNode::restoreFromFile(QString filename, bool merge) {
 	QFile file(filename);
 	if (!file.open(QIODevice::ReadOnly)) {
 		QMessageBox::critical(NULL, tr("Server restore"), tr("Failed to open file %1 for server restoration").arg(filename), QMessageBox::Cancel);
@@ -596,6 +596,7 @@ void TplModelNode::restoreFromFile(QString filename) {
 
 	QMap<QString, QVariant> request = getNodeData().toMap();
 	request["data"] = file.readAll();
+	request["merge"] = merge;
 
 	int id = srv.sendRequest("Skins.restore", request, this, "handleRestoreResult", NULL);
 	srv.setUpProgressReceiver(id, this);

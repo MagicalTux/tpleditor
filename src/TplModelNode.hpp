@@ -122,7 +122,7 @@ public:
 	void setTemplateType(QObject *target, const char *func, int tpl_type, QString options);
 
 	void saveToFile(QString filename);
-	void restoreFromFile(QString filename);
+	void restoreFromFile(QString filename, bool merge = false);
 
 	void putInProd();
 

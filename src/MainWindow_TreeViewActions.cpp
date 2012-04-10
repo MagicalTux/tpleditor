@@ -94,6 +94,7 @@ void MainWindow::on_mainTreeView_customContextMenuRequested(const QPoint &pos) {
 		menu.addAction(ui.action_CreateDirectory);
 		menu.addAction(ui.action_SaveServer);
 		menu.addAction(ui.action_RestoreServer);
+		menu.addAction(ui.action_MergeServer);
 	}
 	if (node->getType() == TplModelNode::PAGE) {
 		menu.addAction(ui.action_RenamePage);
@@ -424,4 +425,21 @@ void MainWindow::on_action_RestoreServer_triggered() {
 		return;
 
 	node->restoreFromFile(filename);
+}
+
+void MainWindow::on_action_MergeServer_triggered() {
+	QModelIndex index = ui.mainTreeView->currentIndex();
+	TplModelNode *node = qobject_cast<TplModelNode*>(index.data(Qt::UserRole).value<QObject*>());
+	if (node == NULL) return;
+
+	if (node->getType() != TplModelNode::SKIN) return;
+
+	QString filename = QFileDialog::getOpenFileName(this, tr("Load merge server from..."), QString(), tr("Template backup files (*.tplbk)"));
+	if (filename.isEmpty())
+		return;
+
+	if (QMessageBox::question(this, tr("Server restauration"), tr("Are you sure you want to overwrite components of server \"%1\" (merge mode) with contents of file \"%2\"?").arg(node->getData(Qt::EditRole).toString()).arg(filename), QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::No)
+		return;
+
+	node->restoreFromFile(filename, true);
 }
