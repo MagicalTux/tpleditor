@@ -182,7 +182,7 @@ void MainTreeView::uploadFiles(TplModelNode *node, QList<QString> files) {
 
 			QMap<QString, QVariant> params;
 			params["FileName"] = QFileInfo(f).fileName();
-			params["data"] = filedata; // will be encoded to base64 by wddx
+			params["data"] = filedata.toBase64();
 			node->sendFile(params);
 		}
 	}
