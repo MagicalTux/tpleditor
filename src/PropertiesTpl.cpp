@@ -97,9 +97,10 @@ void PropertiesTpl::on_tree_itemChanged(QTreeWidgetItem * item, int) {
 			curtpltype->setCheckState(0, Qt::Unchecked);
 		}
 		curtpltype = item;
+
+		if (isEnabled())
+			refreshTplOptions();
 	}
-	if (isEnabled())
-		refreshTplOptions();
 }
 
 void PropertiesTpl::cleanupTplOptions() {
