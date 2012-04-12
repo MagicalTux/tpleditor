@@ -14,15 +14,15 @@ OBJECTS_DIR = tmp
 MOC_DIR = tmp
 RCC_DIR = res
 
-QT += network xml
+QT += network xml script
 
 DEFINES += TPLV3_VERSION_MAJOR=1 TPLV3_VERSION_MINOR=0 TPLV3_VERSION_TYPE=1 TPLV3_VERSION_REVISION=3
 
 win32:RC_FILE += src/tpleditor.rc
 
-QMAKE_CFLAGS_DEBUG += -include common.h -include profiles/$${PROFILE}.h
-QMAKE_CFLAGS_RELEASE += -include common.h -include profiles/$${PROFILE}.h
-QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h
+QMAKE_CFLAGS_DEBUG += -include common.h -include profiles/$${PROFILE}.h -ggdb
+QMAKE_CFLAGS_RELEASE += -include common.h -include profiles/$${PROFILE}.h -ggdb
+QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h -ggdb
 
 # Input
 HEADERS += includes/common.h \
@@ -32,7 +32,7 @@ HEADERS += includes/common.h \
            src/PreferencesDialog.hpp \
            src/PropertiesPage.hpp \
            src/PropertiesTpl.hpp \
-           src/QtWddx.hpp \
+           src/QtJson.hpp \
            src/ServerInterface.hpp \
            src/TabEditor.hpp \
            src/TplMimeData.hpp \
@@ -57,7 +57,7 @@ SOURCES += src/LoginWindow.cpp \
            src/PreferencesDialog.cpp \
            src/PropertiesPage.cpp \
            src/PropertiesTpl.cpp \
-           src/QtWddx.cpp \
+           src/QtJson.cpp \
            src/ServerInterface.cpp \
            src/TabEditor.cpp \
            src/TplMimeData.cpp \

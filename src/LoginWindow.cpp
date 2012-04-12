@@ -41,7 +41,7 @@ LoginWindow::LoginWindow(QWidget *parent, ServerInterface &_srv): mw(dynamic_cas
 	ui.setupUi(this);
 }
 
-void LoginWindow::closeEvent(QCloseEvent *event) {
+void LoginWindow::closeEvent(QCloseEvent *) {
 	if (!srv.hasSession()) QApplication::quit();
 }
 
@@ -62,7 +62,7 @@ void LoginWindow::initLogin(bool autoLogin) {
 	if (autoLogin && (ui.check_keeppw->checkState() == Qt::Checked)) on_loginButton_clicked();
 }
 
-void LoginWindow::getSessionId(int id, QVariant result, QObject*) {
+void LoginWindow::getSessionId(QVariant result, QObject*) {
 	if (!(result.toMap()["Success"].toBool())) {
 		QMessageBox::critical(this, "Login error", result.toMap()["Message"].toString());
 		setDisabled(false);

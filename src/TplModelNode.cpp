@@ -324,7 +324,7 @@ void TplModelNode::serverRelocate(TplModelNode *newparent) {
 	srv.sendRequest("System.moveFile", req, this, "serverRelocateResult", newparent);
 }
 
-void TplModelNode::serverRelocateResult(int id, QVariant data, QObject *_newparent) {
+void TplModelNode::serverRelocateResult(QVariant data, QObject *_newparent) {
 	TplModelNode *newparent = qobject_cast<TplModelNode*>(_newparent);
 	if (newparent == NULL) return;
 	if (!data.isValid()) return;
@@ -336,7 +336,7 @@ void TplModelNode::serverRelocateResult(int id, QVariant data, QObject *_newpare
 	extra = data;
 }
 
-void TplModelNode::handleDeletion(int id, QVariant data, QObject *extra) {
+void TplModelNode::handleDeletion(QVariant data, QObject *) {
 	if (data.toMap()["Success"].toBool()) {
 		// ok, server said "OK", so delete myself!
 		getParent()->removeChild(this);
@@ -344,7 +344,7 @@ void TplModelNode::handleDeletion(int id, QVariant data, QObject *extra) {
 	}
 }
 
-void TplModelNode::handleRenameResult(int id, QVariant data, QObject *) {
+void TplModelNode::handleRenameResult(QVariant data, QObject *) {
 	if (!data.isValid()) {
 		qDebug("xxx error");
 		if (!old_idx.toString().isEmpty()) {
@@ -503,7 +503,7 @@ int TplModelNode::getRowId() {
 	return parent->getChildRow(this);
 }
 
-const int TplModelNode::getChildRow(TplModelNode *chld) const {
+int TplModelNode::getChildRow(TplModelNode *chld) const {
 	return children.indexOf(chld);
 }
 
@@ -595,14 +595,14 @@ void TplModelNode::restoreFromFile(QString filename, bool merge) {
 	model.dataChanged(getIndex(), getIndex());
 
 	QMap<QString, QVariant> request = getNodeData().toMap();
-	request["data"] = file.readAll();
+	request["data"] = file.readAll().toBase64();
 	request["merge"] = merge;
 
-	int id = srv.sendRequest("Skins.restore", request, this, "handleRestoreResult", NULL);
-	srv.setUpProgressReceiver(id, this);
+	QNetworkReply *reply = srv.sendRequest("Skins.restore", request, this, "handleRestoreResult", NULL);
+	srv.setUpProgressReceiver(reply, this);
 }
 
-void TplModelNode::handleRestoreResult(int id, QVariant data, QObject *) {
+void TplModelNode::handleRestoreResult(QVariant, QObject *) {
 	has_data = false;
 	dummy_created = false;
 	size(); // will trigger creation of "Loading" dummy and reloading of pages list/etc
@@ -629,11 +629,11 @@ void TplModelNode::sendFile(QVariant filedata) {
 	QModelIndex idx = child->getIndex();
 	model.dataChanged(idx, idx);
 
-	int id = srv.sendRequest("System.addFile", getNodeData(filedata), child, "handleRenameResult", NULL);
-	srv.setUpProgressReceiver(id, child);
+	QNetworkReply *reply = srv.sendRequest("System.addFile", getNodeData(filedata), child, "handleRenameResult", NULL);
+	srv.setUpProgressReceiver(reply, child);
 }
 
-void TplModelNode::dataSendProgress(int id, int pos, int total) {
+void TplModelNode::dataSendProgress(int pos, int total) {
 	file_progress = pos < total;
 	file_pos = pos;
 	file_total = total;

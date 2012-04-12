@@ -35,7 +35,7 @@
 #include <QObject>
 
 #include <QUrl>
-#include <QHttp>
+#include <QNetworkAccessManager>
 #include <QBuffer>
 #include <QPointer>
 #include <QVariant>
@@ -50,31 +50,30 @@ class ServerInterface: public QObject {
 public:
 	ServerInterface(QObject *parent = 0);
 
-	int sendRequest(const QString func, const QVariant &req = QVariant(), QObject *obj = NULL, const char *member = NULL, QObject *extra = NULL);
-	int sendRequestDownload(const QString func, const QVariant &req, QString save_as);
+	QNetworkReply* sendRequest(const QString func, const QVariant &req = QVariant(), QObject *obj = NULL, const char *member = NULL, QObject *extra = NULL);
+	QNetworkReply* sendRequestDownload(const QString func, const QVariant &req, QString save_as);
 
 	void setSession(QString);
 	bool hasSession();
 
-	void setUpProgressReceiver(int rq, QObject *obj);
+	void setUpProgressReceiver(QNetworkReply*reply, QObject *obj);
 
 	void setGateway(QUrl url);
 
 protected slots:
-	void on_requestFinished(int, bool);
-	void on_requestStarted(int);
-	void on_dataReadProgress(int done, int total);
-	void on_dataSendProgress(int done, int total);
+	void on_requestFinished(QNetworkReply*);
+	void on_dataReadProgress(qint64 done, qint64 total);
+	void on_dataSendProgress(qint64 done, qint64 total);
 	void timer_keepAlive();
-	void on_sslErrors(const QList<QSslError> & errors);
+	void on_sslErrors(QNetworkReply*, const QList<QSslError> & errors);
+	void copyToFile();
 
 private:
 	QUrl uri;
-	QHttp http;
+	QNetworkAccessManager http;
 	QString session;
 	QTimer timer;
-
-	int cur_req;
+	QFile *file;
 
 	struct request {
 		QBuffer *buffer;
@@ -86,9 +85,6 @@ private:
 		QObject *extra;
 		const char *member;
 	};
-
-	QMap<int, struct request*> requests;
-
 };
 
 #endif // SERVERINTERFACE_HPP

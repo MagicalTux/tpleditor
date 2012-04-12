@@ -75,15 +75,15 @@ private:
 
 private slots:
 	void accept();
-	void setTemplateTypeComplete(int id, QVariant data, QObject *);
+	void setTemplateTypeComplete(QVariant data, QObject *);
 
 	void stuffLayerObjectDestroyed(QObject*);
 
 	void on_tree_itemChanged(QTreeWidgetItem * item, int column);
 
-	void getTplTypes(int id, QVariant data, QObject *);
-	void gotTplType(int id, QVariant data, QObject *);
-	void gotEditableOptions(int id, QVariant data, QObject *);
+	void getTplTypes(QVariant data, QObject *);
+	void gotTplType(QVariant data, QObject *);
+	void gotEditableOptions(QVariant data, QObject *);
 
 	void stuff_checkBoxStatusChange(int);
 	void stuff_comboBoxStatusChange(int index);

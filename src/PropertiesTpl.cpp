@@ -37,7 +37,7 @@
 #include <QComboBox>
 #include <QMessageBox>
 
-PropertiesTpl::PropertiesTpl(QWidget *parent, TplModelNode *_node): node(*_node) {
+PropertiesTpl::PropertiesTpl(QWidget *parent, TplModelNode *_node): QDialog(parent), node(*_node) {
 	ui.setupUi(this);
 	ui.tree->sortByColumn(0, Qt::AscendingOrder);
 
@@ -61,7 +61,7 @@ void PropertiesTpl::accept() {
 	//node.setPageProperties(this, "setPageProperties", ui.page_charset->currentText(), ui.page_content_type->currentText());
 }
 
-void PropertiesTpl::setTemplateTypeComplete(int id, QVariant data, QObject *) {
+void PropertiesTpl::setTemplateTypeComplete(QVariant data, QObject *) {
 	if (!data.isValid()) {
 		QMessageBox::critical(NULL, "Server error", "Failed to set defined options", QMessageBox::Ok);
 		setEnabled(true);
@@ -71,7 +71,7 @@ void PropertiesTpl::setTemplateTypeComplete(int id, QVariant data, QObject *) {
 	deleteLater();
 }
 
-void PropertiesTpl::gotTplType(int id, QVariant data, QObject *) {
+void PropertiesTpl::gotTplType(QVariant data, QObject *) {
 	int type = data.toMap()["Tpl_Type__"].toInt();
 
 	// set options text
@@ -87,7 +87,7 @@ void PropertiesTpl::gotTplType(int id, QVariant data, QObject *) {
 	refreshTplOptions();
 }
 
-void PropertiesTpl::on_tree_itemChanged(QTreeWidgetItem * item, int column) {
+void PropertiesTpl::on_tree_itemChanged(QTreeWidgetItem * item, int) {
 	bool state = item->checkState(0);
 	if (item == curtpltype) {
 		if (!state)
@@ -198,7 +198,7 @@ void PropertiesTpl::stuff_checkBoxStatusChange(int status) {
 	node.testEditableOption(this, "gotEditableOptions", tpltype, options, name, value);
 }
 
-void PropertiesTpl::gotEditableOptions(int id, QVariant data, QObject *) {
+void PropertiesTpl::gotEditableOptions(QVariant data, QObject *) {
 	if (!data.isValid()) {
 		setEnabled(true);
 		return; // :(
@@ -356,7 +356,7 @@ void PropertiesTpl::appendTplStuff(QString name, struct stuff_layout *layout, QO
 	connect(obj, SIGNAL(destroyed(QObject*)), this, SLOT(stuffLayerObjectDestroyed(QObject*)));
 }
 
-void PropertiesTpl::getTplTypes(int id, QVariant data, QObject *) {
+void PropertiesTpl::getTplTypes(QVariant data, QObject *) {
 	if (!data.isValid()) {
 		close();
 		return;

@@ -94,7 +94,7 @@ public:
 	TplModelNode *getParentOfType(TplModelNode::NodeType type);
 	TplModelNode *getChild(int row);
 
-	const int getChildRow(TplModelNode * const chld) const;
+	int getChildRow(TplModelNode * const chld) const;
 
 	int size();
 	bool hasChildren();
@@ -128,13 +128,13 @@ public:
 
 public slots:
 	void editorDestroyed();
-	void handleRenameResult(int id, QVariant data, QObject *extra);
-	void handleDeletion(int id, QVariant data, QObject *extra);
-	void serverRelocateResult(int id, QVariant data, QObject *extra);
-	void handleRestoreResult(int id, QVariant data, QObject *);
+	void handleRenameResult(QVariant data, QObject *extra);
+	void handleDeletion(QVariant data, QObject *extra);
+	void serverRelocateResult(QVariant data, QObject *extra);
+	void handleRestoreResult(QVariant data, QObject *);
 
 	// files upload
-	void dataSendProgress(int, int, int);
+	void dataSendProgress(int, int);
 
 protected:
 	QVariant idx;

@@ -51,8 +51,8 @@ private:
 
 private slots:
 	void accept();
-	void gotPageProperties(int id, QVariant data, QObject *);
-	void setPageProperties(int id, QVariant data, QObject *);
+	void gotPageProperties(QVariant data, QObject *);
+	void setPageProperties(QVariant data, QObject *);
 };
 
 #endif // PROPERTIESPAGE_HPP

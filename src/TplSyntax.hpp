@@ -90,6 +90,6 @@ protected:
 	QMap<QString, struct syntax_params> extra_syntax;
 
 protected slots:
-	void setRemoteSyntaxRules(int id, QVariant data, QObject *extra);
+	void setRemoteSyntaxRules(QVariant data, QObject *extra);
 };
 

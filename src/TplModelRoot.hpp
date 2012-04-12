@@ -57,10 +57,10 @@ public:
 	void refresh();
 
 protected slots:
-	void updateServersList(int id, QVariant data, QObject *extra);
-	void setPagesList(int id, QVariant data, QObject *extra);
-	void setTemplatesList(int id, QVariant data, QObject *extra);
-	void setFilesList(int id, QVariant data, QObject *extra);
+	void updateServersList(QVariant data, QObject *extra);
+	void setPagesList(QVariant data, QObject *extra);
+	void setTemplatesList(QVariant data, QObject *extra);
+	void setFilesList(QVariant data, QObject *extra);
 
 protected:
 	friend class TplModelNode; /* berk */

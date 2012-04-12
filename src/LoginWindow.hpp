@@ -58,7 +58,7 @@ private:
 
 private slots:
 	void closeEvent(QCloseEvent *event);
-	void getSessionId(int id, QVariant data, QObject *extra);
+	void getSessionId(QVariant data, QObject *extra);
 
 	void on_loginButton_clicked();
 };

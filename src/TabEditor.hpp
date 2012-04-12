@@ -89,15 +89,15 @@ protected:
 
 public slots:
 	void tabTextChanged(bool _changed);
-	void setTabContents(int id, QVariant data, QObject *extra);
-	void saveTemplateDone(int id, QVariant data, QObject *extra);
+	void setTabContents(QVariant data, QObject *extra);
+	void saveTemplateDone(QVariant data, QObject *extra);
 	void action_TplProperties();
 	void action_PageProperties();
 	void action_PutInProd();
 	void doSave();
 	void event_reloadSettings();
 	void reloadHistory();
-	void reloadHistoryResult(int id, QVariant data, QObject *extra);
+	void reloadHistoryResult(QVariant data, QObject *extra);
 	void restoreHistoryEntry();
 
 Q_SIGNALS:

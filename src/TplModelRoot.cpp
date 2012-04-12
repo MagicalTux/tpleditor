@@ -150,7 +150,7 @@ int TplModelRoot::rowCount(const QModelIndex &parent) const {
 	return node->size();
 }
 
-int TplModelRoot::columnCount(const QModelIndex &parent) const {
+int TplModelRoot::columnCount(const QModelIndex &) const {
 	return 1;
 }
 
@@ -158,7 +158,7 @@ void TplModelRoot::refresh() {
 	srv.sendRequest("Skins.listAll", QVariant(), this, "updateServersList", NULL);
 }
 
-void TplModelRoot::updateServersList(int id, QVariant data, QObject *extra) {
+void TplModelRoot::updateServersList(QVariant data, QObject *) {
 	// Data is an array (list), containing struct (qmap) of values, including Server__ (id) and Name (string)
 	QList<QVariant> list = data.toList();
 	int max = list.size();
@@ -180,7 +180,7 @@ bool TplModelRoot::hasChildren(const QModelIndex &parent) const {
 	return node->hasChildren();
 }
 
-void TplModelRoot::setPagesList(int id, QVariant data, QObject *extra) {
+void TplModelRoot::setPagesList(QVariant data, QObject *extra) {
 	TplModelNode *node = dynamic_cast<TplModelNode*>(extra);
 	if (node == NULL) {
 		qDebug("Could not cast our node back to TplModelNode");
@@ -200,7 +200,7 @@ void TplModelRoot::setPagesList(int id, QVariant data, QObject *extra) {
 	}
 }
 
-void TplModelRoot::setTemplatesList(int id, QVariant data, QObject *extra) {
+void TplModelRoot::setTemplatesList(QVariant data, QObject *extra) {
 	TplModelNode *node = dynamic_cast<TplModelNode*>(extra);
 	if (node == NULL) {
 		qDebug("Could not cast our node back to TplModelNode");
@@ -228,7 +228,7 @@ void TplModelRoot::setTemplatesList(int id, QVariant data, QObject *extra) {
 	}
 }
 
-void TplModelRoot::setFilesList(int id, QVariant data, QObject *extra) {
+void TplModelRoot::setFilesList(QVariant data, QObject *extra) {
 	TplModelNode *node = dynamic_cast<TplModelNode*>(extra);
 	if (node == NULL) {
 		qDebug("Could not cast our node back to TplModelNode");

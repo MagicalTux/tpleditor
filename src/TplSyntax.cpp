@@ -345,7 +345,7 @@ void TplSyntax::highlightBlock(const QString &text) {
 	applySyntax(text, "@auto"); // Server-provided syntax
 }
 
-void TplSyntax::setRemoteSyntaxRules(int id, QVariant data, QObject *) {
+void TplSyntax::setRemoteSyntaxRules(QVariant data, QObject *) {
 	// Read styles
 	QMap<QString, QVariant> styles = data.toMap()["styles"].toMap();
 

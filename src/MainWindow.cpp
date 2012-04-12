@@ -45,7 +45,7 @@
 #include "TabEditor.hpp"
 #include "PreferencesDialog.hpp"
 
-MainWindow::MainWindow(QWidget *parent) {
+MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
 	// Setup UI
 	ui.setupUi(this);
 

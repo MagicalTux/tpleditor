@@ -173,7 +173,7 @@ void MainWindow::on_action_CompilePage_triggered() {
 	node->putInProd();
 }
 
-void MainWindow::on_mainTreeView_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected) {
+void MainWindow::on_mainTreeView_selectionChanged(const QItemSelection &selected, const QItemSelection &) {
 	QModelIndex index = selected.indexes().first();
 	TplModelNode *node = qobject_cast<TplModelNode*>(index.data(Qt::UserRole).value<QObject*>());
 	if (node == NULL) return;

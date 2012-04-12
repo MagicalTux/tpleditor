@@ -33,7 +33,7 @@
 
 #include <QMessageBox>
 
-PropertiesPage::PropertiesPage(QWidget *parent, TplModelNode *_node): node(*_node) {
+PropertiesPage::PropertiesPage(QWidget *parent, TplModelNode *_node): QDialog(parent), node(*_node) {
 	ui.setupUi(this);
 	// ask for current page properties
 
@@ -48,7 +48,7 @@ void PropertiesPage::accept() {
 	node.setPageProperties(this, "setPageProperties", ui.page_charset->currentText(), ui.page_content_type->currentText());
 }
 
-void PropertiesPage::setPageProperties(int id, QVariant data, QObject *) {
+void PropertiesPage::setPageProperties(QVariant data, QObject *) {
 	if (!data.isValid()) {
 		QMessageBox::critical(NULL, "Server error", "Failed to set defined options", QMessageBox::Ok);
 		setEnabled(true);
@@ -58,7 +58,7 @@ void PropertiesPage::setPageProperties(int id, QVariant data, QObject *) {
 	deleteLater();
 }
 
-void PropertiesPage::gotPageProperties(int id, QVariant data, QObject *) {
+void PropertiesPage::gotPageProperties(QVariant data, QObject *) {
 	if (!data.isValid()) {
 		close();
 		return;

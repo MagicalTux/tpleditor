@@ -145,7 +145,7 @@ void TabEditor::reloadHistory() {
 	srv->sendRequest("Skins.getTemplateHistory", node->getNodeData(), this, "reloadHistoryResult", NULL);
 }
 
-void TabEditor::reloadHistoryResult(int id, QVariant data, QObject *extra) {
+void TabEditor::reloadHistoryResult(QVariant data, QObject *) {
 	QVariantList h = data.toMap()["TemplateHistory"].toList();
 
 	combo_history->clear();
@@ -272,7 +272,7 @@ QString TabEditor::getKey() {
 	return name;
 }
 
-void TabEditor::setTabContents(int id, QVariant data, QObject *extra) {
+void TabEditor::setTabContents(QVariant data, QObject *) {
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
@@ -296,7 +296,7 @@ void TabEditor::doSave() {
 	textEdit->document()->setModified(false);
 }
 
-void TabEditor::saveTemplateDone(int id, QVariant data, QObject *extra) {
+void TabEditor::saveTemplateDone(QVariant data, QObject *) {
 	if (data.toMap()["Success"].toBool() != true) {
 		textEdit->document()->setModified(true); // could not save?
 	}

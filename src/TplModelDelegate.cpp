@@ -41,7 +41,7 @@ TplModelDelegate::TplModelDelegate(QObject *parent): QItemDelegate(parent) {
 	// nothing
 }
 
-QWidget *TplModelDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+QWidget *TplModelDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &, const QModelIndex &index) const {
 	TplModelNode *node = qobject_cast<TplModelNode*>(index.data(Qt::UserRole).value<QObject*>());
 
 	if (node->getType() == TplModelNode::LANGUAGE) {
@@ -92,7 +92,7 @@ void TplModelDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, 
 	}
 }
 
-void TplModelDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+void TplModelDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &) const {
 	editor->setGeometry(option.rect);
 }
 
