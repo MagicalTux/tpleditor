@@ -183,6 +183,7 @@ void MainTreeView::uploadFiles(TplModelNode *node, QList<QString> files) {
 			QMap<QString, QVariant> params;
 			params["FileName"] = QFileInfo(f).fileName();
 			params["data"] = filedata.toBase64();
+			params["base64"] = true;
 			node->sendFile(params);
 		}
 	}
