@@ -36,7 +36,6 @@
 
 #include <QUrl>
 #include <QNetworkAccessManager>
-#include <QBuffer>
 #include <QPointer>
 #include <QVariant>
 #include <QTimer>
@@ -76,7 +75,6 @@ private:
 	QFile *file;
 
 	struct request {
-		QBuffer *buffer;
 		// slot infos
 		QPointer<QObject> obj;
 		QPointer<QObject> up_progress;

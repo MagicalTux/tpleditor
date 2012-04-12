@@ -20,9 +20,9 @@ DEFINES += TPLV3_VERSION_MAJOR=1 TPLV3_VERSION_MINOR=0 TPLV3_VERSION_TYPE=1 TPLV
 
 win32:RC_FILE += src/tpleditor.rc
 
-QMAKE_CFLAGS_DEBUG += -include common.h -include profiles/$${PROFILE}.h -ggdb
-QMAKE_CFLAGS_RELEASE += -include common.h -include profiles/$${PROFILE}.h -ggdb
-QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h -ggdb
+QMAKE_CFLAGS_DEBUG += -include common.h -include profiles/$${PROFILE}.h
+QMAKE_CFLAGS_RELEASE += -include common.h -include profiles/$${PROFILE}.h
+QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h
 
 # Input
 HEADERS += includes/common.h \

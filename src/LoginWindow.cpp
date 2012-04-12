@@ -122,7 +122,7 @@ void LoginWindow::on_loginButton_clicked() {
 	loginreq["login"] = ui.txt_login->text();
 	loginreq["password"] = ui.txt_password->text();
 	loginreq["language"] = QLocale::system().name();
-	srv.setGateway(ui.txt_server->text() + QString("/wddx"));
+	srv.setGateway(ui.txt_server->text() + QString("/json"));
 	srv.sendRequest("Session.login", loginreq, this, "getSessionId", NULL);
 }
 

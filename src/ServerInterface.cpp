@@ -90,7 +90,6 @@ QNetworkReply *ServerInterface::sendRequestDownload(const QString func, const QV
 	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 	request.setRawHeader("User-Agent", "TPL/1.0 (" TPLV3_VERSION ")");
 	request.setRawHeader("X-Tpl-Editor", TPLV3_VERSION);
-	request.setRawHeader("X-Ipc", "TPL_JSON");
 	if (!session.isEmpty()) request.setRawHeader("Tpl-Session", session.toUtf8());
 
 	QMap<QString, QVariant> real_req;
@@ -137,7 +136,6 @@ QNetworkReply *ServerInterface::sendRequest(const QString func, const QVariant &
 	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 	request.setRawHeader("User-Agent", "TPL/1.0 (" TPLV3_VERSION ")");
 	request.setRawHeader("X-Tpl-Editor", TPLV3_VERSION);
-	request.setRawHeader("X-Ipc", "TPL_JSON");
 	if (!session.isEmpty()) request.setRawHeader("Tpl-Session", session.toUtf8());
 
 	QMap<QString, QVariant> real_req;
@@ -151,7 +149,7 @@ QNetworkReply *ServerInterface::sendRequest(const QString func, const QVariant &
 	rq->member = member;
 	rq->extra = extra;
 
-	qDebug("sending query: %s", qPrintable(QtJson::encode(real_req)));
+//	qDebug("sending query: %s", qPrintable(QtJson::encode(real_req)));
 
 	QNetworkReply *reply = http.post(request, QtJson::encode(real_req));
 	connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(on_dataSendProgress(qint64,qint64)));
@@ -201,7 +199,6 @@ void ServerInterface::copyToFile() {
 void ServerInterface::on_requestFinished(QNetworkReply *reply) {
 	struct request *rq = (struct request*)(reply->property("rq_object").toULongLong());
 
-	QBuffer *buf = rq->buffer;
 	QObject *extra = rq->extra;
 	QObject *obj = rq->obj;
 	QProgressDialog *down_progress = rq->down_progress;
@@ -211,7 +208,6 @@ void ServerInterface::on_requestFinished(QNetworkReply *reply) {
 
 	if (reply->error() != QNetworkReply::NoError) {
 		qDebug("ERROR (error=%d)", reply->error());
-		if (buf) delete buf;
 		return;
 	}
 
@@ -225,16 +221,14 @@ void ServerInterface::on_requestFinished(QNetworkReply *reply) {
 
 	QByteArray data = reply->readAll();
 
-	qDebug("result=%s", data.data());
+//	qDebug("result=%s", data.data());
 
 	QVariant result = QtJson::decode(data);
 
 	if (!result.isValid()) {
 		qDebug("Invalid answer from server: %s", data.data());
-		QMessageBox::warning(NULL, "Server Error", "Invalid answer from server:\n" + buf->buffer(), QMessageBox::Cancel);
+		QMessageBox::warning(NULL, "Server Error", "Invalid answer from server:\n" + data, QMessageBox::Cancel);
 	}
-
-	delete buf;
 
 	if ((result.isValid()) && (!result.toMap()["Executed"].toBool())) {
 		qDebug("Error from Server: %s", qPrintable(result.toMap()["Message"].toString()));
