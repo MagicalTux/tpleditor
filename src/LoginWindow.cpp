@@ -36,6 +36,8 @@
 #include <QMessageBox>
 #include <QNetworkProxy>
 
+#include <QDebug>
+
 LoginWindow::LoginWindow(QWidget *parent, ServerInterface &_srv): mw(dynamic_cast<MainWindow&>(*parent)), srv(_srv) {
 	// Setup UI
 	ui.setupUi(this);
@@ -57,6 +59,11 @@ void LoginWindow::initLogin(bool autoLogin) {
 	ui.txt_proxyhost->setText(mw.settings.value("ProxyHost", QString()).toString());
 	ui.txt_proxyport->setText(mw.settings.value("ProxyPort", QString()).toString());
 	ui.proxy_config->setChecked((mw.settings.value("ProxyEnabled", "No") == "Yes") ? true : false);
+	// load proxy auth
+	ui.txt_proxyuser->setText(mw.settings.value("ProxyUser", QString()).toString());
+	ui.txt_proxypass->setText(mw.settings.value("ProxyPass", QString()).toString());
+	ui.proxy_auth->setChecked((mw.settings.value("ProxyAuthEnabled", "No") == "Yes") ? true : false);
+	// end setting group
 	mw.settings.endGroup();
 	// test: if we have all the info, try to login with that
 	if (autoLogin && (ui.check_keeppw->checkState() == Qt::Checked)) on_loginButton_clicked();
@@ -82,6 +89,12 @@ void LoginWindow::setDisabled(bool disa) {
 	ui.check_keeppw->setDisabled(disa);
 	ui.quitButton->setDisabled(disa);
 	ui.loginButton->setDisabled(disa);
+	ui.txt_proxyhost->setDisabled(disa);
+	ui.txt_proxyport->setDisabled(disa);
+	ui.proxy_config->setDisabled(disa);
+	ui.txt_proxyuser->setDisabled(disa);
+	ui.txt_proxypass->setDisabled(disa);
+	ui.proxy_auth->setDisabled(disa);
 }
 
 void LoginWindow::on_loginButton_clicked() {
@@ -96,6 +109,7 @@ void LoginWindow::on_loginButton_clicked() {
 		mw.settings.setValue("Password", "");
 		mw.settings.setValue("Keep", "No");
 	}
+	// proxy config
 	if (ui.proxy_config->isChecked()) {
 		mw.settings.setValue("ProxyEnabled", "Yes");
 	} else {
@@ -103,6 +117,14 @@ void LoginWindow::on_loginButton_clicked() {
 	}
 	mw.settings.setValue("ProxyHost", ui.txt_proxyhost->text());
 	mw.settings.setValue("ProxyPort", ui.txt_proxyport->text());
+	// proxy auth
+	if (ui.proxy_auth->isChecked()) {
+		mw.settings.setValue("ProxyAuthEnabled", "Yes");
+	} else {
+		mw.settings.setValue("ProxyAuthEnabled", "No");
+	}
+	mw.settings.setValue("ProxyUser", ui.txt_proxyuser->text());
+	mw.settings.setValue("ProxyPass", ui.txt_proxypass->text());
 	mw.settings.endGroup();
 
 	if (ui.txt_server->text().isEmpty()) return; // :(
@@ -114,6 +136,11 @@ void LoginWindow::on_loginButton_clicked() {
 		proxy.setType(QNetworkProxy::HttpProxy);
 		proxy.setHostName(ui.txt_proxyhost->text());
 		proxy.setPort(ui.txt_proxyport->text().toInt());
+
+		if (ui.proxy_auth->isChecked()) {
+			proxy.setUser(ui.txt_proxyuser->text());
+			proxy.setPassword(ui.txt_proxypass->text());
+		}
 
 		QNetworkProxy::setApplicationProxy(proxy);
 	}
