@@ -58,7 +58,6 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	textEdit = new QTextEdit(this);
 	textEdit->setAcceptRichText(false);
 	textEdit->setReadOnly(true); // avoid edits until it's loaded...
-	textEdit->setTabStopWidth(25);
 	textEdit->installEventFilter(this);
 
 	layout_tplopt = new QHBoxLayout();
@@ -102,6 +101,9 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	textEdit->setCurrentFont(myfont);
 	textEdit->setFont(myfont);
 	settings.endGroup();
+
+	QFontMetrics fm(myfont);
+	textEdit->setTabStopWidth(fm.averageCharWidth() * 4);
 
 	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(tabTextChanged(bool)));
 
@@ -162,6 +164,8 @@ void TabEditor::event_reloadSettings() {
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
 	textEdit->setCurrentFont(myfont);
 	textEdit->setFont(myfont);
+	QFontMetrics fm(myfont);
+	textEdit->setTabStopWidth(fm.averageCharWidth() * 4);
 	QTextCharFormat format;
 	format.setFont(myfont);
 	QTextCursor selall(textEdit->document());

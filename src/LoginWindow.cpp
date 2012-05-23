@@ -143,6 +143,8 @@ void LoginWindow::on_loginButton_clicked() {
 		}
 
 		QNetworkProxy::setApplicationProxy(proxy);
+	} else {
+		QNetworkProxy::setApplicationProxy(QNetworkProxy::NoProxy);
 	}
 
 	QMap<QString, QVariant> loginreq;
