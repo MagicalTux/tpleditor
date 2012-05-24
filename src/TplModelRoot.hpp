@@ -78,6 +78,9 @@ protected:
 	QIcon tpl_icon;
 	QIcon dir_icon;
 	QIcon file_icon;
+	QIcon js_icon;
+	QIcon css_icon;
+	QIcon html_icon;
 
 	TplModelNode *root;
 //	QList<int> serv_mapping;

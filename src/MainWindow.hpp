@@ -115,6 +115,9 @@ private slots:
 	void on_action_CompilePage_triggered();
 	void on_action_NextTab_triggered();
 	void on_action_PreviousTab_triggered();
+	void on_actionFind_triggered();
+	void on_actionFind_Next_triggered();
+	void on_actionFind_Previous_triggered();
 
 	void on_action_English_triggered();
 	void on_action_French_triggered();

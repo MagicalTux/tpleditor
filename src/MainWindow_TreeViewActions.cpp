@@ -65,6 +65,7 @@ void MainWindow::on_mainTreeView_doubleClicked(const QModelIndex &index) {
 		editor->getTabIcon(),
 		editor->getTabName()
 	);
+	ui.tabWidget->setTabToolTip(tabid, editor->getTabName());
 	ui.tabWidget->setCurrentIndex(tabid);
 }
 

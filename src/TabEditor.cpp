@@ -45,6 +45,12 @@
 #include <QLabel>
 #include <QComboBox>
 #include <QDateTime>
+#include <QLineEdit>
+#include <QSpacerItem>
+
+#include <Qsci/qscilexercss.h>
+#include <Qsci/qscilexerhtml.h>
+#include <Qsci/qscilexerjavascript.h>
 
 TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node, QSettings &_settings): QWidget(parent), settings(_settings) {
 	node = _node;
@@ -55,20 +61,58 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	name = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
 
 	setObjectName(name);
-	textEdit = new QTextEdit(this);
-	textEdit->setAcceptRichText(false);
-	textEdit->setReadOnly(true); // avoid edits until it's loaded...
-	textEdit->installEventFilter(this);
+	textEdit = new QsciScintilla(this);
+	textEdit->setReadOnly(true);
+	textEdit->setTabWidth(4);
+	textEdit->setAutoIndent(true);
+	textEdit->setMarginLineNumbers(QsciScintilla::NumberMargin, true);
+	textEdit->setMarginWidth(QsciScintilla::NumberMargin, "100000");
+	textEdit->setUtf8(true);
+
+	QString ext = info.toMap()["Page"].toString().split(".").last();
+	if (ext == "js") {
+		textLexer = new QsciLexerJavaScript(textEdit);
+		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-x-javascript.png")), QIcon::Normal, QIcon::Off);
+	} else if (ext == "css") {
+		textLexer = new QsciLexerCSS(textEdit);
+		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-css.png")), QIcon::Normal, QIcon::Off);
+	} else {
+		QsciLexerHTML *htmlLexer = new QsciLexerHTML(textEdit);
+		htmlLexer->setDjangoTemplates(true);
+		textLexer = (QsciLexer*)htmlLexer;
+		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-xml.png")), QIcon::Normal, QIcon::Off);
+	}
+	textEdit->setLexer(textLexer);
+	textEdit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
+	textEdit->setCaretLineVisible(true);
+	textEdit->setCaretLineBackgroundColor(QColor(0xf5, 0xf5, 0xf5));
+	textEdit->setMatchedBraceForegroundColor(QColor(0xff, 0x00, 0x00));
+	textEdit->setMatchedBraceBackgroundColor(QColor(0xff, 0xfa, 0xfa));
 
 	layout_tplopt = new QHBoxLayout();
 	layout_tplopt->setMargin(1);
 	layout_history = new QHBoxLayout();
 	layout_history->setMargin(1);
+	layout_find = new QHBoxLayout();
+	layout_find->setMargin(1);
 	layout_main = new QVBoxLayout(this);
 	layout_main->setMargin(1);
 	layout_main->addLayout(layout_tplopt);
 	layout_main->addLayout(layout_history);
 	layout_main->addWidget(textEdit);
+	layout_main->addWidget(find_container = new QWidget());
+
+	// find layout
+	find_container->setLayout(layout_find);
+	find_container->hide();
+	layout_find->addWidget(btn_find_close = new QPushButton(QIcon(":/images/close.png"), ""));
+	layout_find->addWidget(find_label = new QLabel("Find: "));
+	find_edit = new QLineEdit();
+	find_edit->setMinimumWidth(350);
+	layout_find->addWidget(find_edit);
+	layout_find->addWidget(btn_find_next = new QPushButton("Next"));
+	layout_find->addWidget(btn_find_previous = new QPushButton("Previous"));
+	layout_find->addStretch(1);
 
 	// tplopt layout
 	layout_tplopt->addWidget(btn_savetpl = new QPushButton(tr("Save template")));
@@ -94,33 +138,45 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	connect(btn_putinprod, SIGNAL(clicked()), this, SLOT(action_PutInProd()));
 	connect(btn_histo_reload, SIGNAL(clicked()), this, SLOT(reloadHistory()));
 	connect(btn_histo_restore, SIGNAL(clicked()), this, SLOT(restoreHistoryEntry()));
+	connect(find_edit, SIGNAL(textEdited(QString)), this, SLOT(findChanged(QString)));
+	connect(btn_find_next, SIGNAL(clicked()), this, SLOT(findNext()));
+	connect(btn_find_previous, SIGNAL(clicked()), this, SLOT(findPrevious()));
+	connect(btn_find_close, SIGNAL(clicked()), this, SLOT(toggleFind()));
 
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
-	textEdit->setCurrentFont(myfont);
 	textEdit->setFont(myfont);
+	textLexer->setDefaultFont(myfont);
 	settings.endGroup();
 
-	QFontMetrics fm(myfont);
-	textEdit->setTabStopWidth(fm.averageCharWidth() * 4);
-
-	connect(textEdit->document(), SIGNAL(modificationChanged(bool)), this, SLOT(tabTextChanged(bool)));
-
-	// Syntax colors
-	syncolor = new TplSyntax(textEdit);
-	syncolor->setTextFormat("HTML");
-
-	// Refresh syntax color
-	syncolor->loadXmlSyntax("syntax.xml");
-	srv->sendRequest("Skins.getColorSyntax", QVariant(), syncolor, "setRemoteSyntaxRules", NULL);
-
-	// Icon for tab?
-	QIcon icon5;
-	icon5.addPixmap(QPixmap(QString::fromUtf8(":/images/notebooks.png")), QIcon::Normal, QIcon::Off);
+	connect(textEdit, SIGNAL(modificationChanged(bool)), this, SLOT(tabTextChanged(bool)));
 
 	srv->sendRequest("Skins.getTemplateContents", info, this, "setTabContents", NULL);
 	reloadHistory();
+}
+
+void TabEditor::toggleFind() {
+	if (find_container->isHidden()) {
+		find_container->show();
+		find_edit->setFocus();
+	}
+	else {
+		find_container->hide();
+		textEdit->setFocus();
+	}
+}
+
+void TabEditor::findChanged(const QString &text) {
+	textEdit->findFirst(text, false, false, false, true, true, 0, 0);
+}
+
+void TabEditor::findNext() {
+	textEdit->findNext();
+}
+
+void TabEditor::findPrevious() {
+	textEdit->findPrevious();
 }
 
 void TabEditor::restoreHistoryEntry() {
@@ -130,11 +186,11 @@ void TabEditor::restoreHistoryEntry() {
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
-	textEdit->setCurrentFont(myfont);
 	textEdit->setFont(myfont);
+	textLexer->setDefaultFont(myfont);
 	settings.endGroup();
 
-	textEdit->setPlainText(m["Content"].toString());
+	textEdit->setText(m["Content"].toString());
 	textEdit->setReadOnly(false);
 
 	changed = (idx != 0);
@@ -162,15 +218,8 @@ void TabEditor::event_reloadSettings() {
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
-	textEdit->setCurrentFont(myfont);
 	textEdit->setFont(myfont);
-	QFontMetrics fm(myfont);
-	textEdit->setTabStopWidth(fm.averageCharWidth() * 4);
-	QTextCharFormat format;
-	format.setFont(myfont);
-	QTextCursor selall(textEdit->document());
-	selall.select(QTextCursor::Document);
-	selall.setCharFormat(format);
+	textLexer->setDefaultFont(myfont);
 	settings.endGroup();
 	tabTextChanged(_changed);
 }
@@ -187,84 +236,9 @@ void TabEditor::action_PutInProd() {
 	node->getParentOfType(TplModelNode::PAGE)->putInProd();
 }
 
-bool TabEditor::eventFilter(QObject *obj, QEvent *event) {
-	if (event->type() != QEvent::KeyPress) {
-		return QWidget::eventFilter(obj, event);
-	}
-
-	QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-
-	if ( (keyEvent->key() == Qt::Key_Enter) || (keyEvent->key() == Qt::Key_Return) ) {
-		// Ok, we are about to do something bad
-
-		QTextCursor cursor = textEdit->textCursor();
-
-		QString curline = cursor.block().text();
-		int tabs = 0;
-		while((tabs < curline.size()) && (curline.at(tabs) == '\t')) tabs++;
-
-		cursor.insertText(QString("\n") + QString(tabs, '\t'));
-
-		return true;
-	}
-
-	if (keyEvent->key() == Qt::Key_Backtab) {
-		// Do we have a selection?
-		if ( (!textEdit->textCursor().hasSelection()) || (textEdit->textCursor().hasComplexSelection())) {
-			// Nope? Then let this event flow
-			return QWidget::eventFilter(obj, event);
-		}
-
-		// selection extend
-		QTextCursor cursor = textEdit->textCursor();
-		int sel_start = cursor.selectionStart();
-		int sel_end = cursor.selectionEnd();
-
-		// Get the first block
-		QTextBlock i = textEdit->document()->findBlock(sel_start);
-		QTextBlock i_end = textEdit->document()->findBlock(sel_end).next();
-
-		// here, we do some magic
-		cursor.beginEditBlock();
-		for(; i != i_end; i = i.next()) {
-			if ((i.text().length() == 0) || (i.text().at(0) != '\t')) continue;
-			QTextCursor blockstart(i);
-			blockstart.deleteChar();
-		}
-		cursor.endEditBlock();
-		return true;
-	}
-
-	if (keyEvent->key() == Qt::Key_Tab) {
-		// Do we have a selection?
-		if ( (!textEdit->textCursor().hasSelection()) || (textEdit->textCursor().hasComplexSelection())) {
-			// Nope? Then let this event flow
-			return QWidget::eventFilter(obj, event);
-		}
-
-		// selection extend
-		QTextCursor cursor = textEdit->textCursor();
-		int sel_start = cursor.selectionStart();
-		int sel_end = cursor.selectionEnd();
-
-		// Get the first block
-		QTextBlock i = textEdit->document()->findBlock(sel_start);
-		QTextBlock i_end = textEdit->document()->findBlock(sel_end).next();
-
-		// here, we do some magic
-		cursor.beginEditBlock();
-		for(; i != i_end; i = i.next()) {
-			QTextCursor blockstart(i);
-			blockstart.insertText(QString("\t"));
-		}
-		cursor.endEditBlock();
-		return true;
-	}
-	return QWidget::eventFilter(obj, event);
-}
-
 QIcon TabEditor::getTabIcon() {
-	return QIcon(":/images/notebooks.png"); // TODO: use server's
+	//return QIcon(":/images/notebooks.png"); // TODO: use server's
+	return tabIcon;
 }
 
 QString TabEditor::getTabName() {
@@ -280,11 +254,12 @@ void TabEditor::setTabContents(QVariant data, QObject *) {
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
-	textEdit->setCurrentFont(myfont);
+	//textEdit->setCurrentFont(myfont);
 	textEdit->setFont(myfont);
+	textLexer->setDefaultFont(myfont);
 	settings.endGroup();
 
-	textEdit->setPlainText(data.toMap()["TemplateData"].toString());
+	textEdit->setText(data.toMap()["TemplateData"].toString());
 	textEdit->setReadOnly(false);
 
 	changed = false;
@@ -294,15 +269,15 @@ void TabEditor::setTabContents(QVariant data, QObject *) {
 
 void TabEditor::doSave() {
 	QMap<QString, QVariant> req = node->getNodeData().toMap();
-	req["Content"] = textEdit->toPlainText();
+	req["Content"] = textEdit->text();
 
 	srv->sendRequest("Skins.saveTemplate", req, this, "saveTemplateDone", NULL);
-	textEdit->document()->setModified(false);
+	textEdit->setModified(false);
 }
 
 void TabEditor::saveTemplateDone(QVariant data, QObject *) {
 	if (data.toMap()["Success"].toBool() != true) {
-		textEdit->document()->setModified(true); // could not save?
+		textEdit->setModified(true); // could not save?
 	}
 	btn_savetpl->setEnabled(changed);
 	tabStatusChanged();

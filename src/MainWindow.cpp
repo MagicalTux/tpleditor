@@ -34,6 +34,7 @@
 #include <QModelIndex>
 #include <QToolButton>
 #include <QTextEdit>
+#include <QDebug>
 
 #include "MainWindow.hpp"
 #include "LoginWindow.hpp"

@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/images" >
+    <qresource prefix="/images">
         <file>folder__minus.png</file>
         <file>folder__pencil.png</file>
         <file>folder_open_image.png</file>
@@ -42,17 +42,22 @@
         <file>database.png</file>
         <file>database_plus.png</file>
         <file>x.png</file>
-	<file>exclamation.png</file>
-				<file>mutum.ico</file>
-				<file>mutum.png</file>
-				<file>degica.ico</file>
-				<file>degica.png</file>
+        <file>exclamation.png</file>
+        <file>mutum.ico</file>
+        <file>mutum.png</file>
+        <file>degica.ico</file>
+        <file>degica.png</file>
+        <file>firefox.png</file>
+        <file>text-css.png</file>
+        <file>text-x-javascript.png</file>
+        <file>text-xml.png</file>
+        <file>close.png</file>
     </qresource>
-    <qresource prefix="/locale" >
-        <file alias="locale_fr.qm" >locale/locale_fr.qm</file>
-				<file alias="locale_ja_jp.qm">locale/locale_ja_jp.qm</file>
+    <qresource prefix="/locale">
+        <file alias="locale_fr.qm">locale/locale_fr.qm</file>
+        <file alias="locale_ja_jp.qm">locale/locale_ja_jp.qm</file>
     </qresource>
-    <qresource prefix="/defaults" >
-        <file alias="syntax.xml" >defaults/syntax.xml</file>
+    <qresource prefix="/defaults">
+        <file alias="syntax.xml">defaults/syntax.xml</file>
     </qresource>
 </RCC>

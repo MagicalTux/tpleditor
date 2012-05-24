@@ -43,6 +43,9 @@ TplModelRoot::TplModelRoot(QWidget *parent, ServerInterface &_srv): srv(_srv), m
 	tpl_icon = QIcon(":/images/puzzle.png");
 	dir_icon = QIcon(":/images/folder.png");
 	file_icon = QIcon(":/images/notebook.png");
+	js_icon = QIcon(":/images/text-x-javascript.png");
+	css_icon = QIcon(":/images/text-css.png");
+	html_icon = QIcon(":/images/text-xml.png");
 
 	root = new TplModelNode("[root]", 0, TplModelNode::ROOT, NULL, *this, srv);
 }
@@ -53,11 +56,17 @@ TplModelRoot::~TplModelRoot() {
 }
 
 QIcon *TplModelRoot::getNodeIcon(TplModelNode *node) {
+	QString ext = node->getDisplayName().split(".").last();
 	switch(node->getType()) {
 		case TplModelNode::SKIN:
 			return &skin_icon;
 		case TplModelNode::PAGE:
-			return &page_icon;
+			if (ext == "js") {
+				return &js_icon;
+			} else if (ext == "css") {
+				return &css_icon;
+			}
+			return &html_icon;
 		case TplModelNode::TEMPLATE:
 			return &tpl_icon;
 		case TplModelNode::FOLDER:

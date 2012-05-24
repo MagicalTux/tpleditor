@@ -36,6 +36,11 @@
 #include <QVariant>
 #include <QPushButton>
 #include <QSettings>
+#include <QLabel>
+#include <QLineEdit>
+#include <QCheckBox>
+
+#include <Qsci/qsciscintilla.h>
 
 class QVBoxLayout;
 class QHBoxLayout;
@@ -46,7 +51,7 @@ class TplSyntax;
 class QComboBox;
 
 class TabEditor: public QWidget {
-	Q_OBJECT;
+	Q_OBJECT
 
 public:
 	TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node, QSettings &_settings);
@@ -63,29 +68,39 @@ protected:
 
 	//QWidget *tab;
 	QVBoxLayout *layout_main;
-	QTextEdit *textEdit;
+	QsciScintilla *textEdit;
+	QsciLexer *textLexer;
 	TplSyntax *syncolor;
 	QString name;
 	TplModelNode *node;
 	QSettings &settings;
+	QIcon tabIcon;
+
+	// find
+	QWidget *find_container;
+	QHBoxLayout *layout_find;
+	QPushButton *btn_find_close;
+	QLabel *find_label;
+	QLineEdit *find_edit;
+	QPushButton *btn_find_next;
+	QPushButton *btn_find_previous;
+	QCheckBox *chk_find_regex;
 
 	// tpl opt
 	QHBoxLayout *layout_tplopt;
-        QPushButton *btn_savetpl;
-        QPushButton *btn_tplprop;
+	QPushButton *btn_savetpl;
+	QPushButton *btn_tplprop;
 	QPushButton *btn_pageprop;
 	QPushButton *btn_putinprod;
 
 	QHBoxLayout *layout_history;
-        QComboBox *combo_history;
+	QComboBox *combo_history;
 	QPushButton *btn_histo_reload;
 	QPushButton *btn_histo_restore;
 
 	ServerInterface *srv;
 
 	bool changed;
-
-	bool eventFilter(QObject *obj, QEvent *event);
 
 public slots:
 	void tabTextChanged(bool _changed);
@@ -99,6 +114,10 @@ public slots:
 	void reloadHistory();
 	void reloadHistoryResult(QVariant data, QObject *extra);
 	void restoreHistoryEntry();
+	void findChanged(const QString &text);
+	void toggleFind();
+	void findNext();
+	void findPrevious();
 
 Q_SIGNALS:
 	void tabStatusChanged();

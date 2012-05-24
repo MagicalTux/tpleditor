@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = 
 DEPENDPATH += includes res src
-INCLUDEPATH += includes src
+INCLUDEPATH += includes src src/qscintilla src/qscintilla/lexer src/qscintilla/lexlib
 PROFILE = degica
 
 UI_HEADERS_DIR = includes
@@ -16,7 +16,9 @@ RCC_DIR = res
 
 QT += network xml script
 
-DEFINES += TPLV3_VERSION_MAJOR=1 TPLV3_VERSION_MINOR=1 TPLV3_VERSION_TYPE=1 TPLV3_VERSION_REVISION=1
+!win32:VERSION = 8.0.1
+
+DEFINES += TPLV3_VERSION_MAJOR=1 TPLV3_VERSION_MINOR=1 TPLV3_VERSION_TYPE=1 TPLV3_VERSION_REVISION=1 QT SCI_LEXER
 
 win32:RC_FILE += src/tpleditor.rc
 
@@ -41,7 +43,102 @@ HEADERS += includes/common.h \
            src/TplModelNode.hpp \
            src/TplModelRoot.hpp \
            src/TplSyntax.hpp \
-           includes/profiles/$${PROFILE}.h
+           includes/profiles/$${PROFILE}.h \
+           src/qscintilla/Qsci/qsciglobal.h \
+           src/qscintilla/Qsci/qsciscintilla.h \
+           src/qscintilla/Qsci/qsciscintillabase.h \
+           src/qscintilla/Qsci/qsciabstractapis.h \
+           src/qscintilla/Qsci/qsciapis.h \
+           src/qscintilla/Qsci/qscicommand.h \
+           src/qscintilla/Qsci/qscicommandset.h \
+           src/qscintilla/Qsci/qscidocument.h \
+           src/qscintilla/Qsci/qscilexer.h \
+           src/qscintilla/Qsci/qscilexerbash.h \
+           src/qscintilla/Qsci/qscilexerbatch.h \
+           src/qscintilla/Qsci/qscilexercmake.h \
+           src/qscintilla/Qsci/qscilexercpp.h \
+           src/qscintilla/Qsci/qscilexercsharp.h \
+           src/qscintilla/Qsci/qscilexercss.h \
+           src/qscintilla/Qsci/qscilexercustom.h \
+           src/qscintilla/Qsci/qscilexerd.h \
+           src/qscintilla/Qsci/qscilexerdiff.h \
+           src/qscintilla/Qsci/qscilexerfortran.h \
+           src/qscintilla/Qsci/qscilexerfortran77.h \
+           src/qscintilla/Qsci/qscilexerhtml.h \
+           src/qscintilla/Qsci/qscilexeridl.h \
+           src/qscintilla/Qsci/qscilexerjava.h \
+           src/qscintilla/Qsci/qscilexerjavascript.h \
+           src/qscintilla/Qsci/qscilexerlua.h \
+           src/qscintilla/Qsci/qscilexermakefile.h \
+           src/qscintilla/Qsci/qscilexermatlab.h \
+           src/qscintilla/Qsci/qscilexeroctave.h \
+           src/qscintilla/Qsci/qscilexerpascal.h \
+           src/qscintilla/Qsci/qscilexerperl.h \
+           src/qscintilla/Qsci/qscilexerpostscript.h \
+           src/qscintilla/Qsci/qscilexerpov.h \
+           src/qscintilla/Qsci/qscilexerproperties.h \
+           src/qscintilla/Qsci/qscilexerpython.h \
+           src/qscintilla/Qsci/qscilexerruby.h \
+           src/qscintilla/Qsci/qscilexerspice.h \
+           src/qscintilla/Qsci/qscilexersql.h \
+           src/qscintilla/Qsci/qscilexertcl.h \
+           src/qscintilla/Qsci/qscilexertex.h \
+           src/qscintilla/Qsci/qscilexerverilog.h \
+           src/qscintilla/Qsci/qscilexervhdl.h \
+           src/qscintilla/Qsci/qscilexerxml.h \
+           src/qscintilla/Qsci/qscilexeryaml.h \
+           src/qscintilla/Qsci/qscimacro.h \
+           src/qscintilla/Qsci/qsciprinter.h \
+           src/qscintilla/Qsci/qscistyle.h \
+           src/qscintilla/Qsci/qscistyledtext.h \
+           src/qscintilla/ListBoxQt.h \
+           src/qscintilla/SciClasses.h \
+           src/qscintilla/SciNamespace.h \
+           src/qscintilla/ScintillaQt.h \
+           src/qscintilla/ILexer.h \
+           src/qscintilla/Platform.h \
+           src/qscintilla/SciLexer.h \
+           src/qscintilla/Scintilla.h \
+           src/qscintilla/ScintillaWidget.h \
+           src/qscintilla/lexlib/Accessor.h \
+           src/qscintilla/lexlib/CharacterSet.h \
+           src/qscintilla/lexlib/LexAccessor.h \
+           src/qscintilla/lexlib/LexerBase.h \
+           src/qscintilla/lexlib/LexerModule.h \
+           src/qscintilla/lexlib/LexerNoExceptions.h \
+           src/qscintilla/lexlib/LexerSimple.h \
+           src/qscintilla/lexlib/OptionSet.h \
+           src/qscintilla/lexlib/PropSetSimple.h \
+           src/qscintilla/lexlib/StyleContext.h \
+           src/qscintilla/lexlib/WordList.h \
+           src/qscintilla/AutoComplete.h \
+           src/qscintilla/CallTip.h \
+           src/qscintilla/Catalogue.h \
+           src/qscintilla/CellBuffer.h \
+           src/qscintilla/CharClassify.h \
+           src/qscintilla/ContractionState.h \
+           src/qscintilla/Decoration.h \
+           src/qscintilla/Document.h \
+           src/qscintilla/Editor.h \
+           src/qscintilla/ExternalLexer.h \
+           src/qscintilla/FontQuality.h \
+           src/qscintilla/Indicator.h \
+           src/qscintilla/KeyMap.h \
+           src/qscintilla/LineMarker.h \
+           src/qscintilla/Partitioning.h \
+           src/qscintilla/PerLine.h \
+           src/qscintilla/PositionCache.h \
+           src/qscintilla/RESearch.h \
+           src/qscintilla/RunStyles.h \
+           src/qscintilla/ScintillaBase.h \
+           src/qscintilla/Selection.h \
+           src/qscintilla/SplitVector.h \
+           src/qscintilla/Style.h \
+           src/qscintilla/SVector.h \
+           src/qscintilla/UniConversion.h \
+           src/qscintilla/ViewStyle.h \
+           src/qscintilla/XPM.h
+
 FORMS += src/LoginWindow.ui \
          src/MainWindow.ui \
          src/PreferencesDialog.ui \
@@ -65,7 +162,94 @@ SOURCES += src/LoginWindow.cpp \
            src/TplModelFilter.cpp \
            src/TplModelNode.cpp \
            src/TplModelRoot.cpp \
-           src/TplSyntax.cpp
+           src/TplSyntax.cpp \
+           src/qscintilla/qsciscintilla.cpp \
+           src/qscintilla/qsciscintillabase.cpp \
+           src/qscintilla/qsciabstractapis.cpp \
+           src/qscintilla/qsciapis.cpp \
+           src/qscintilla/qscicommand.cpp \
+           src/qscintilla/qscicommandset.cpp \
+           src/qscintilla/qscidocument.cpp \
+           src/qscintilla/qscilexer.cpp \
+           src/qscintilla/qscilexerbash.cpp \
+           src/qscintilla/qscilexerbatch.cpp \
+           src/qscintilla/qscilexercmake.cpp \
+           src/qscintilla/qscilexercpp.cpp \
+           src/qscintilla/qscilexercsharp.cpp \
+           src/qscintilla/qscilexercss.cpp \
+           src/qscintilla/qscilexercustom.cpp \
+           src/qscintilla/qscilexerd.cpp \
+           src/qscintilla/qscilexerdiff.cpp \
+           src/qscintilla/qscilexerfortran.cpp \
+           src/qscintilla/qscilexerfortran77.cpp \
+           src/qscintilla/qscilexerhtml.cpp \
+           src/qscintilla/qscilexeridl.cpp \
+           src/qscintilla/qscilexerjava.cpp \
+           src/qscintilla/qscilexerjavascript.cpp \
+           src/qscintilla/qscilexerlua.cpp \
+           src/qscintilla/qscilexermakefile.cpp \
+           src/qscintilla/qscilexermatlab.cpp \
+           src/qscintilla/qscilexeroctave.cpp \
+           src/qscintilla/qscilexerpascal.cpp \
+           src/qscintilla/qscilexerperl.cpp \
+           src/qscintilla/qscilexerpostscript.cpp \
+           src/qscintilla/qscilexerpov.cpp \
+           src/qscintilla/qscilexerproperties.cpp \
+           src/qscintilla/qscilexerpython.cpp \
+           src/qscintilla/qscilexerruby.cpp \
+           src/qscintilla/qscilexerspice.cpp \
+           src/qscintilla/qscilexersql.cpp \
+           src/qscintilla/qscilexertcl.cpp \
+           src/qscintilla/qscilexertex.cpp \
+           src/qscintilla/qscilexerverilog.cpp \
+           src/qscintilla/qscilexervhdl.cpp \
+           src/qscintilla/qscilexerxml.cpp \
+           src/qscintilla/qscilexeryaml.cpp \
+           src/qscintilla/qscimacro.cpp \
+           src/qscintilla/qsciprinter.cpp \
+           src/qscintilla/qscistyle.cpp \
+           src/qscintilla/qscistyledtext.cpp \
+           src/qscintilla/SciClasses.cpp \
+           src/qscintilla/ListBoxQt.cpp \
+           src/qscintilla/PlatQt.cpp \
+           src/qscintilla/ScintillaQt.cpp \
+           src/qscintilla/lexers/LexCPP.cpp \
+           src/qscintilla/lexers/LexCSS.cpp \
+           src/qscintilla/lexers/LexHTML.cpp \
+           src/qscintilla/lexlib/Accessor.cpp \
+           src/qscintilla/lexlib/CharacterSet.cpp \
+           src/qscintilla/lexlib/LexerBase.cpp \
+           src/qscintilla/lexlib/LexerModule.cpp \
+           src/qscintilla/lexlib/LexerNoExceptions.cpp \
+           src/qscintilla/lexlib/LexerSimple.cpp \
+           src/qscintilla/lexlib/PropSetSimple.cpp \
+           src/qscintilla/lexlib/StyleContext.cpp \
+           src/qscintilla/lexlib/WordList.cpp \
+           src/qscintilla/AutoComplete.cpp \
+           src/qscintilla/CallTip.cpp \
+           src/qscintilla/Catalogue.cpp \
+           src/qscintilla/CellBuffer.cpp \
+           src/qscintilla/CharClassify.cpp \
+           src/qscintilla/ContractionState.cpp \
+           src/qscintilla/Decoration.cpp \
+           src/qscintilla/Document.cpp \
+           src/qscintilla/Editor.cpp \
+           src/qscintilla/ExternalLexer.cpp \
+           src/qscintilla/Indicator.cpp \
+           src/qscintilla/KeyMap.cpp \
+           src/qscintilla/LineMarker.cpp \
+           src/qscintilla/PerLine.cpp \
+           src/qscintilla/PositionCache.cpp \
+           src/qscintilla/RESearch.cpp \
+           src/qscintilla/RunStyles.cpp \
+           src/qscintilla/ScintillaBase.cpp \
+           src/qscintilla/Selection.cpp \
+           src/qscintilla/Style.cpp \
+           src/qscintilla/UniConversion.cpp \
+           src/qscintilla/ViewStyle.cpp \
+           src/qscintilla/XPM.cpp
+
+
 RESOURCES += res/tpleditor.qrc
 TRANSLATIONS += res/locale/locale_fr.ts res/locale/locale_ja_jp.ts
 

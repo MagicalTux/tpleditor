@@ -47,6 +47,24 @@ void MainWindow::on_action_Save_triggered() {
 	if (editor != NULL) editor->doSave();
 }
 
+void MainWindow::on_actionFind_triggered() {
+	TabEditor *editor = qobject_cast<TabEditor*>(ui.tabWidget->currentWidget());
+	if (editor == NULL) return;
+	editor->toggleFind();
+}
+
+void MainWindow::on_actionFind_Next_triggered() {
+	TabEditor *editor = qobject_cast<TabEditor*>(ui.tabWidget->currentWidget());
+	if (editor == NULL) return;
+	editor->findNext();
+}
+
+void MainWindow::on_actionFind_Previous_triggered() {
+	TabEditor *editor = qobject_cast<TabEditor*>(ui.tabWidget->currentWidget());
+	if (editor == NULL) return;
+	editor->findPrevious();
+}
+
 void MainWindow::closeTab(int id) {
 	if (id == -1) return;
 
