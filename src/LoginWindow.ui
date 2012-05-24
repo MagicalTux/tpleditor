@@ -220,6 +220,20 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txt_server</tabstop>
+  <tabstop>txt_login</tabstop>
+  <tabstop>txt_password</tabstop>
+  <tabstop>check_keeppw</tabstop>
+  <tabstop>loginButton</tabstop>
+  <tabstop>proxy_config</tabstop>
+  <tabstop>txt_proxyhost</tabstop>
+  <tabstop>txt_proxyport</tabstop>
+  <tabstop>proxy_auth</tabstop>
+  <tabstop>txt_proxyuser</tabstop>
+  <tabstop>txt_proxypass</tabstop>
+  <tabstop>quitButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

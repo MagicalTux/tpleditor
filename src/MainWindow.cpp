@@ -228,7 +228,7 @@ void MainWindow::on_action_AboutQt_triggered() {
 	QMessageBox::aboutQt(this);
 }
 void MainWindow::on_action_AboutTemplatesEditor_triggered() {
-	QMessageBox::about(this, tr("About Templates Editor"), tr("<b>Templates Editor version %1</b> (opensource)<br/>By <a href=\"mailto:magicaltux@gmail.com\">MagicalTux (mail)</a><br /><br />More informations at <a href=\"http://en.wiki.gg.st/wiki/TplEditor\">http://en.wiki.gg.st/wiki/TplEditor</a><br /><br />Code is released under BSD-no-GPL standard license.").arg(TPLV3_VERSION));
+	QMessageBox::about(this, tr("About Templates Editor"), tr("<b>Templates Editor version %1</b> (opensource)<br/>By <a href=\"mailto:magicaltux@gmail.com\">MagicalTux (mail)</a><br /><br />More informations at <a href=\"http://en.wiki.gg.st/wiki/TplEditor\">http://en.wiki.gg.st/wiki/TplEditor</a><br /><br />Code is released under GPLv2.").arg(TPLV3_VERSION));
 }
 
 void MainWindow::on_action_Preferences_triggered() {
