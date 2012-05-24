@@ -6,7 +6,7 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += includes res src
 INCLUDEPATH += includes src src/qscintilla src/qscintilla/lexer src/qscintilla/lexlib
-PROFILE = degica
+PROFILE = tibanne
 
 UI_HEADERS_DIR = includes
 UI_SOURCES_DIR = src
