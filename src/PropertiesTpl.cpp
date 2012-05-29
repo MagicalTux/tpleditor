@@ -37,6 +37,8 @@
 #include <QComboBox>
 #include <QMessageBox>
 
+#include <QDebug>
+
 PropertiesTpl::PropertiesTpl(QWidget *parent, TplModelNode *_node): QDialog(parent), node(*_node) {
 	ui.setupUi(this);
 	ui.tree->sortByColumn(0, Qt::AscendingOrder);
@@ -50,6 +52,7 @@ PropertiesTpl::PropertiesTpl(QWidget *parent, TplModelNode *_node): QDialog(pare
 	node.getTplType(this, "gotTplType");
 	curtplstuff = -1;
 	curtpltype = NULL;
+	curtplid = -1;
 }
 
 void PropertiesTpl::accept() {
@@ -76,7 +79,9 @@ void PropertiesTpl::gotTplType(QVariant data, QObject *) {
 
 	// set options text
 	options = data.toMap()["Options"].toString();
+	curtplid = type;
 
+	// if tree is already rendered, try to update right now
 	if (tpltypes.contains(type)) {
 
 		curtpltype = tpltypes.value(type);
@@ -195,6 +200,7 @@ void PropertiesTpl::stuff_checkBoxStatusChange(int status) {
 	if (stuff.value(name)->value == value) return;
 
 	int tpltype = curtpltype->data(0, Qt::UserRole).toInt();
+	curtplid = tpltype;
 	setEnabled(false);
 	node.testEditableOption(this, "gotEditableOptions", tpltype, options, name, value);
 }
@@ -410,5 +416,11 @@ void PropertiesTpl::getTplTypes(QVariant data, QObject *) {
 		tmp->setCheckState(0, Qt::Unchecked);
 		tmp->setData(0, Qt::UserRole, QVariant(id));
 		tpltypes.insert(id, tmp);
+	}
+
+	if (curtplid >= 0 && tpltypes.contains(curtplid)) {
+		curtpltype = tpltypes.value(curtplid);
+		curtpltype->setCheckState(0, Qt::Checked); // this will call refreshTplOptions()
+		ui.tree->setCurrentItem(curtpltype, 0, QItemSelectionModel::Clear); // display it
 	}
 }

@@ -76,6 +76,9 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	} else if (ext == "css") {
 		textLexer = new QsciLexerCSS(textEdit);
 		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-css.png")), QIcon::Normal, QIcon::Off);
+	} else if (ext == "less") {
+		textLexer = new QsciLexerCSS(textEdit);
+		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-less.png")), QIcon::Normal, QIcon::Off);
 	} else {
 		QsciLexerHTML *htmlLexer = new QsciLexerHTML(textEdit);
 		htmlLexer->setDjangoTemplates(true);

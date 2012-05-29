@@ -80,6 +80,7 @@ protected:
 	QIcon file_icon;
 	QIcon js_icon;
 	QIcon css_icon;
+	QIcon less_icon;
 	QIcon html_icon;
 
 	TplModelNode *root;

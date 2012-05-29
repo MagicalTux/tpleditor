@@ -49,6 +49,7 @@ public:
 private:
 	TplModelNode &node;
 	QMap<int, QTreeWidgetItem*> tpltypes;
+	int curtplid;
 	QTreeWidgetItem *curtpltype;
 	int curtplstuff;
 

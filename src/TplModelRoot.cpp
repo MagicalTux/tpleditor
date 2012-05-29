@@ -45,6 +45,7 @@ TplModelRoot::TplModelRoot(QWidget *parent, ServerInterface &_srv): srv(_srv), m
 	file_icon = QIcon(":/images/notebook.png");
 	js_icon = QIcon(":/images/text-x-javascript.png");
 	css_icon = QIcon(":/images/text-css.png");
+	less_icon = QIcon(":/images/text-less.png");
 	html_icon = QIcon(":/images/text-xml.png");
 
 	root = new TplModelNode("[root]", 0, TplModelNode::ROOT, NULL, *this, srv);
@@ -65,6 +66,8 @@ QIcon *TplModelRoot::getNodeIcon(TplModelNode *node) {
 				return &js_icon;
 			} else if (ext == "css") {
 				return &css_icon;
+			} else if (ext == "less") {
+				return &less_icon;
 			}
 			return &html_icon;
 		case TplModelNode::TEMPLATE:
