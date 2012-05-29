@@ -37,8 +37,6 @@
 #include <QComboBox>
 #include <QMessageBox>
 
-#include <QDebug>
-
 PropertiesTpl::PropertiesTpl(QWidget *parent, TplModelNode *_node): QDialog(parent), node(*_node) {
 	ui.setupUi(this);
 	ui.tree->sortByColumn(0, Qt::AscendingOrder);
@@ -422,5 +420,6 @@ void PropertiesTpl::getTplTypes(QVariant data, QObject *) {
 		curtpltype = tpltypes.value(curtplid);
 		curtpltype->setCheckState(0, Qt::Checked); // this will call refreshTplOptions()
 		ui.tree->setCurrentItem(curtpltype, 0, QItemSelectionModel::Clear); // display it
+		refreshTplOptions();
 	}
 }
