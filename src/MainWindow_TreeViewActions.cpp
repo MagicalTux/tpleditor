@@ -59,9 +59,9 @@ void MainWindow::on_mainTreeView_doubleClicked(const QModelIndex &index) {
 	if (node->getType() == TplModelNode::FILE) {
 		// check extension
 		QString ext = node->getDisplayName().split(".").last();
-		if (ext != "css" && ext != "less" && ext != "css") return;
+		if (ext != "css" && ext != "less" && ext != "js") return;
 		// create tabName
-		tabName = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Folder"].toString()+QString("/")+info.toMap()["File"].toString();
+		tabName = info.toMap()["Skin"].toString()+info.toMap()["Folder"].toString()+QString("/")+info.toMap()["File"].toString();
 	} else {
 		tabName = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
 	}
