@@ -1021,6 +1021,8 @@ struct SCNotification {
 	int updated;	/* SCN_UPDATEUI */
 };
 
+#define NEW_SCNOTIFICATION(x) SCNotification x; memset(&x, 0, sizeof(SCNotification));
+
 #ifdef SCI_NAMESPACE
 }
 #endif

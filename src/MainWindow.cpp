@@ -40,7 +40,6 @@
 #include "LoginWindow.hpp"
 #include "ServerInterface.hpp"
 #include "TplModelRoot.hpp"
-#include "TplSyntax.hpp"
 #include "TplModelDelegate.hpp"
 #include "TplModelFilter.hpp"
 #include "TabEditor.hpp"
@@ -97,18 +96,13 @@ void MainWindow::on_action_Logout_triggered() {
 			tabs.remove(editor->getKey());
 			delete editor;
 		}
-		//QMap<QString, TabEditor *>
 
 		delete model_delegate;
-//		delete model_proxy;
-//		delete model_root;
 		delete srv;
 
 		srv = new ServerInterface(this);
 		win_login = new LoginWindow(this, *srv);
 		model_root = new TplModelRoot(this, *srv);
-//		model_proxy = new TplModelFilter(this);
-//		model_proxy->setSourceModel(model_root);
 		model_delegate = new TplModelDelegate(this);
 
 		ui.mainTreeView->setModel(model_root);

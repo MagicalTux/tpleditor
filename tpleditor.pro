@@ -17,6 +17,7 @@ RCC_DIR = res
 QT += network xml script
 
 !win32:VERSION = 8.0.1
+mac:ICON = res/tibanne.icns
 
 DEFINES += TPLV3_VERSION_MAJOR=1 TPLV3_VERSION_MINOR=2 TPLV3_VERSION_TYPE=1 TPLV3_VERSION_REVISION=1 QT SCI_LEXER
 
@@ -24,7 +25,7 @@ win32:RC_FILE += src/tpleditor.rc
 
 QMAKE_CFLAGS_DEBUG += -include common.h -include profiles/$${PROFILE}.h
 QMAKE_CFLAGS_RELEASE += -include common.h -include profiles/$${PROFILE}.h
-QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h
+QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h -Wno-unused-parameter
 
 # Input
 HEADERS += includes/common.h \
@@ -42,7 +43,6 @@ HEADERS += includes/common.h \
            src/TplModelFilter.hpp \
            src/TplModelNode.hpp \
            src/TplModelRoot.hpp \
-           src/TplSyntax.hpp \
            includes/profiles/$${PROFILE}.h \
            src/qscintilla/Qsci/qsciglobal.h \
            src/qscintilla/Qsci/qsciscintilla.h \
@@ -53,38 +53,12 @@ HEADERS += includes/common.h \
            src/qscintilla/Qsci/qscicommandset.h \
            src/qscintilla/Qsci/qscidocument.h \
            src/qscintilla/Qsci/qscilexer.h \
-           src/qscintilla/Qsci/qscilexerbash.h \
-           src/qscintilla/Qsci/qscilexerbatch.h \
-           src/qscintilla/Qsci/qscilexercmake.h \
            src/qscintilla/Qsci/qscilexercpp.h \
-           src/qscintilla/Qsci/qscilexercsharp.h \
            src/qscintilla/Qsci/qscilexercss.h \
            src/qscintilla/Qsci/qscilexercustom.h \
-           src/qscintilla/Qsci/qscilexerd.h \
-           src/qscintilla/Qsci/qscilexerdiff.h \
-           src/qscintilla/Qsci/qscilexerfortran.h \
-           src/qscintilla/Qsci/qscilexerfortran77.h \
            src/qscintilla/Qsci/qscilexerhtml.h \
-           src/qscintilla/Qsci/qscilexeridl.h \
-           src/qscintilla/Qsci/qscilexerjava.h \
            src/qscintilla/Qsci/qscilexerjavascript.h \
-           src/qscintilla/Qsci/qscilexerlua.h \
-           src/qscintilla/Qsci/qscilexermakefile.h \
-           src/qscintilla/Qsci/qscilexermatlab.h \
-           src/qscintilla/Qsci/qscilexeroctave.h \
-           src/qscintilla/Qsci/qscilexerpascal.h \
-           src/qscintilla/Qsci/qscilexerperl.h \
-           src/qscintilla/Qsci/qscilexerpostscript.h \
-           src/qscintilla/Qsci/qscilexerpov.h \
            src/qscintilla/Qsci/qscilexerproperties.h \
-           src/qscintilla/Qsci/qscilexerpython.h \
-           src/qscintilla/Qsci/qscilexerruby.h \
-           src/qscintilla/Qsci/qscilexerspice.h \
-           src/qscintilla/Qsci/qscilexersql.h \
-           src/qscintilla/Qsci/qscilexertcl.h \
-           src/qscintilla/Qsci/qscilexertex.h \
-           src/qscintilla/Qsci/qscilexerverilog.h \
-           src/qscintilla/Qsci/qscilexervhdl.h \
            src/qscintilla/Qsci/qscilexerxml.h \
            src/qscintilla/Qsci/qscilexeryaml.h \
            src/qscintilla/Qsci/qscimacro.h \
@@ -137,7 +111,9 @@ HEADERS += includes/common.h \
            src/qscintilla/SVector.h \
            src/qscintilla/UniConversion.h \
            src/qscintilla/ViewStyle.h \
-           src/qscintilla/XPM.h
+           src/qscintilla/XPM.h \
+    src/qscintilla/Qsci/qscilexerdiff.h \
+    src/qscintilla/Qsci/qscilexerpython.h
 
 FORMS += src/LoginWindow.ui \
          src/MainWindow.ui \
@@ -162,7 +138,6 @@ SOURCES += src/LoginWindow.cpp \
            src/TplModelFilter.cpp \
            src/TplModelNode.cpp \
            src/TplModelRoot.cpp \
-           src/TplSyntax.cpp \
            src/qscintilla/qsciscintilla.cpp \
            src/qscintilla/qsciscintillabase.cpp \
            src/qscintilla/qsciabstractapis.cpp \
@@ -171,38 +146,13 @@ SOURCES += src/LoginWindow.cpp \
            src/qscintilla/qscicommandset.cpp \
            src/qscintilla/qscidocument.cpp \
            src/qscintilla/qscilexer.cpp \
-           src/qscintilla/qscilexerbash.cpp \
-           src/qscintilla/qscilexerbatch.cpp \
-           src/qscintilla/qscilexercmake.cpp \
            src/qscintilla/qscilexercpp.cpp \
-           src/qscintilla/qscilexercsharp.cpp \
            src/qscintilla/qscilexercss.cpp \
            src/qscintilla/qscilexercustom.cpp \
-           src/qscintilla/qscilexerd.cpp \
            src/qscintilla/qscilexerdiff.cpp \
-           src/qscintilla/qscilexerfortran.cpp \
-           src/qscintilla/qscilexerfortran77.cpp \
            src/qscintilla/qscilexerhtml.cpp \
-           src/qscintilla/qscilexeridl.cpp \
-           src/qscintilla/qscilexerjava.cpp \
            src/qscintilla/qscilexerjavascript.cpp \
-           src/qscintilla/qscilexerlua.cpp \
-           src/qscintilla/qscilexermakefile.cpp \
-           src/qscintilla/qscilexermatlab.cpp \
-           src/qscintilla/qscilexeroctave.cpp \
-           src/qscintilla/qscilexerpascal.cpp \
-           src/qscintilla/qscilexerperl.cpp \
-           src/qscintilla/qscilexerpostscript.cpp \
-           src/qscintilla/qscilexerpov.cpp \
            src/qscintilla/qscilexerproperties.cpp \
-           src/qscintilla/qscilexerpython.cpp \
-           src/qscintilla/qscilexerruby.cpp \
-           src/qscintilla/qscilexerspice.cpp \
-           src/qscintilla/qscilexersql.cpp \
-           src/qscintilla/qscilexertcl.cpp \
-           src/qscintilla/qscilexertex.cpp \
-           src/qscintilla/qscilexerverilog.cpp \
-           src/qscintilla/qscilexervhdl.cpp \
            src/qscintilla/qscilexerxml.cpp \
            src/qscintilla/qscilexeryaml.cpp \
            src/qscintilla/qscimacro.cpp \
@@ -247,7 +197,8 @@ SOURCES += src/LoginWindow.cpp \
            src/qscintilla/Style.cpp \
            src/qscintilla/UniConversion.cpp \
            src/qscintilla/ViewStyle.cpp \
-           src/qscintilla/XPM.cpp
+           src/qscintilla/XPM.cpp \
+    src/qscintilla/qscilexerpython.cpp
 
 
 RESOURCES += res/tpleditor.qrc

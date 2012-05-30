@@ -334,7 +334,7 @@ public:
 		setRelOp(CharacterSet::setNone, "=!<>"),
 		setLogicalOp(CharacterSet::setNone, "|&") {
 	}
-	~LexerCPP() {
+	virtual ~LexerCPP() {
 	}
 	void SCI_METHOD Release() {
 		delete this;

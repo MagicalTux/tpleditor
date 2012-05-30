@@ -37,11 +37,6 @@
 #include "TplModelNode.hpp"
 #include "TplModelFilter.hpp"
 
-void MainWindow::on_actionUpdate_syntax_coloration_triggered() {
-	TabEditor *editor = qobject_cast<TabEditor*>(ui.tabWidget->currentWidget());
-	if (editor != NULL) editor->updateSyntax();
-}
-
 void MainWindow::on_action_Save_triggered() {
 	TabEditor *editor = qobject_cast<TabEditor*>(ui.tabWidget->currentWidget());
 	if (editor != NULL) editor->doSave();

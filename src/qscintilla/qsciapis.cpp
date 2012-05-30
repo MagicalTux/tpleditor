@@ -136,7 +136,7 @@ private:
 
 // The worker thread ctor.
 QsciAPIsWorker::QsciAPIsWorker(QsciAPIs *apis)
-    : proxy(apis), prepared(0), abort(false)
+	: prepared(0), proxy(apis), abort(false)
 {
 }
 
@@ -260,6 +260,9 @@ bool QsciAPIs::event(QEvent *e)
         emit apiPreparationFinished();
 
         return true;
+	default:
+		// prevent compiler from complaining
+		break;
     }
 
     return QObject::event(e);
@@ -627,14 +630,14 @@ void QsciAPIs::addAPIEntries(const WordIndexList &wl, bool complete,
             api_word = QString("%1 (%2)").arg(api_words[idx]).arg(org);
 
             // See if the origin has been used before.
-            if (unambig)
-                if (unambiguous_context.isEmpty())
+			if (unambig) {
+				if (unambiguous_context.isEmpty()) {
                     unambiguous_context = org;
-                else if (unambiguous_context != org)
-                {
+				} else if (unambiguous_context != org) {
                     unambiguous_context.truncate(0);
                     unambig = false;
                 }
+			}
         }
 
         if (!with_context.contains(api_word))

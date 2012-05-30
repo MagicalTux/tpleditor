@@ -871,7 +871,7 @@ QsciCommandSet::QsciCommandSet(QsciScintilla *qs) : qsci(qs)
                 k + (QsciScintillaBase::SCMOD_CTRL << 16),
                 QsciScintillaBase::SCI_NULL);
 
-    for (int i = 0; i < sizeof (cmd_table) / sizeof (cmd_table[0]); ++i)
+	for (quint32 i = 0; i < sizeof (cmd_table) / sizeof (cmd_table[0]); ++i)
         cmds.append(
                 new QsciCommand(qsci, cmd_table[i].cmd, cmd_table[i].key,
                         cmd_table[i].altkey, cmd_table[i].desc));

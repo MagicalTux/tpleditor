@@ -1886,9 +1886,8 @@ private slots:
     void handleIndicatorClick(int pos, int modifiers);
     void handleIndicatorRelease(int pos, int modifiers);
     void handleMarginClick(int pos, int margin, int modifiers);
-    void handleModified(int pos, int mtype, const char *text, int len,
-            int added, int line, int foldNow, int foldPrev, int token,
-            int annotationLinesAdded);
+	void handleModified(int, int mtype, const char *, int,
+			int added, int line, int foldNow, int foldPrev, int, int);
     void handlePropertyChange(const char *prop, const char *val);
     void handleSavePointReached();
     void handleSavePointLeft();

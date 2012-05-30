@@ -75,6 +75,13 @@ QIcon *TplModelRoot::getNodeIcon(TplModelNode *node) {
 		case TplModelNode::FOLDER:
 			return &dir_icon;
 		case TplModelNode::FILE:
+			if (ext == "js") {
+				return &js_icon;
+			} else if (ext == "css") {
+				return &css_icon;
+			} else if (ext == "less") {
+				return &less_icon;
+			}
 			return &file_icon;
 		default:
 			return NULL;

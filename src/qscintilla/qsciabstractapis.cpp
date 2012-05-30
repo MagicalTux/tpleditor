@@ -51,6 +51,6 @@ QsciLexer *QsciAbstractAPIs::lexer() const
 
 
 // Called when the user has made a selection from the auto-completion list.
-void QsciAbstractAPIs::autoCompletionSelected(const QString &selection)
+void QsciAbstractAPIs::autoCompletionSelected(const QString &)
 {
 }

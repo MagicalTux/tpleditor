@@ -190,7 +190,7 @@ private:
 
     // This indexes a word in a set of raw APIs.  The first part indexes the
     // entry in the set, the second part indexes the word within the entry.
-    typedef QPair<quint32, quint32> WordIndex;
+	typedef QPair<qint32, qint32> WordIndex;
 
     // This is a list of word indexes.
     typedef QList<WordIndex> WordIndexList;

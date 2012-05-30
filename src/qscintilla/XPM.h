@@ -29,7 +29,7 @@ public:
     XPM(const char *const *linesForm);
     ~XPM() {}
 
-    void RefreshColourPalette(Palette &pal, bool want) {}
+	void RefreshColourPalette(Palette &, bool ) {}
     void Draw(Surface *surface, PRectangle &rc);
 
     const QPixmap &Pixmap() const {return qpm;}

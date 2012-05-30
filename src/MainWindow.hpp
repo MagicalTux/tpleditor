@@ -83,7 +83,6 @@ private slots:
 
 	void subTabStatusChanged();
 
-	void on_actionUpdate_syntax_coloration_triggered();
 	void on_action_Save_triggered();
 	void on_mainTreeView_doubleClicked(const QModelIndex &index);
 	void on_mainTreeView_customContextMenuRequested(const QPoint &pos);

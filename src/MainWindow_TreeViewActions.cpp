@@ -43,10 +43,28 @@ void MainWindow::on_mainTreeView_doubleClicked(const QModelIndex &index) {
 	TplModelNode *node = qobject_cast<TplModelNode*>(index.model()->data(index, Qt::UserRole).value<QObject*>());
 	if (node == NULL) return;
 
-	if (node->getType() != TplModelNode::LANGUAGE) return; // we can only open a "language" for editing
+	// support for double clicking on template nodes
+	if (node->getType() == TplModelNode::TEMPLATE) {
+		if (node->hasChildren() && node->size() == 1) {
+			node = node->getChild(0);
+		}
+	}
+
+	if (node->getType() != TplModelNode::LANGUAGE && node->getType() != TplModelNode::FILE) return; // we can only open a "language" for editing
 
 	QVariant info = node->getNodeData();
-	QString tabName = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
+
+	QString tabName;
+
+	if (node->getType() == TplModelNode::FILE) {
+		// check extension
+		QString ext = node->getDisplayName().split(".").last();
+		if (ext != "css" && ext != "less" && ext != "css") return;
+		// create tabName
+		tabName = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Folder"].toString()+QString("/")+info.toMap()["File"].toString();
+	} else {
+		tabName = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
+	}
 
 	if (tabs.contains(tabName)) {
 		// Locate this tab and show it

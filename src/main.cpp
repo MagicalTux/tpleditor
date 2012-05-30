@@ -32,6 +32,7 @@
 #include <QApplication>
 #include <QtPlugin>
 #include <QFontDatabase>
+#include <QDir>
 
 #include "MainWindow.hpp"
 
@@ -39,6 +40,13 @@
 
 int main(int argc, char *argv[]) {
 	QApplication app(argc, argv);
+
+#if defined(Q_OS_MAC)
+	QDir dir(QApplication::applicationDirPath());
+	dir.cdUp();
+	dir.cd("Plugins");
+	QApplication::setLibraryPaths(QStringList(dir.absolutePath()));
+#endif
 
 #if !defined(QT_SHARED) && !defined(QT_DLL)
 	Q_IMPORT_PLUGIN(qjpeg);

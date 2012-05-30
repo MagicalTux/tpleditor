@@ -251,18 +251,22 @@ void QsciScintilla::handleCharAdded(int ch)
         callTip();
 
     // Handle auto-indentation.
-    if (autoInd)
-        if (lex.isNull() || (lex->autoIndentStyle() & AiMaintain))
+	if (autoInd) {
+		if (lex.isNull() || (lex->autoIndentStyle() & AiMaintain)) {
             maintainIndentation(ch, pos);
-        else
+		} else {
             autoIndentation(ch, pos);
+		}
+	}
 
     // See if we might want to start auto-completion.
-    if (!isCallTipActive() && acSource != AcsNone)
-        if (isStartChar(ch))
+	if (!isCallTipActive() && acSource != AcsNone) {
+		if (isStartChar(ch)) {
             startAutoCompletion(acSource, false, use_single == AcusAlways);
-        else if (acThresh >= 1 && isWordCharacter(ch))
+		} else if (acThresh >= 1 && isWordCharacter(ch)) {
             startAutoCompletion(acSource, true, use_single == AcusAlways);
+		}
+	}
 }
 
 
@@ -830,13 +834,15 @@ void QsciScintilla::autoIndentLine(long pos, int line, int indent)
     long pos_after = SendScintilla(SCI_GETLINEINDENTPOSITION, line);
     long new_pos = -1;
 
-    if (pos_after > pos_before)
+	if (pos_after > pos_before) {
         new_pos = pos + (pos_after - pos_before);
-    else if (pos_after < pos_before && pos >= pos_after)
-        if (pos >= pos_before)
+	} else if (pos_after < pos_before && pos >= pos_after) {
+		if (pos >= pos_before) {
             new_pos = pos + (pos_after - pos_before);
-        else
+		} else {
             new_pos = pos_after;
+		}
+	}
 
     if (new_pos >= 0)
         SendScintilla(SCI_SETSEL, new_pos, new_pos);
@@ -1319,6 +1325,8 @@ void QsciScintilla::setFolding(FoldStyle folding, int margin)
         setFoldMarker(SC_MARKNUM_FOLDEROPENMID, SC_MARK_BOXMINUSCONNECTED);
         setFoldMarker(SC_MARKNUM_FOLDERMIDTAIL, SC_MARK_TCORNER);
         break;
+	case NoFoldStyle:
+		break;
     }
 
     SendScintilla(SCI_SETMARGINWIDTHN, margin, defaultFoldMarginWidth);
@@ -1566,9 +1574,9 @@ void QsciScintilla::setContractedFolds(const QList<int> &folds)
 
 
 // Handle the SCN_MODIFIED notification.
-void QsciScintilla::handleModified(int pos, int mtype, const char *text,
-        int len, int added, int line, int foldNow, int foldPrev, int token,
-        int annotationLinesAdded)
+void QsciScintilla::handleModified(int, int mtype, const char *,
+		int , int added, int line, int foldNow, int foldPrev, int ,
+		int )
 {
     if (mtype & SC_MOD_CHANGEFOLD)
     {

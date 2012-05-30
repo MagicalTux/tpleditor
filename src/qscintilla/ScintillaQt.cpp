@@ -203,11 +203,13 @@ void QsciScintillaQt::SetTicking(bool on)
 // Grab or release the mouse (and keyboard).
 void QsciScintillaQt::SetMouseCapture(bool on)
 {
-    if (mouseDownCaptures)
-        if (on)
+	if (mouseDownCaptures) {
+		if (on) {
             qsb->viewport()->grabMouse();
-        else
+		} else {
             qsb->viewport()->releaseMouse();
+		}
+	}
 
     capturedMouse = on;
 }
@@ -343,7 +345,7 @@ void QsciScintillaQt::NotifyParent(QSCI_SCI_NAMESPACE(SCNotification) scn)
             char *text;
 
             // Give some protection to the Python bindings.
-            if (scn.text && (scn.modificationType & (SC_MOD_INSERTTEXT|SC_MOD_DELETETEXT) != 0))
+			if (scn.text && ((scn.modificationType & (SC_MOD_INSERTTEXT|SC_MOD_DELETETEXT)) != 0))
             {
                 text = new char[scn.length + 1];
                 memcpy(text, scn.text, scn.length);

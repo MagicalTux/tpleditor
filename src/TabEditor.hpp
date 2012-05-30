@@ -47,7 +47,6 @@ class QHBoxLayout;
 class QTextEdit;
 class ServerInterface;
 class TplModelNode;
-class TplSyntax;
 class QComboBox;
 
 class TabEditor: public QWidget {
@@ -70,7 +69,6 @@ protected:
 	QVBoxLayout *layout_main;
 	QsciScintilla *textEdit;
 	QsciLexer *textLexer;
-	TplSyntax *syncolor;
 	QString name;
 	TplModelNode *node;
 	QSettings &settings;

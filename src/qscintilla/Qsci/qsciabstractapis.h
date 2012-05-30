@@ -76,7 +76,7 @@ public:
     //! auto-completion list.  A sub-class can use this as a hint to provide
     //! more specific API entries in future calls to
     //! updateAutoCompletionList().  The default implementation does nothing.
-    virtual void autoCompletionSelected(const QString &selection);
+	virtual void autoCompletionSelected(const QString &);
 
     //! Return the call tips valid for the context \a context.  (Note that the
     //! last word of the context will always be empty.)  \a commas is the number

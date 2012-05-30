@@ -33,7 +33,6 @@
 #include "TabEditor.hpp"
 #include "ServerInterface.hpp"
 #include "TplModelNode.hpp"
-#include "TplSyntax.hpp"
 
 #include <QHBoxLayout>
 #include <QTextEdit>
@@ -58,7 +57,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	changed = false;
 
 	QVariant info = node->getNodeData();
-	name = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
+	QString ext;
 
 	setObjectName(name);
 	textEdit = new QsciScintilla(this);
@@ -69,7 +68,11 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	textEdit->setMarginWidth(QsciScintilla::NumberMargin, "100000");
 	textEdit->setUtf8(true);
 
-	QString ext = info.toMap()["Page"].toString().split(".").last();
+	if (node->getType() == TplModelNode::LANGUAGE) {
+		ext = info.toMap()["Page"].toString().split(".").last();
+	} else {
+		ext = info.toMap()["File"].toString().split(".").last();
+	}
 	if (ext == "js") {
 		textLexer = new QsciLexerJavaScript(textEdit);
 		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-x-javascript.png")), QIcon::Normal, QIcon::Off);
@@ -109,38 +112,48 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	find_container->setLayout(layout_find);
 	find_container->hide();
 	layout_find->addWidget(btn_find_close = new QPushButton(QIcon(":/images/close.png"), ""));
-	layout_find->addWidget(find_label = new QLabel("Find: "));
+	layout_find->addWidget(find_label = new QLabel(tr("Find: ")));
 	find_edit = new QLineEdit();
 	find_edit->setMinimumWidth(350);
 	layout_find->addWidget(find_edit);
-	layout_find->addWidget(btn_find_next = new QPushButton("Next"));
-	layout_find->addWidget(btn_find_previous = new QPushButton("Previous"));
+	layout_find->addWidget(btn_find_next = new QPushButton(tr("Next")));
+	layout_find->addWidget(btn_find_previous = new QPushButton(tr("Previous")));
 	layout_find->addStretch(1);
 
 	// tplopt layout
-	layout_tplopt->addWidget(btn_savetpl = new QPushButton(tr("Save template")));
+	if (node->getType() == TplModelNode::LANGUAGE) {
+		layout_tplopt->addWidget(btn_savetpl = new QPushButton(tr("Save template")));
+	} else {
+		layout_tplopt->addWidget(btn_savetpl = new QPushButton(tr("Save file")));
+	}
 	btn_savetpl->setEnabled(false);
 	layout_tplopt->addWidget(btn_tplprop = new QPushButton(tr("Template properties")));
 	layout_tplopt->addWidget(btn_pageprop = new QPushButton(tr("Page properties")));
 	layout_tplopt->addWidget(btn_putinprod = new QPushButton((info.toMap()["Page"].toString() == "__common") ? tr("Compile all pages") : tr("Compile this page")));
 
 	// history layout
-	layout_history->addWidget(combo_history = new QComboBox());
-	layout_history->addWidget(btn_histo_reload = new QPushButton(tr("Refresh")));
-	layout_history->addWidget(btn_histo_restore = new QPushButton(tr("Restore")));
-	combo_history->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+	if (node->getType() == TplModelNode::LANGUAGE) {
+		layout_history->addWidget(combo_history = new QComboBox());
+		layout_history->addWidget(btn_histo_reload = new QPushButton(tr("Refresh")));
+		layout_history->addWidget(btn_histo_restore = new QPushButton(tr("Restore")));
+		combo_history->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+
+		connect(btn_putinprod, SIGNAL(clicked()), this, SLOT(action_PutInProd()));
+		connect(btn_histo_reload, SIGNAL(clicked()), this, SLOT(reloadHistory()));
+		connect(btn_histo_restore, SIGNAL(clicked()), this, SLOT(restoreHistoryEntry()));
+	} else {
+		btn_tplprop->setDisabled(true);
+		btn_pageprop->setDisabled(true);
+		btn_putinprod->setDisabled(true);
+	}
 
 	if (info.toMap()["Page"].toString() == "__common") {
 		btn_putinprod->setIcon(QIcon(":/images/exclamation.png"));
-//		btn_putinprod->setStyleSheet("font-weight: bold; border: 1px solid black; background-color: white;");
 	}
 
 	connect(btn_savetpl, SIGNAL(clicked()), this, SLOT(doSave()));
 	connect(btn_tplprop, SIGNAL(clicked()), this, SLOT(action_TplProperties()));
 	connect(btn_pageprop, SIGNAL(clicked()), this, SLOT(action_PageProperties()));
-	connect(btn_putinprod, SIGNAL(clicked()), this, SLOT(action_PutInProd()));
-	connect(btn_histo_reload, SIGNAL(clicked()), this, SLOT(reloadHistory()));
-	connect(btn_histo_restore, SIGNAL(clicked()), this, SLOT(restoreHistoryEntry()));
 	connect(find_edit, SIGNAL(textEdited(QString)), this, SLOT(findChanged(QString)));
 	connect(btn_find_next, SIGNAL(clicked()), this, SLOT(findNext()));
 	connect(btn_find_previous, SIGNAL(clicked()), this, SLOT(findPrevious()));
@@ -155,7 +168,13 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 
 	connect(textEdit, SIGNAL(modificationChanged(bool)), this, SLOT(tabTextChanged(bool)));
 
-	srv->sendRequest("Skins.getTemplateContents", info, this, "setTabContents", NULL);
+	if (node->getType() == TplModelNode::LANGUAGE) {
+		srv->sendRequest("Skins.getTemplateContents", info, this, "setTabContents", NULL);
+		name = info.toMap()["Skin"].toString()+QString("/")+info.toMap()["Page"].toString()+QString("/")+info.toMap()["Template"].toString()+QString("/")+info.toMap()["Language"].toString();
+	} else {
+		srv->sendRequest("System.readFile", info, this, "setTabContents", NULL);
+		name = info.toMap()["Skin"].toString()+info.toMap()["Folder"].toString()+QString("/")+info.toMap()["File"].toString();
+	}
 	reloadHistory();
 }
 
@@ -207,6 +226,7 @@ void TabEditor::reloadHistory() {
 }
 
 void TabEditor::reloadHistoryResult(QVariant data, QObject *) {
+	if (node->getType() == TplModelNode::FILE) return;
 	QVariantList h = data.toMap()["TemplateHistory"].toList();
 
 	combo_history->clear();
@@ -274,7 +294,11 @@ void TabEditor::doSave() {
 	QMap<QString, QVariant> req = node->getNodeData().toMap();
 	req["Content"] = textEdit->text();
 
-	srv->sendRequest("Skins.saveTemplate", req, this, "saveTemplateDone", NULL);
+	if (node->getType() == TplModelNode::LANGUAGE) {
+		srv->sendRequest("Skins.saveTemplate", req, this, "saveTemplateDone", NULL);
+	} else {
+		srv->sendRequest("System.writeFile", req, this, "saveTemplateDone", NULL);
+	}
 	textEdit->setModified(false);
 }
 
@@ -291,12 +315,6 @@ void TabEditor::tabTextChanged(bool _changed) {
 	changed = _changed;
 	btn_savetpl->setEnabled(changed);
 	tabStatusChanged();
-}
-
-void TabEditor::updateSyntax() {
-	// Refresh syntax highlighting
-	syncolor->loadXmlSyntax("syntax.xml");
-	srv->sendRequest("Skins.getColorSyntax", QVariant(), syncolor, "setRemoteSyntaxRules", NULL);
 }
 
 bool TabEditor::isModified() {
