@@ -32,7 +32,7 @@
 
 // The list of Python keywords that can be used by other friendly lexers.
 const char *QsciLexerPython::keywordClass =
-    "and as assert break class continue def del elif else except exec "
+	"and as assert break class continue def del elif else elseif except exec "
     "finally for from global if import in is lambda None not or pass "
     "print raise return try while with yield";
 
