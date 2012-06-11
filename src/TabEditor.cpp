@@ -94,6 +94,10 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	textEdit->setCaretLineBackgroundColor(QColor(0xf5, 0xf5, 0xf5));
 	textEdit->setMatchedBraceForegroundColor(QColor(0xff, 0x00, 0x00));
 	textEdit->setMatchedBraceBackgroundColor(QColor(0xff, 0xfa, 0xfa));
+	textEdit->setWrapMode(QsciScintilla::WrapWord);
+	textEdit->setWrapVisualFlags(QsciScintilla::WrapFlagByBorder);
+	textEdit->setWrapIndentMode(QsciScintilla::WrapIndentSame);
+	textEdit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
 
 	layout_tplopt = new QHBoxLayout();
 	layout_tplopt->setMargin(1);
