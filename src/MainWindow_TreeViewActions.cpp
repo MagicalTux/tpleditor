@@ -104,6 +104,7 @@ void MainWindow::on_mainTreeView_customContextMenuRequested(const QPoint &pos) {
 		menu.addAction(ui.action_CreateDirectory);
 		menu.addAction(ui.action_RenameDirectory);
 		menu.addAction(ui.action_DeleteDirectory);
+		menu.addAction(ui.action_CreateEmptyFile);
 		menu.exec(ui.mainTreeView->viewport()->mapToGlobal(pos));
 		return;
 	}
@@ -225,6 +226,7 @@ void MainWindow::on_mainTreeView_selectionChanged(const QItemSelection &selected
 	ui.action_CreateDirectory->setEnabled(has_server && !is_file);
 	ui.action_RenameDirectory->setEnabled(is_folder);
 	ui.action_DeleteDirectory->setEnabled(is_folder);
+	ui.action_CreateEmptyFile->setEnabled(is_folder);
 
 	ui.action_NewTemplate->setEnabled(has_page);
 	ui.action_RenameTemplate->setEnabled(has_template);
@@ -408,6 +410,22 @@ void MainWindow::on_action_DeleteFile_triggered() {
 	if (QMessageBox::warning(this, "Please confirm", "Do you really want to delete this file?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes) {
 		node->serverDelete();
 	}
+}
+
+void MainWindow::on_action_CreateEmptyFile_triggered() {
+	QModelIndex index = ui.mainTreeView->currentIndex();
+	TplModelNode *node = qobject_cast<TplModelNode*>(index.data(Qt::UserRole).value<QObject*>());
+	if (node == NULL) return;
+
+	if (node->getType() != TplModelNode::FOLDER) return;
+
+	node = node->createTemporaryChild(TplModelNode::FILE);
+	if (node == NULL) return;
+
+	index = node->getIndex(); //model_proxy->mapFromSource(node->getIndex());
+
+	ui.mainTreeView->scrollTo(index);
+	ui.mainTreeView->edit(index);
 }
 
 //**************** SKINS ACTIONS

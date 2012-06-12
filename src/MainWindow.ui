@@ -198,6 +198,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="action_Save"/>
     <addaction name="separator"/>
+    <addaction name="action_CreateEmptyFile"/>
     <addaction name="action_RenameFile"/>
     <addaction name="action_DeleteFile"/>
     <addaction name="separator"/>
@@ -558,6 +559,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+G</string>
+   </property>
+  </action>
+  <action name="action_CreateEmptyFile">
+   <property name="text">
+    <string>Create empty file</string>
    </property>
   </action>
  </widget>

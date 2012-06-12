@@ -378,6 +378,9 @@ void TplModelNode::handleRenameResult(QVariant data, QObject *) {
 		return;
 	}
 
+	// refresh icon
+	icon = model.getNodeIcon(this);
+
 	if (old_idx.toString().isEmpty()) {
 		// we need to say we don't know what we own
 		has_data = false;

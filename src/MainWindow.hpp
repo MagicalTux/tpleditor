@@ -100,6 +100,7 @@ private slots:
 	void on_action_DeleteLanguage_triggered();
 	void on_action_RenameFile_triggered();
 	void on_action_DeleteFile_triggered();
+	void on_action_CreateEmptyFile_triggered();
 	void on_action_CreateDirectory_triggered();
 	void on_action_RenameDirectory_triggered();
 	void on_action_DeleteDirectory_triggered();
