@@ -36,6 +36,7 @@
 #include <QMainWindow>
 #include <QTranslator>
 #include <QSettings>
+#include <qscintilla/Qsci/qsciscintilla.h>
 
 #include "ui_MainWindow.h"
 
@@ -75,11 +76,14 @@ private:
 //	TplModelFilter *model_proxy;
 	TplModelDelegate *model_delegate;
 	QMap<QString, TabEditor *> tabs;
+	QActionGroup *wordwrap_group;
+	QsciScintilla::WrapMode wrap_mode;
 
 private slots:
 	void closeEvent(QCloseEvent *event);
 	void writeSettings();
 	void closeTab(int);
+	void updateWordWrap();
 
 	void subTabStatusChanged();
 
@@ -118,6 +122,9 @@ private slots:
 	void on_actionFind_triggered();
 	void on_actionFind_Next_triggered();
 	void on_actionFind_Previous_triggered();
+	void on_action_WrapNone_triggered();
+	void on_action_WrapCharacter_triggered();
+	void on_action_WrapWord_triggered();
 
 	void on_action_English_triggered();
 	void on_action_French_triggered();

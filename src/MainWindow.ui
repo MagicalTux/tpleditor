@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>796</width>
-    <height>523</height>
+    <width>992</width>
+    <height>574</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -145,7 +145,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>796</width>
+     <width>992</width>
      <height>33</height>
     </rect>
    </property>
@@ -165,6 +165,14 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>&amp;Edit</string>
     </property>
+    <widget class="QMenu" name="menu_Wordwrap">
+     <property name="title">
+      <string>Wordwrap</string>
+     </property>
+     <addaction name="action_WrapNone"/>
+     <addaction name="action_WrapCharacter"/>
+     <addaction name="action_WrapWord"/>
+    </widget>
     <addaction name="actionUndo"/>
     <addaction name="actionC_ut"/>
     <addaction name="action_Copy"/>
@@ -176,6 +184,8 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="action_NextTab"/>
     <addaction name="action_PreviousTab"/>
+    <addaction name="separator"/>
+    <addaction name="menu_Wordwrap"/>
    </widget>
    <widget class="QMenu" name="menuPage">
     <property name="title">
@@ -366,11 +376,6 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Delete template</string>
-   </property>
-  </action>
-  <action name="actionUpdate_syntax_coloration">
-   <property name="text">
-    <string>Update syntax coloration</string>
    </property>
   </action>
   <action name="action_Close">
@@ -564,6 +569,33 @@ p, li { white-space: pre-wrap; }
   <action name="action_CreateEmptyFile">
    <property name="text">
     <string>Create empty file</string>
+   </property>
+  </action>
+  <action name="action_WrapNone">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>None</string>
+   </property>
+  </action>
+  <action name="action_WrapCharacter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Wrap on Character</string>
+   </property>
+  </action>
+  <action name="action_WrapWord">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Wrap on Word</string>
    </property>
   </action>
  </widget>

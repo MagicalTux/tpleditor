@@ -73,6 +73,8 @@ void MainWindow::on_mainTreeView_doubleClicked(const QModelIndex &index) {
 	}
 
 	TabEditor *editor = new TabEditor(this, srv, node, settings);
+	qDebug("wrap mode: %d", wrap_mode);
+	editor->setWrapMode(wrap_mode);
 	connect(this, SIGNAL(reloadSettings()), editor, SLOT(event_reloadSettings()));
 
 	connect(editor, SIGNAL(tabStatusChanged()), this, SLOT(subTabStatusChanged()));

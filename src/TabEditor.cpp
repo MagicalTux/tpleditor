@@ -98,6 +98,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	textEdit->setWrapVisualFlags(QsciScintilla::WrapFlagByBorder);
 	textEdit->setWrapIndentMode(QsciScintilla::WrapIndentSame);
 	textEdit->setFolding(QsciScintilla::BoxedTreeFoldStyle);
+	textEdit->setWhitespaceVisibility(QsciScintilla::WsInvisible);
 
 	layout_tplopt = new QHBoxLayout();
 	layout_tplopt->setMargin(1);
@@ -180,6 +181,10 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 		name = info.toMap()["Skin"].toString()+info.toMap()["Folder"].toString()+QString("/")+info.toMap()["File"].toString();
 	}
 	reloadHistory();
+}
+
+void TabEditor::setWrapMode(QsciScintilla::WrapMode mode) {
+	textEdit->setWrapMode(mode);
 }
 
 void TabEditor::toggleFind() {

@@ -57,6 +57,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
 //	model_proxy->setSourceModel(model_root);
 	model_delegate = new TplModelDelegate(this);
 
+	// Wordwrap configuration
+	wordwrap_group = new QActionGroup(this);
+	wordwrap_group->addAction(ui.action_WrapNone);
+	wordwrap_group->addAction(ui.action_WrapCharacter);
+	wordwrap_group->addAction(ui.action_WrapWord);
+	wordwrap_group->setExclusive(true);
+
 	// Configure treeview
 	ui.mainTreeView->setModel(model_root);
 	ui.mainTreeView->setItemDelegate(model_delegate);
@@ -74,11 +81,30 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent) {
 	resize(settings.value("size", QSize(800, 600)).toSize());
 	move(settings.value("pos", QPoint(200, 200)).toPoint());
 	ui.splitter->restoreState(settings.value("splitter").toByteArray());
+	wrap_mode = (QsciScintilla::WrapMode)settings.value("wordwrap", (int)QsciScintilla::WrapWord).toInt();
+
+	switch (wrap_mode) {
+	case QsciScintilla::WrapNone:
+		ui.action_WrapNone->setChecked(true);
+		break;
+	case QsciScintilla::WrapCharacter:
+		ui.action_WrapCharacter->setChecked(true);
+		break;
+	case QsciScintilla::WrapWord:
+		ui.action_WrapWord->setChecked(true);
+		break;
+	}
 
 	// init locale, install translator, check for saved locale
 	setAppLocale(settings.value("locale", QLocale::system()).toLocale(), false);
 
 	settings.endGroup();
+}
+
+void MainWindow::updateWordWrap() {
+	foreach(TabEditor *tab, tabs) {
+		tab->setWrapMode(wrap_mode);
+	}
 }
 
 void MainWindow::on_action_Logout_triggered() {
@@ -192,6 +218,7 @@ void MainWindow::writeSettings() {
 	settings.setValue("size", size());
 	settings.setValue("pos", pos());
 	settings.setValue("splitter", ui.splitter->saveState());
+	settings.setValue("wordwrap", wrap_mode);
 	settings.endGroup();
 }
 
@@ -234,3 +261,16 @@ void MainWindow::event_reloadSettings() {
 	reloadSettings();
 }
 
+void MainWindow::on_action_WrapNone_triggered() {
+	wrap_mode = QsciScintilla::WrapNone;
+	updateWordWrap();
+}
+
+void MainWindow::on_action_WrapCharacter_triggered() {
+	wrap_mode = QsciScintilla::WrapCharacter;
+	updateWordWrap();
+}
+void MainWindow::on_action_WrapWord_triggered() {
+	wrap_mode = QsciScintilla::WrapWord;
+	updateWordWrap();
+}
