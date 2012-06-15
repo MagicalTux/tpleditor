@@ -217,6 +217,7 @@ Editor::Editor() {
 
 	hsStart = -1;
 	hsEnd = -1;
+	composing = false;
 
 	llc.SetLevel(LineLayoutCache::llcCaret);
 	posCache.SetSize(0x400);
@@ -6121,6 +6122,37 @@ void Editor::WordSelection(int pos) {
 		else
 			SetSelection(wordSelectAnchorStartPos, wordSelectAnchorEndPos);
 	}
+}
+
+bool Editor::IsComposing() {
+	return composing;
+}
+
+void Editor::StartComposition() {
+	if (!SelectionEmpty()) {
+		ClearSelection();
+	}
+	compositionStart = CurrentPosition();
+	compositionLength = 0;
+	composing = true;
+}
+
+void Editor::SetCompositionText(char *s, unsigned int len) {
+	int compositionEnd = compositionStart;
+	// delete any previous composition
+	if (compositionLength) {
+		compositionEnd += compositionLength;
+		SetSelection(compositionStart, compositionEnd);
+		ClearSelection();
+	}
+	AddCharUTF(s, len);
+	compositionLength = len;
+}
+
+void Editor::EndComposition() {
+	compositionStart = 0;
+	compositionLength = 0;
+	composing = false;
 }
 
 void Editor::DwellEnd(bool mouseMoved) {

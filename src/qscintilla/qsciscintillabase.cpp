@@ -463,14 +463,30 @@ void QsciScintillaBase::keyPressEvent(QKeyEvent *e)
         QAbstractScrollArea::keyPressEvent(e);
 }
 
-
 // Handle composed characters.  Note that this is the minumum needed to retain
 // the QScintilla v1 functionality.
+// Right now this part is kinda dodgy but works
 void QsciScintillaBase::inputMethodEvent(QInputMethodEvent *e)
 {
-    QByteArray utf8 = e->commitString().toUtf8();
+	//QByteArray commit = e->commitString().toUtf8();
+	QByteArray preedit = e->preeditString().toUtf8();
 
-    sci->AddCharUTF(utf8.data(), utf8.length());
+	if (!preedit.isEmpty()) {
+		if (!sci->IsComposing()) {
+			sci->StartComposition();
+		}
+		sci->SetCompositionText(preedit.data(), preedit.length());
+	} else {
+		if (sci->IsComposing()) {
+			sci->EndComposition();
+		}
+	}
+
+	/*qDebug() << e->preeditString() << e->commitString();
+	QByteArray utf8pre = e->preeditString().toUtf8();
+
+	sci->AddCharUTF(utf8pre.data(), utf8pre.length());*/
+
     e->accept();
 }
 

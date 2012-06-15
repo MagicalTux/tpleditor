@@ -247,6 +247,11 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 
 	bool recordingMacro;
 
+	// IME vars
+	bool composing;
+	Position compositionStart;
+	int compositionLength;
+
 	int foldFlags;
 	ContractionState cs;
 
@@ -332,6 +337,12 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	SelectionPosition MovePositionSoVisible(int pos, int moveDir);
 	Point PointMainCaret();
 	void SetLastXChosen();
+
+	// IME Support
+	bool IsComposing();
+	void StartComposition();
+	void SetCompositionText(char *s, unsigned int len);
+	void EndComposition();
 
 	void ScrollTo(int line, bool moveThumb=true);
 	virtual void ScrollText(int linesToMove);
