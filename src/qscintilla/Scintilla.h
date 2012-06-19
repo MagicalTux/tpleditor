@@ -164,6 +164,7 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_GETMARGINSENSITIVEN 2247
 #define SCI_SETMARGINCURSORN 2248
 #define SCI_GETMARGINCURSORN 2249
+#define STYLE_UNDERLINE 20
 #define STYLE_DEFAULT 32
 #define STYLE_LINENUMBER 33
 #define STYLE_BRACELIGHT 34

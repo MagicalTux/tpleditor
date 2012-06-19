@@ -6135,9 +6135,29 @@ void Editor::StartComposition() {
 	compositionStart = CurrentPosition();
 	compositionLength = 0;
 	composing = true;
+	pdoc->BeginUndoAction();
+	SetMouseCapture(true);
 }
 
-void Editor::SetCompositionText(char *s, unsigned int len) {
+void Editor::CommitComposition(char *s, unsigned int len) {
+	AddCharUTF(s, len);
+	pdoc->StartStyling(compositionStart, 0xff);
+	pdoc->SetStyleFor(len, STYLE_DEFAULT);
+	compositionStart += len;
+}
+
+void Editor::ClearComposition() {
+	int compositionEnd = compositionStart;
+	// delete any previous composition
+	if (compositionLength) {
+		compositionEnd += compositionLength;
+		SetSelection(compositionStart, compositionEnd);
+		ClearSelection();
+	}
+	compositionLength = 0;
+}
+
+void Editor::SetCompositionText(char *s, unsigned int len, std::vector<std::pair<int, int> > &underlines) {
 	int compositionEnd = compositionStart;
 	// delete any previous composition
 	if (compositionLength) {
@@ -6147,12 +6167,27 @@ void Editor::SetCompositionText(char *s, unsigned int len) {
 	}
 	AddCharUTF(s, len);
 	compositionLength = len;
+
+	// hardcoded UNDERLINE style
+	vs.styles[STYLE_UNDERLINE] = vs.styles[STYLE_DEFAULT];
+	vs.styles[STYLE_UNDERLINE].underline = true;
+	pdoc->StartStyling(compositionStart, 0xff);
+	pdoc->SetStyleFor(compositionLength, STYLE_DEFAULT);
+
+	if (!underlines.empty()) {
+		for (std::pair<int, int> pos : underlines) {
+			pdoc->StartStyling(compositionStart + pos.first, 0xff);
+			pdoc->SetStyleFor(pos.second, STYLE_UNDERLINE);
+		}
+	}
 }
 
 void Editor::EndComposition() {
 	compositionStart = 0;
 	compositionLength = 0;
 	composing = false;
+	pdoc->EndUndoAction();
+	SetMouseCapture(false);
 }
 
 void Editor::DwellEnd(bool mouseMoved) {

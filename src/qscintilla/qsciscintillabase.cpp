@@ -41,6 +41,7 @@
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QPaintEvent>
+#include <QTextFormat>
 
 #include "ScintillaQt.h"
 
@@ -468,28 +469,66 @@ void QsciScintillaBase::keyPressEvent(QKeyEvent *e)
 // Right now this part is kinda dodgy but works
 void QsciScintillaBase::inputMethodEvent(QInputMethodEvent *e)
 {
-	//QByteArray commit = e->commitString().toUtf8();
+	QByteArray commit = e->commitString().toUtf8();
 	QByteArray preedit = e->preeditString().toUtf8();
+
+	std::vector<std::pair<int, int> > underlines;
+	// iterate on every attribute
+	QList<QInputMethodEvent::Attribute> attrs = e->attributes();
+	for (auto it = attrs.begin(); it != attrs.end(); it++) {
+		QInputMethodEvent::Attribute attr = *it;
+
+		switch (attr.type) {
+			case QInputMethodEvent::TextFormat:
+			{
+				QTextFormat f = attr.value.value<QTextFormat>();
+				switch (f.type()) {
+					case QTextFormat::CharFormat:
+					{
+						QTextCharFormat tcf = f.toCharFormat();
+						// only push the underline effect
+						if (tcf.fontUnderline()) underlines.push_back(std::pair<int, int>(attr.start, attr.length));
+					}
+					default:
+						break;
+				}
+				break;
+			}
+			default:
+				break;
+		}
+	}
+
+	if (!commit.isEmpty()) {
+		sci->CommitComposition(commit.data(), commit.length());
+	}
 
 	if (!preedit.isEmpty()) {
 		if (!sci->IsComposing()) {
 			sci->StartComposition();
 		}
-		sci->SetCompositionText(preedit.data(), preedit.length());
+		sci->SetCompositionText(preedit.data(), preedit.length(), underlines);
 	} else {
 		if (sci->IsComposing()) {
+			sci->ClearComposition();
 			sci->EndComposition();
 		}
 	}
 
-	/*qDebug() << e->preeditString() << e->commitString();
-	QByteArray utf8pre = e->preeditString().toUtf8();
-
-	sci->AddCharUTF(utf8pre.data(), utf8pre.length());*/
-
-    e->accept();
+	e->accept();
 }
 
+QVariant QsciScintillaBase::inputMethodQuery(Qt::InputMethodQuery property) const
+{
+	switch (property) {
+	case Qt::ImMicroFocus:
+		return QRectF(sci->PointMainCaret().x, sci->PointMainCaret().y, 2, 12);
+	case Qt::ImCursorPosition:
+		return QVariant(sci->CurrentPosition());
+	default:
+		return QVariant();
+	}
+}
 
 // Handle a mouse button double click.
 void QsciScintillaBase::mouseDoubleClickEvent(QMouseEvent *e)

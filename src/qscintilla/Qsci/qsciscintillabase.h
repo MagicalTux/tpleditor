@@ -3162,6 +3162,9 @@ protected:
     //! Re-implemented to handle composed characters.
     virtual void inputMethodEvent(QInputMethodEvent *e);
 
+	//! Re-implemented to handle composition queries.
+	virtual QVariant inputMethodQuery(Qt::InputMethodQuery property) const;
+
     //! Re-implemented to handle mouse double-clicks.
     virtual void mouseDoubleClickEvent(QMouseEvent *e);
 

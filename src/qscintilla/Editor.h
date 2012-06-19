@@ -8,6 +8,8 @@
 #ifndef EDITOR_H
 #define EDITOR_H
 
+#include <vector>
+
 #ifdef SCI_NAMESPACE
 namespace Scintilla {
 #endif
@@ -341,7 +343,9 @@ protected:	// ScintillaBase subclass needs access to much of Editor
 	// IME Support
 	bool IsComposing();
 	void StartComposition();
-	void SetCompositionText(char *s, unsigned int len);
+	void SetCompositionText(char *s, unsigned int len, std::vector<std::pair<int, int> > &underlines);
+	void CommitComposition(char *s, unsigned int len);
+	void ClearComposition();
 	void EndComposition();
 
 	void ScrollTo(int line, bool moveThumb=true);

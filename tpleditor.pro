@@ -25,7 +25,7 @@ win32:RC_FILE += src/tpleditor.rc
 
 QMAKE_CFLAGS_DEBUG += -include common.h -include profiles/$${PROFILE}.h
 QMAKE_CFLAGS_RELEASE += -include common.h -include profiles/$${PROFILE}.h
-QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h -Wno-unused-parameter
+QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h -Wno-unused-parameter -std=gnu++11
 
 # Input
 HEADERS += includes/common.h \
