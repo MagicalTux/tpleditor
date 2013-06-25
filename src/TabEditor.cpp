@@ -198,6 +198,27 @@ void TabEditor::toggleFind() {
 	}
 }
 
+void TabEditor::translate() {
+    int line = 0, index = 0;
+    if (!textEdit->hasSelectedText()) {
+        // get current position
+        textEdit->getCursorPosition(&line, &index);
+        // insert stuff at that position
+        textEdit->insert("{{@i18n(\"|\")}}");
+        textEdit->setCursorPosition(line, index + 9);
+    } else {
+        int lineFrom, indexFrom, lineTo, indexTo;
+        textEdit->getSelection(&lineFrom, &indexFrom, &lineTo, &indexTo);
+        if (lineFrom != -1) {
+            textEdit->setCursorPosition(lineFrom, indexFrom);
+            textEdit->insert("{{@i18n(\"|");
+            textEdit->setCursorPosition(lineTo, indexTo + 10);
+            textEdit->insert("\")}}");
+            textEdit->setCursorPosition(lineFrom, indexFrom + 9);
+        }
+    }
+}
+
 void TabEditor::findChanged(const QString &text) {
 	textEdit->findFirst(text, false, false, false, true, true, 0, 0);
 }

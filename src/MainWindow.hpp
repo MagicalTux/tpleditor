@@ -125,6 +125,7 @@ private slots:
 	void on_action_WrapNone_triggered();
 	void on_action_WrapCharacter_triggered();
 	void on_action_WrapWord_triggered();
+    void on_action_AddTranslation_triggered();
 
 	void on_action_English_triggered();
 	void on_action_French_triggered();

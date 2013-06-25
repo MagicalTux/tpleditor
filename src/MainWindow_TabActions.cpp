@@ -42,6 +42,11 @@ void MainWindow::on_action_Save_triggered() {
 	if (editor != NULL) editor->doSave();
 }
 
+void MainWindow::on_action_AddTranslation_triggered() {
+    TabEditor *editor = qobject_cast<TabEditor*>(ui.tabWidget->currentWidget());
+    if (editor != NULL) editor->translate();
+}
+
 void MainWindow::on_actionFind_triggered() {
 	TabEditor *editor = qobject_cast<TabEditor*>(ui.tabWidget->currentWidget());
 	if (editor == NULL) return;

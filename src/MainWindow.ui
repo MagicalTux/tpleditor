@@ -186,6 +186,8 @@ p, li { white-space: pre-wrap; }
     <addaction name="action_PreviousTab"/>
     <addaction name="separator"/>
     <addaction name="menu_Wordwrap"/>
+    <addaction name="separator"/>
+    <addaction name="action_AddTranslation"/>
    </widget>
    <widget class="QMenu" name="menuPage">
     <property name="title">
@@ -266,7 +268,7 @@ p, li { white-space: pre-wrap; }
     <string>Template Properties</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+T</string>
+    <string>Ctrl+Shift+T</string>
    </property>
   </action>
   <action name="action_Save">
@@ -596,6 +598,17 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Wrap on Word</string>
+   </property>
+  </action>
+  <action name="action_AddTranslation">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Add translation</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
    </property>
   </action>
  </widget>

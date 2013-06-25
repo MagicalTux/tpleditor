@@ -239,8 +239,9 @@ void MainWindow::initLogin(bool autoLogin) {
 }
 
 void MainWindow::initInterface(const QString &welcome) {
+    setWindowTitle(win_login->ui.txt_server->text() + " - " + windowTitle());
 	if (win_login->ui.proxy_config->isChecked()) {
-		setWindowTitle(win_login->ui.txt_server->text() + " - " + windowTitle() + " (" + tr("Proxy enabled") + ")");
+        setWindowTitle(windowTitle() + " (" + tr("Proxy enabled") + ")");
 	}
 
 	ui.welcome_label->setText(welcome);

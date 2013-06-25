@@ -826,7 +826,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 		}
 
 		// handle start of Mako comment line
-		if (isMako && ch == '#' && chNext == '#') {
+        if (isMako && ch == '#' && chNext == '#') {
 			makoComment = 1;
 		}
 		
@@ -974,7 +974,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 		}
 
 		// handle the start/end of Django comment
-		else if (isDjango && state != SCE_H_COMMENT && (ch == '{' && chNext == '#')) {
+        /*else if (isDjango && state != SCE_H_COMMENT && (ch == '{' && chNext == '#')) {
 			styler.ColourTo(i - 1, StateToPrint);
 			beforePreProc = state;
 			beforeLanguage = scriptLanguage;
@@ -988,7 +988,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 			state = SCE_H_COMMENT;
 			styler.ColourTo(i, SCE_H_ASP);
 			ch = static_cast<unsigned char>(styler.SafeGetCharAt(i));
-			continue;
+            continue;
 		} else if (isDjango && state == SCE_H_COMMENT && (ch == '#' && chNext == '}')) {
 			styler.ColourTo(i - 1, StateToPrint);
 			i += 1;
@@ -1001,7 +1001,7 @@ static void ColouriseHyperTextDoc(unsigned int startPos, int length, int initSty
 				inScriptType = eHtml;
 			scriptLanguage = beforeLanguage;
 			continue;
-		}
+        }*/
 
 		// handle the start Django template code
 		else if (isDjango && (ch == '{' && (chNext == '%' ||  chNext == '{'))) {

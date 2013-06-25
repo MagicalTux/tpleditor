@@ -729,7 +729,7 @@ QsciCommandSet::QsciCommandSet(QsciScintilla *qs) : qsci(qs)
         },
         {
             QsciCommand::LineTranspose,
-            Qt::Key_T | Qt::CTRL,
+            Qt::Key_T | Qt::ALT | Qt::CTRL,
             0,
             QT_TRANSLATE_NOOP("QsciCommand",
                     "Transpose current and previous lines")

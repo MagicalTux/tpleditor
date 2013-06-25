@@ -117,6 +117,7 @@ public slots:
 	void findNext();
 	void findPrevious();
 	void setWrapMode(QsciScintilla::WrapMode mode);
+    void translate();
 
 Q_SIGNALS:
 	void tabStatusChanged();
