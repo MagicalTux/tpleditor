@@ -842,7 +842,7 @@ public:
     virtual Function FindFunction(const char *name)
     {
         if (m)
-            return m->resolve(name);
+            return (void*)m->resolve(name);
 
         return 0;
     }
@@ -912,7 +912,7 @@ const char *Platform::DefaultFont()
 {
     static QByteArray def_font;
 
-    def_font = QApplication::font().family().toAscii();
+    def_font = QApplication::font().family().toLatin1();
 
     return def_font.constData();
 }

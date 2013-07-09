@@ -25,7 +25,7 @@
 
 #include "Qsci/qsciprinter.h"
 
-#include <qprinter.h>
+#include <QtPrintSupport/qprinter.h>
 #include <qpainter.h>
 
 #include <qstack.h>

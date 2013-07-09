@@ -143,7 +143,7 @@ QByteArray QtJson::encode(const QVariant &var) {
 		case QVariant::Double:
 		case QVariant::Int:
 		case QVariant::LongLong:
-			return var.toString().toAscii();
+            return var.toString().toLatin1();
 		default:
 			return "null"; // mh?
 	}

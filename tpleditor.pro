@@ -3,7 +3,6 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
 DEPENDPATH += includes res src
 INCLUDEPATH += includes src src/qscintilla src/qscintilla/lexer src/qscintilla/lexlib
 PROFILE = tibanne
@@ -14,7 +13,7 @@ OBJECTS_DIR = tmp
 MOC_DIR = tmp
 RCC_DIR = res
 
-QT += network xml script
+QT += gui widgets network xml script printsupport
 
 !win32:VERSION = 8.0.1
 mac:ICON = res/tibanne.icns
