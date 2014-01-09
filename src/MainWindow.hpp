@@ -36,7 +36,7 @@
 #include <QMainWindow>
 #include <QTranslator>
 #include <QSettings>
-#include <qscintilla/Qsci/qsciscintilla.h>
+#include <Qsci/qsciscintilla.h>
 
 #include "ui_MainWindow.h"
 

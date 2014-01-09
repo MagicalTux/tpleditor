@@ -30,11 +30,11 @@
  */
 
 #include "ServerInterface.hpp"
-#include "QtJson.hpp"
 
 #include <QMessageBox>
 #include <QSslSocket>
 #include <QNetworkReply>
+#include <QJsonDocument>
 
 ServerInterface::ServerInterface(QObject *) {
 	// define some stuff thanks to uri
@@ -107,7 +107,7 @@ QNetworkReply *ServerInterface::sendRequestDownload(const QString func, const QV
 	rq->down_progress = down_progress;
 	rq->file = file;
 
-	QNetworkReply *reply = http.post(request, QtJson::encode(real_req));
+    QNetworkReply *reply = http.post(request, QJsonDocument::fromVariant(real_req).toJson());
 	connect(reply, SIGNAL(readyRead()), this, SLOT(copyToFile()));
 	connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(on_dataSendProgress(qint64,qint64)));
 	connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(on_dataReadProgress(qint64,qint64)));
@@ -149,9 +149,7 @@ QNetworkReply *ServerInterface::sendRequest(const QString func, const QVariant &
 	rq->member = member;
 	rq->extra = extra;
 
-//	qDebug("sending query: %s", qPrintable(QtJson::encode(real_req)));
-
-	QNetworkReply *reply = http.post(request, QtJson::encode(real_req));
+    QNetworkReply *reply = http.post(request, QJsonDocument::fromVariant(real_req).toJson());
 	connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(on_dataSendProgress(qint64,qint64)));
 	connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(on_dataReadProgress(qint64,qint64)));
 
@@ -221,14 +219,15 @@ void ServerInterface::on_requestFinished(QNetworkReply *reply) {
 
 	QByteArray data = reply->readAll();
 
-//	qDebug("result=%s", data.data());
-
-	QVariant result = QtJson::decode(data);
+    //qDebug("result=%s", data.data());
+    QVariant result = QJsonDocument::fromJson(data).toVariant();
 
 	if (!result.isValid()) {
 		qDebug("Invalid answer from server: %s", data.data());
 		QMessageBox::warning(NULL, "Server Error", "Invalid answer from server:\n" + data, QMessageBox::Cancel);
 	}
+
+    qDebug(qPrintable(result.toString()));
 
 	if ((result.isValid()) && (!result.toMap()["Executed"].toBool())) {
 		qDebug("Error from Server: %s", qPrintable(result.toMap()["Message"].toString()));

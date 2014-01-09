@@ -46,6 +46,7 @@
 #include <QDateTime>
 #include <QLineEdit>
 #include <QSpacerItem>
+#include <QDebug>
 
 #include <Qsci/qscilexercss.h>
 #include <Qsci/qscilexerhtml.h>
@@ -88,6 +89,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 		textLexer = (QsciLexer*)htmlLexer;
 		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-xml.png")), QIcon::Normal, QIcon::Off);
 	}
+
 	textEdit->setLexer(textLexer);
 	textEdit->setBraceMatching(QsciScintilla::SloppyBraceMatch);
 	textEdit->setCaretLineVisible(true);
@@ -165,10 +167,10 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	connect(btn_find_close, SIGNAL(clicked()), this, SLOT(toggleFind()));
 
 	settings.beginGroup("Editor");
-	QFont myfont("Courier New", 10);
-	myfont.fromString(settings.value("Font", myfont.toString()).toString());
+    QFont myfont("Courier New", 10);
+    myfont.fromString(settings.value("Font", myfont.toString()).toString());
 	textEdit->setFont(myfont);
-	textLexer->setDefaultFont(myfont);
+    textLexer->setFont(myfont);
 	settings.endGroup();
 
 	connect(textEdit, SIGNAL(modificationChanged(bool)), this, SLOT(tabTextChanged(bool)));
@@ -228,7 +230,8 @@ void TabEditor::findNext() {
 }
 
 void TabEditor::findPrevious() {
-	textEdit->findPrevious();
+    //textEdit->fin
+    //do nothing right now
 }
 
 void TabEditor::restoreHistoryEntry() {
@@ -267,12 +270,13 @@ void TabEditor::reloadHistoryResult(QVariant data, QObject *) {
 }
 
 void TabEditor::event_reloadSettings() {
+    qDebug("settings changed");
 	bool _changed = changed;
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
 	textEdit->setFont(myfont);
-	textLexer->setDefaultFont(myfont);
+    textLexer->setFont(myfont);
 	settings.endGroup();
 	tabTextChanged(_changed);
 }
@@ -290,7 +294,6 @@ void TabEditor::action_PutInProd() {
 }
 
 QIcon TabEditor::getTabIcon() {
-	//return QIcon(":/images/notebooks.png"); // TODO: use server's
 	return tabIcon;
 }
 
@@ -307,12 +310,12 @@ void TabEditor::setTabContents(QVariant data, QObject *) {
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
-	//textEdit->setCurrentFont(myfont);
 	textEdit->setFont(myfont);
-	textLexer->setDefaultFont(myfont);
+    textLexer->setFont(myfont);
 	settings.endGroup();
 
-	textEdit->setText(data.toMap()["TemplateData"].toString());
+    qDebug() << data.toMap()["TemplateData"].toString();
+    textEdit->setText(data.toMap()["TemplateData"].toString());
 	textEdit->setReadOnly(false);
 
 	changed = false;

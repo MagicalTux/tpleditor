@@ -59,17 +59,6 @@ int main(int argc, char *argv[]) {
 	QCoreApplication::setApplicationName(APPLICATION_NAME);
 	QCoreApplication::setApplicationVersion(TPLV3_VERSION);
 
-	/*
-	int id = QFontDatabase::addApplicationFont(":/binary/ProFontWindows.ttf");
-	if (id != -1) {
-		QStringList lst = QFontDatabase::applicationFontFamilies(id);
-		qDebug("added font: %s", qPrintable(lst.join(",")));
-
-		QFont test(lst.at(0), 12, 1);
-		qDebug("exact match: %s", test.exactMatch()?"true":"false");
-		qDebug("font family: %s", qPrintable(test.family()));
-	} */
-
 	qRegisterMetaType<QVariant>("QVariant");
 
 	MainWindow mw;

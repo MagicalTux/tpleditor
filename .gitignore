@@ -1,0 +1,7 @@
+tpleditor
+tpleditor.pro.user*
+ui_*
+*.swp
+Makefile
+locale_*.qm
+res/qrc*.cpp
