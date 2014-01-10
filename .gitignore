@@ -5,3 +5,4 @@ ui_*
 Makefile
 locale_*.qm
 res/qrc*.cpp
+/tmp

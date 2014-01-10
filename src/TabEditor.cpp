@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2010, Mark Karpeles
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -16,7 +16,7 @@
  *       excessively restricting freedom to choose another license such as the
  *       GNU General Public License. This clause should be kept if another
  *       license is chosen.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -68,6 +68,7 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	textEdit->setMarginLineNumbers(QsciScintilla::NumberMargin, true);
 	textEdit->setMarginWidth(QsciScintilla::NumberMargin, "100000");
 	textEdit->setUtf8(true);
+	textEdit->setWhitespaceVisibility(QsciScintilla::WsVisible);
 
 	if (node->getType() == TplModelNode::LANGUAGE) {
 		ext = info.toMap()["Page"].toString().split(".").last();
@@ -82,6 +83,8 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-css.png")), QIcon::Normal, QIcon::Off);
 	} else if (ext == "less") {
 		textLexer = new QsciLexerCSS(textEdit);
+		// enable less syntax
+		((QsciLexerCSS*)textLexer)->setLessLanguage(true);
 		tabIcon.addPixmap(QPixmap(QString::fromUtf8(":/images/text-less.png")), QIcon::Normal, QIcon::Off);
 	} else {
 		QsciLexerHTML *htmlLexer = new QsciLexerHTML(textEdit);
@@ -167,10 +170,10 @@ TabEditor::TabEditor(QWidget *parent, ServerInterface *_srv, TplModelNode *_node
 	connect(btn_find_close, SIGNAL(clicked()), this, SLOT(toggleFind()));
 
 	settings.beginGroup("Editor");
-    QFont myfont("Courier New", 10);
-    myfont.fromString(settings.value("Font", myfont.toString()).toString());
+	QFont myfont("Courier New", 10);
+	myfont.fromString(settings.value("Font", myfont.toString()).toString());
 	textEdit->setFont(myfont);
-    textLexer->setFont(myfont);
+	textLexer->setFont(myfont);
 	settings.endGroup();
 
 	connect(textEdit, SIGNAL(modificationChanged(bool)), this, SLOT(tabTextChanged(bool)));
@@ -201,24 +204,24 @@ void TabEditor::toggleFind() {
 }
 
 void TabEditor::translate() {
-    int line = 0, index = 0;
-    if (!textEdit->hasSelectedText()) {
-        // get current position
-        textEdit->getCursorPosition(&line, &index);
-        // insert stuff at that position
-        textEdit->insert("{{@i18n(\"|\")}}");
-        textEdit->setCursorPosition(line, index + 9);
-    } else {
-        int lineFrom, indexFrom, lineTo, indexTo;
-        textEdit->getSelection(&lineFrom, &indexFrom, &lineTo, &indexTo);
-        if (lineFrom != -1) {
-            textEdit->setCursorPosition(lineFrom, indexFrom);
-            textEdit->insert("{{@i18n(\"|");
-            textEdit->setCursorPosition(lineTo, indexTo + 10);
-            textEdit->insert("\")}}");
-            textEdit->setCursorPosition(lineFrom, indexFrom + 9);
-        }
-    }
+	int line = 0, index = 0;
+	if (!textEdit->hasSelectedText()) {
+		// get current position
+		textEdit->getCursorPosition(&line, &index);
+		// insert stuff at that position
+		textEdit->insert("{{@i18n(\"|\")}}");
+		textEdit->setCursorPosition(line, index + 9);
+	} else {
+		int lineFrom, indexFrom, lineTo, indexTo;
+		textEdit->getSelection(&lineFrom, &indexFrom, &lineTo, &indexTo);
+		if (lineFrom != -1) {
+			textEdit->setCursorPosition(lineFrom, indexFrom);
+			textEdit->insert("{{@i18n(\"|");
+			textEdit->setCursorPosition(lineTo, indexTo + 10);
+			textEdit->insert("\")}}");
+			textEdit->setCursorPosition(lineFrom, indexFrom + 9);
+		}
+	}
 }
 
 void TabEditor::findChanged(const QString &text) {
@@ -230,8 +233,8 @@ void TabEditor::findNext() {
 }
 
 void TabEditor::findPrevious() {
-    //textEdit->fin
-    //do nothing right now
+	//textEdit->fin
+	//do nothing right now
 }
 
 void TabEditor::restoreHistoryEntry() {
@@ -270,13 +273,13 @@ void TabEditor::reloadHistoryResult(QVariant data, QObject *) {
 }
 
 void TabEditor::event_reloadSettings() {
-    qDebug("settings changed");
+	qDebug("settings changed");
 	bool _changed = changed;
 	settings.beginGroup("Editor");
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
 	textEdit->setFont(myfont);
-    textLexer->setFont(myfont);
+	textLexer->setFont(myfont);
 	settings.endGroup();
 	tabTextChanged(_changed);
 }
@@ -311,11 +314,11 @@ void TabEditor::setTabContents(QVariant data, QObject *) {
 	QFont myfont("Courier New", 10);
 	myfont.fromString(settings.value("Font", myfont.toString()).toString());
 	textEdit->setFont(myfont);
-    textLexer->setFont(myfont);
+	textLexer->setFont(myfont);
 	settings.endGroup();
 
-    qDebug() << data.toMap()["TemplateData"].toString();
-    textEdit->setText(data.toMap()["TemplateData"].toString());
+	qDebug() << data.toMap()["TemplateData"].toString();
+	textEdit->setText(data.toMap()["TemplateData"].toString());
 	textEdit->setReadOnly(false);
 
 	changed = false;
