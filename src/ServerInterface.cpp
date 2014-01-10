@@ -1,7 +1,7 @@
 /**
  * Copyright (c) 2010, Mark Karpeles
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -16,7 +16,7 @@
  *       excessively restricting freedom to choose another license such as the
  *       GNU General Public License. This clause should be kept if another
  *       license is chosen.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -39,12 +39,12 @@
 ServerInterface::ServerInterface(QObject *) {
 	// define some stuff thanks to uri
 	connect(&http, SIGNAL(finished(QNetworkReply*)), this, SLOT(on_requestFinished(QNetworkReply*)));
-//	connect(&http, SIGNAL(requestFinished(int,bool)), this, SLOT(on_requestFinished(int,bool)));
-//	connect(&http, SIGNAL(requestStarted(int)), this, SLOT(on_requestStarted(int)));
-//	connect(&http, SIGNAL(dataSendProgress(int,int)), this, SLOT(on_dataSendProgress(int,int)));
-//	connect(&http, SIGNAL(dataReadProgress(int,int)), this, SLOT(on_dataReadProgress(int,int)));
+	//	connect(&http, SIGNAL(requestFinished(int,bool)), this, SLOT(on_requestFinished(int,bool)));
+	//	connect(&http, SIGNAL(requestStarted(int)), this, SLOT(on_requestStarted(int)));
+	//	connect(&http, SIGNAL(dataSendProgress(int,int)), this, SLOT(on_dataSendProgress(int,int)));
+	//	connect(&http, SIGNAL(dataReadProgress(int,int)), this, SLOT(on_dataReadProgress(int,int)));
 	connect(&http, SIGNAL(sslErrors(QNetworkReply*, const QList<QSslError>&)), this, SLOT(on_sslErrors(QNetworkReply*, const QList<QSslError>&)));
-//	http.setHost(uri.host(), uri.port(80));
+	//	http.setHost(uri.host(), uri.port(80));
 
 	timer.setInterval(30000);
 	timer.setSingleShot(false);
@@ -65,14 +65,14 @@ void ServerInterface::setGateway(QUrl url) {
 	qDebug("url=%s scheme=%s", qPrintable(url.toString()), qPrintable(url.scheme()));
 	if (url.scheme() == "http") {
 		uri = url;
-//		http.setHost(uri.host(), QHttp::ConnectionModeHttp, uri.port(80));
+		//		http.setHost(uri.host(), QHttp::ConnectionModeHttp, uri.port(80));
 	} else if (url.scheme() == "https") {
 		uri = url;
-                if (!QSslSocket::supportsSsl()) {
-                    QMessageBox::warning(NULL, tr("Configuration Error"), tr("Impossible to complete the requested operation, SSL support not available."), QMessageBox::Cancel);
-                    // configure anyway, we know it'll fail
-                }
-//		http.setHost(uri.host(), QHttp::ConnectionModeHttps, uri.port(443));
+		if (!QSslSocket::supportsSsl()) {
+			QMessageBox::warning(NULL, tr("Configuration Error"), tr("Impossible to complete the requested operation, SSL support not available."), QMessageBox::Cancel);
+			// configure anyway, we know it'll fail
+		}
+		//		http.setHost(uri.host(), QHttp::ConnectionModeHttps, uri.port(443));
 	}
 
 	return;
@@ -107,7 +107,7 @@ QNetworkReply *ServerInterface::sendRequestDownload(const QString func, const QV
 	rq->down_progress = down_progress;
 	rq->file = file;
 
-    QNetworkReply *reply = http.post(request, QJsonDocument::fromVariant(real_req).toJson());
+	QNetworkReply *reply = http.post(request, QJsonDocument::fromVariant(real_req).toJson());
 	connect(reply, SIGNAL(readyRead()), this, SLOT(copyToFile()));
 	connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(on_dataSendProgress(qint64,qint64)));
 	connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(on_dataReadProgress(qint64,qint64)));
@@ -149,7 +149,7 @@ QNetworkReply *ServerInterface::sendRequest(const QString func, const QVariant &
 	rq->member = member;
 	rq->extra = extra;
 
-    QNetworkReply *reply = http.post(request, QJsonDocument::fromVariant(real_req).toJson());
+	QNetworkReply *reply = http.post(request, QJsonDocument::fromVariant(real_req).toJson());
 	connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(on_dataSendProgress(qint64,qint64)));
 	connect(reply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(on_dataReadProgress(qint64,qint64)));
 
@@ -219,15 +219,15 @@ void ServerInterface::on_requestFinished(QNetworkReply *reply) {
 
 	QByteArray data = reply->readAll();
 
-    //qDebug("result=%s", data.data());
-    QVariant result = QJsonDocument::fromJson(data).toVariant();
+	//qDebug("result=%s", data.data());
+	QVariant result = QJsonDocument::fromJson(data).toVariant();
 
 	if (!result.isValid()) {
 		qDebug("Invalid answer from server: %s", data.data());
 		QMessageBox::warning(NULL, "Server Error", "Invalid answer from server:\n" + data, QMessageBox::Cancel);
 	}
 
-    //qDebug(qPrintable(result.toString()));
+	//qDebug(qPrintable(result.toString()));
 
 	if ((result.isValid()) && (!result.toMap()["Executed"].toBool())) {
 		qDebug("Error from Server: %s", qPrintable(result.toMap()["Message"].toString()));

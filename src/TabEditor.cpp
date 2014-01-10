@@ -317,7 +317,7 @@ void TabEditor::setTabContents(QVariant data, QObject *) {
 	textLexer->setFont(myfont);
 	settings.endGroup();
 
-	qDebug() << data.toMap()["TemplateData"].toString();
+	//qDebug() << data.toMap()["TemplateData"].toString();
 	textEdit->setText(data.toMap()["TemplateData"].toString());
 	textEdit->setReadOnly(false);
 
