@@ -227,7 +227,7 @@ void ServerInterface::on_requestFinished(QNetworkReply *reply) {
 		QMessageBox::warning(NULL, "Server Error", "Invalid answer from server:\n" + data, QMessageBox::Cancel);
 	}
 
-    qDebug(qPrintable(result.toString()));
+    //qDebug(qPrintable(result.toString()));
 
 	if ((result.isValid()) && (!result.toMap()["Executed"].toBool())) {
 		qDebug("Error from Server: %s", qPrintable(result.toMap()["Message"].toString()));
