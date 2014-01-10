@@ -13,7 +13,7 @@ OBJECTS_DIR = tmp
 MOC_DIR = tmp
 RCC_DIR = res
 
-QT += gui widgets network xml script printsupport
+QT += gui widgets network xml printsupport
 
 !win32:VERSION = 8.0.1
 mac:ICON = res/tibanne.icns
@@ -23,12 +23,16 @@ DEFINES += TPLV3_VERSION_MAJOR=1 TPLV3_VERSION_MINOR=2 TPLV3_VERSION_TYPE=1 TPLV
 win32:RC_FILE += src/tpleditor.rc
 
 macx {
+    INCLUDEPATH += $$[QT_INSTALL_HEADERS]
     QMAKE_POST_LINK = install_name_tool -change libqscintilla2.11.dylib $$[QT_INSTALL_LIBS]/libqscintilla2.11.dylib $(TARGET)
 }
 
 QMAKE_CFLAGS_DEBUG += -include common.h -include profiles/$${PROFILE}.h
 QMAKE_CFLAGS_RELEASE += -include common.h -include profiles/$${PROFILE}.h
 QMAKE_CXXFLAGS += -include common.h -include profiles/$${PROFILE}.h -Wno-unused-parameter -std=gnu++11
+QMAKE_CXXFLAGS += -mmacosx-version-min=10.7 -std=gnu0x -stdlib=libc+
+
+CONFIG +=c++11
 
 # Input
 HEADERS += includes/common.h \
